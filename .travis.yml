@@ -1,0 +1,18 @@
+#
+# .travis.yml
+#
+# Copyright (c) 2019 Junpei Kawamoto
+#
+# This software is released under the MIT License.
+#
+# http://opensource.org/licenses/mit-license.php
+#
+language: go
+go:
+  - "1.11.4"
+before_install:
+  - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+install:
+  - dep ensure
+script:
+  - go test -v ./...
