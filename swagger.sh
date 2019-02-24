@@ -11,3 +11,6 @@
 
 # Generate Sia client with Swagger
 swagger generate client -f https://raw.githubusercontent.com/jkawamoto/sia-swagger/master/swagger.yaml -t .
+
+# Fix the generated code
+sed -i -e "s/Message \\*string/Message string/" ./models/standard_error.go

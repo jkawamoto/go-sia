@@ -12,19 +12,12 @@ package sia
 
 //noinspection SpellCheckingInspection
 import (
-	"os"
-
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/jkawamoto/go-sia/client"
 )
 
-const (
-	EnvSiaHost = "SIA_HOST"
-)
+func NewClient(host string) (cli *client.Sia) {
 
-func NewClient() (cli *client.Sia) {
-
-	host := os.Getenv(EnvSiaHost)
 	if host == "" {
 		host = client.DefaultHost
 	}
