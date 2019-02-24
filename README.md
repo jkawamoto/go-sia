@@ -19,7 +19,7 @@ var (
     DefaultParityPieces int64 = 20
 )
 
-client := sia.NewClient()
+client := sia.NewClient("")
 client.Renter.PostRenterUploadSiapath(
     renter.NewPostRenterUploadSiapathParamsWithContext(context.Background()).
         WithSiapath("sia-path").
