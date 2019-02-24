@@ -1,7 +1,7 @@
 # Sia client library for Go
 [![GoDoc](https://godoc.org/github.com/jkawamoto/go-sia?status.svg)](http://godoc.org/github.com/jkawamoto/go-sia)
 [![Build Status](https://travis-ci.org/jkawamoto/go-sia.svg?branch=master)](https://travis-ci.org/jkawamoto/go-sia)
-[![Release](https://img.shields.io/badge/release-0.5.0-brightgreen.svg)](https://github.com/jkawamoto/go-sia/releases/tag/v0.5.0)
+[![Release](https://img.shields.io/badge/release-0.5.1-brightgreen.svg)](https://github.com/jkawamoto/go-sia/releases/tag/v0.5.1)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 
 
@@ -19,7 +19,7 @@ var (
     DefaultParityPieces int64 = 20
 )
 
-client := sia.NewClient()
+client := sia.NewClient("")
 client.Renter.PostRenterUploadSiapath(
     renter.NewPostRenterUploadSiapathParamsWithContext(context.Background()).
         WithSiapath("sia-path").

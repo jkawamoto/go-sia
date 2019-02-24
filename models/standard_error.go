@@ -19,7 +19,7 @@ type StandardError struct {
 
 	// message
 	// Required: true
-	Message *string `json:"message"`
+	Message string `json:"message"`
 }
 
 // Validate validates this standard error
