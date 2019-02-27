@@ -12,15 +12,16 @@ package sia
 
 //noinspection SpellCheckingInspection
 import (
-	"os"
 	"testing"
+
+	"github.com/jkawamoto/go-sia/client"
 
 	httptransport "github.com/go-openapi/runtime/client"
 )
 
 func TestNewClient(t *testing.T) {
 
-	cli := NewClient()
+	cli := NewClient("")
 
 	runtime, ok := cli.Transport.(*httptransport.Runtime)
 	if !ok {
@@ -31,25 +32,19 @@ func TestNewClient(t *testing.T) {
 	if !ok {
 		t.Errorf("doesn't match the type of transport")
 	}
+	if runtime.Host != client.DefaultHost {
+		t.Errorf("%v was set to the host but %v is expected", runtime.Host, client.DefaultHost)
+	}
 
 }
 
-func TestNewClientWithEnvSiaHost(t *testing.T) {
+func TestNewClientWithHost(t *testing.T) {
 
 	// Set the environment variable
 	host := "192.168.100.1:8080"
-	oldEnv := os.Getenv(EnvSiaHost)
-	if err := os.Setenv(EnvSiaHost, host); err != nil {
-		t.Fatal("failed to set an environment variable:", err)
-	}
-	defer func() {
-		if err := os.Setenv(EnvSiaHost, oldEnv); err != nil {
-			t.Fatal("failed to reset the environment variable:", err)
-		}
-	}()
 
 	// Create a client
-	cli := NewClient()
+	cli := NewClient(host)
 
 	runtime, ok := cli.Transport.(*httptransport.Runtime)
 	if !ok {
