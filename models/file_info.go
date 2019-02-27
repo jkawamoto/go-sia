@@ -27,6 +27,12 @@ type FileInfo struct {
 	// Path to the local file on disk.
 	Localpath string `json:"localpath,omitempty"`
 
+	// indicates if the source file is found on disk
+	Ondisk bool `json:"ondisk,omitempty"`
+
+	// indicates if the siafile is recoverable
+	Recoverable bool `json:"recoverable,omitempty"`
+
 	// Average redundancy of the file on the network. Redundancy is calculated by dividing the amount of data uploaded in the file's open contracts by the size of the file. Redundancy does not necessarily correspond to availability. Specifically, a redundancy >= 1 does not indicate the file is available as there could be a chunk of the file with 0 redundancy.
 	Redundancy float64 `json:"redundancy,omitempty"`
 
