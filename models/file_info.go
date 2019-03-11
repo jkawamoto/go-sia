@@ -8,15 +8,32 @@ package models
 import (
 	strfmt "github.com/go-openapi/strfmt"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // FileInfo file info
 // swagger:model FileInfo
 type FileInfo struct {
 
+	// accesstime
+	// Format: date-time
+	Accesstime strfmt.DateTime `json:"accesstime,omitempty"`
+
 	// true if the file is available for download. Files may be available before they are completely uploaded.
 	Available bool `json:"available,omitempty"`
+
+	// changetime
+	// Format: date-time
+	Changetime strfmt.DateTime `json:"changetime,omitempty"`
+
+	// ciphertype
+	Ciphertype string `json:"ciphertype,omitempty"`
+
+	// createtime
+	// Format: date-time
+	Createtime strfmt.DateTime `json:"createtime,omitempty"`
 
 	// Block height at which the file ceases availability.
 	Expiration int64 `json:"expiration,omitempty"`
@@ -24,8 +41,24 @@ type FileInfo struct {
 	// Size of the file in bytes.
 	Filesize int64 `json:"filesize,omitempty"`
 
+	// health
+	Health float64 `json:"health,omitempty"`
+
 	// Path to the local file on disk.
 	Localpath string `json:"localpath,omitempty"`
+
+	// maxhealth
+	Maxhealth float64 `json:"maxhealth,omitempty"`
+
+	// maxhealthpercent
+	Maxhealthpercent float64 `json:"maxhealthpercent,omitempty"`
+
+	// modtime
+	// Format: date-time
+	Modtime strfmt.DateTime `json:"modtime,omitempty"`
+
+	// numstuckchunks
+	Numstuckchunks int64 `json:"numstuckchunks,omitempty"`
 
 	// indicates if the source file is found on disk
 	Ondisk bool `json:"ondisk,omitempty"`
@@ -42,6 +75,12 @@ type FileInfo struct {
 	// Path to the file in the renter on the network.
 	Siapath string `json:"siapath,omitempty"`
 
+	// stuck
+	Stuck bool `json:"stuck,omitempty"`
+
+	// stuckhealth
+	Stuckhealth float64 `json:"stuckhealth,omitempty"`
+
 	// Total number of bytes successfully uploaded via current file contracts. This number includes padding and rendundancy, so a file with a size of 8192 bytes might be padded to 40 MiB and, with a redundancy of 5, encoded to 200 MiB for upload.
 	Uploadedbytes int64 `json:"uploadedbytes,omitempty"`
 
@@ -51,6 +90,79 @@ type FileInfo struct {
 
 // Validate validates this file info
 func (m *FileInfo) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAccesstime(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateChangetime(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCreatetime(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateModtime(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *FileInfo) validateAccesstime(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Accesstime) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("accesstime", "body", "date-time", m.Accesstime.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *FileInfo) validateChangetime(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Changetime) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("changetime", "body", "date-time", m.Changetime.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *FileInfo) validateCreatetime(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Createtime) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("createtime", "body", "date-time", m.Createtime.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *FileInfo) validateModtime(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Modtime) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("modtime", "body", "date-time", m.Modtime.String(), formats); err != nil {
+		return err
+	}
+
 	return nil
 }
 
