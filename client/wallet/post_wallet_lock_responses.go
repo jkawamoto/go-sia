@@ -24,14 +24,12 @@ type PostWalletLockReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostWalletLockReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewPostWalletLockNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewPostWalletLockDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -89,6 +87,10 @@ func (o *PostWalletLockDefault) Code() int {
 
 func (o *PostWalletLockDefault) Error() string {
 	return fmt.Sprintf("[POST /wallet/lock][%d] PostWalletLock default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *PostWalletLockDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *PostWalletLockDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

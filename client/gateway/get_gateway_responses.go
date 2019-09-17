@@ -27,14 +27,12 @@ type GetGatewayReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetGatewayReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetGatewayOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewGetGatewayDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -62,6 +60,10 @@ type GetGatewayOK struct {
 
 func (o *GetGatewayOK) Error() string {
 	return fmt.Sprintf("[GET /gateway][%d] getGatewayOK  %+v", 200, o.Payload)
+}
+
+func (o *GetGatewayOK) GetPayload() *GetGatewayOKBody {
+	return o.Payload
 }
 
 func (o *GetGatewayOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -100,6 +102,10 @@ func (o *GetGatewayDefault) Code() int {
 
 func (o *GetGatewayDefault) Error() string {
 	return fmt.Sprintf("[GET /gateway][%d] GetGateway default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *GetGatewayDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *GetGatewayDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

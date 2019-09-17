@@ -24,14 +24,12 @@ type PostConsensusValidateTransactionsetReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostConsensusValidateTransactionsetReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewPostConsensusValidateTransactionsetNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewPostConsensusValidateTransactionsetDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -89,6 +87,10 @@ func (o *PostConsensusValidateTransactionsetDefault) Code() int {
 
 func (o *PostConsensusValidateTransactionsetDefault) Error() string {
 	return fmt.Sprintf("[POST /consensus/validate/transactionset][%d] PostConsensusValidateTransactionset default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *PostConsensusValidateTransactionsetDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *PostConsensusValidateTransactionsetDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

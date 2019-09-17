@@ -24,14 +24,12 @@ type GetHostdbActiveReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetHostdbActiveReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetHostdbActiveOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewGetHostdbActiveDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +57,10 @@ type GetHostdbActiveOK struct {
 
 func (o *GetHostdbActiveOK) Error() string {
 	return fmt.Sprintf("[GET /hostdb/active][%d] getHostdbActiveOK  %+v", 200, o.Payload)
+}
+
+func (o *GetHostdbActiveOK) GetPayload() *models.Hostdb {
+	return o.Payload
 }
 
 func (o *GetHostdbActiveOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +99,10 @@ func (o *GetHostdbActiveDefault) Code() int {
 
 func (o *GetHostdbActiveDefault) Error() string {
 	return fmt.Sprintf("[GET /hostdb/active][%d] GetHostdbActive default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *GetHostdbActiveDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *GetHostdbActiveDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -49,8 +49,13 @@ func (a *Client) GetMiner(params *GetMinerParams, authInfo runtime.ClientAuthInf
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetMinerOK), nil
-
+	success, ok := result.(*GetMinerOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetMinerDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -78,8 +83,13 @@ func (a *Client) GetMinerHeader(params *GetMinerHeaderParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetMinerHeaderOK), nil
-
+	success, ok := result.(*GetMinerHeaderOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetMinerHeaderDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -107,8 +117,13 @@ func (a *Client) GetMinerStart(params *GetMinerStartParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetMinerStartOK), nil
-
+	success, ok := result.(*GetMinerStartOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetMinerStartDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -136,8 +151,13 @@ func (a *Client) GetMinerStop(params *GetMinerStopParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetMinerStopOK), nil
-
+	success, ok := result.(*GetMinerStopOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetMinerStopDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -165,8 +185,13 @@ func (a *Client) PostMinerHeader(params *PostMinerHeaderParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostMinerHeaderOK), nil
-
+	success, ok := result.(*PostMinerHeaderOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostMinerHeaderDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 // SetTransport changes the transport on the client

@@ -24,14 +24,12 @@ type GetRenterStreamSiapathReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetRenterStreamSiapathReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetRenterStreamSiapathOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewGetRenterStreamSiapathDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -89,6 +87,10 @@ func (o *GetRenterStreamSiapathDefault) Code() int {
 
 func (o *GetRenterStreamSiapathDefault) Error() string {
 	return fmt.Sprintf("[GET /renter/stream/{siapath}][%d] GetRenterStreamSiapath default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *GetRenterStreamSiapathDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *GetRenterStreamSiapathDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -25,14 +25,12 @@ type PostWalletSiacoinsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostWalletSiacoinsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewPostWalletSiacoinsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewPostWalletSiacoinsDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -60,6 +58,10 @@ type PostWalletSiacoinsOK struct {
 
 func (o *PostWalletSiacoinsOK) Error() string {
 	return fmt.Sprintf("[POST /wallet/siacoins][%d] postWalletSiacoinsOK  %+v", 200, o.Payload)
+}
+
+func (o *PostWalletSiacoinsOK) GetPayload() *PostWalletSiacoinsOKBody {
+	return o.Payload
 }
 
 func (o *PostWalletSiacoinsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -98,6 +100,10 @@ func (o *PostWalletSiacoinsDefault) Code() int {
 
 func (o *PostWalletSiacoinsDefault) Error() string {
 	return fmt.Sprintf("[POST /wallet/siacoins][%d] PostWalletSiacoins default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *PostWalletSiacoinsDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *PostWalletSiacoinsDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

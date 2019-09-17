@@ -24,14 +24,12 @@ type PostHostAnnounceReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostHostAnnounceReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewPostHostAnnounceNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewPostHostAnnounceDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -89,6 +87,10 @@ func (o *PostHostAnnounceDefault) Code() int {
 
 func (o *PostHostAnnounceDefault) Error() string {
 	return fmt.Sprintf("[POST /host/announce][%d] PostHostAnnounce default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *PostHostAnnounceDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *PostHostAnnounceDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

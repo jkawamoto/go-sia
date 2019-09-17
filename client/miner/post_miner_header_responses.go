@@ -24,14 +24,12 @@ type PostMinerHeaderReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostMinerHeaderReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewPostMinerHeaderOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewPostMinerHeaderDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -89,6 +87,10 @@ func (o *PostMinerHeaderDefault) Code() int {
 
 func (o *PostMinerHeaderDefault) Error() string {
 	return fmt.Sprintf("[POST /miner/header][%d] PostMinerHeader default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *PostMinerHeaderDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *PostMinerHeaderDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

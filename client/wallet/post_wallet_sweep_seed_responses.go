@@ -25,14 +25,12 @@ type PostWalletSweepSeedReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostWalletSweepSeedReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewPostWalletSweepSeedOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewPostWalletSweepSeedDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -60,6 +58,10 @@ type PostWalletSweepSeedOK struct {
 
 func (o *PostWalletSweepSeedOK) Error() string {
 	return fmt.Sprintf("[POST /wallet/sweep/seed][%d] postWalletSweepSeedOK  %+v", 200, o.Payload)
+}
+
+func (o *PostWalletSweepSeedOK) GetPayload() *PostWalletSweepSeedOKBody {
+	return o.Payload
 }
 
 func (o *PostWalletSweepSeedOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -98,6 +100,10 @@ func (o *PostWalletSweepSeedDefault) Code() int {
 
 func (o *PostWalletSweepSeedDefault) Error() string {
 	return fmt.Sprintf("[POST /wallet/sweep/seed][%d] PostWalletSweepSeed default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *PostWalletSweepSeedDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *PostWalletSweepSeedDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

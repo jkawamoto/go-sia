@@ -26,14 +26,12 @@ type GetWalletTransactionIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetWalletTransactionIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetWalletTransactionIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewGetWalletTransactionIDDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -61,6 +59,10 @@ type GetWalletTransactionIDOK struct {
 
 func (o *GetWalletTransactionIDOK) Error() string {
 	return fmt.Sprintf("[GET /wallet/transaction/{id}][%d] getWalletTransactionIdOK  %+v", 200, o.Payload)
+}
+
+func (o *GetWalletTransactionIDOK) GetPayload() *GetWalletTransactionIDOKBody {
+	return o.Payload
 }
 
 func (o *GetWalletTransactionIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -99,6 +101,10 @@ func (o *GetWalletTransactionIDDefault) Code() int {
 
 func (o *GetWalletTransactionIDDefault) Error() string {
 	return fmt.Sprintf("[GET /wallet/transaction/{id}][%d] GetWalletTransactionID default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *GetWalletTransactionIDDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *GetWalletTransactionIDDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

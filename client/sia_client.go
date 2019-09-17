@@ -72,7 +72,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Sia {
 
 	cli.Host = host.New(transport, formats)
 
-	cli.HostDB = host_d_b.New(transport, formats)
+	cli.Hostdb = host_d_b.New(transport, formats)
 
 	cli.Miner = miner.New(transport, formats)
 
@@ -132,7 +132,7 @@ type Sia struct {
 
 	Host *host.Client
 
-	HostDB *host_d_b.Client
+	Hostdb *host_d_b.Client
 
 	Miner *miner.Client
 
@@ -155,7 +155,7 @@ func (c *Sia) SetTransport(transport runtime.ClientTransport) {
 
 	c.Host.SetTransport(transport)
 
-	c.HostDB.SetTransport(transport)
+	c.Hostdb.SetTransport(transport)
 
 	c.Miner.SetTransport(transport)
 

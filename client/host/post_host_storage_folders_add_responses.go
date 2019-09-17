@@ -24,14 +24,12 @@ type PostHostStorageFoldersAddReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostHostStorageFoldersAddReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewPostHostStorageFoldersAddNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewPostHostStorageFoldersAddDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -89,6 +87,10 @@ func (o *PostHostStorageFoldersAddDefault) Code() int {
 
 func (o *PostHostStorageFoldersAddDefault) Error() string {
 	return fmt.Sprintf("[POST /host/storage/folders/add][%d] PostHostStorageFoldersAdd default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *PostHostStorageFoldersAddDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *PostHostStorageFoldersAddDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

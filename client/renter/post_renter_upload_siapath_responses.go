@@ -24,14 +24,12 @@ type PostRenterUploadSiapathReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostRenterUploadSiapathReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewPostRenterUploadSiapathNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewPostRenterUploadSiapathDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -89,6 +87,10 @@ func (o *PostRenterUploadSiapathDefault) Code() int {
 
 func (o *PostRenterUploadSiapathDefault) Error() string {
 	return fmt.Sprintf("[POST /renter/upload/{siapath}][%d] PostRenterUploadSiapath default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *PostRenterUploadSiapathDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *PostRenterUploadSiapathDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

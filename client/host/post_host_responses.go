@@ -24,14 +24,12 @@ type PostHostReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostHostReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewPostHostNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewPostHostDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -89,6 +87,10 @@ func (o *PostHostDefault) Code() int {
 
 func (o *PostHostDefault) Error() string {
 	return fmt.Sprintf("[POST /host][%d] PostHost default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *PostHostDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *PostHostDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

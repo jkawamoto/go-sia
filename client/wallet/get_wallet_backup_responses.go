@@ -24,14 +24,12 @@ type GetWalletBackupReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetWalletBackupReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewGetWalletBackupNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewGetWalletBackupDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -89,6 +87,10 @@ func (o *GetWalletBackupDefault) Code() int {
 
 func (o *GetWalletBackupDefault) Error() string {
 	return fmt.Sprintf("[GET /wallet/backup][%d] GetWalletBackup default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *GetWalletBackupDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *GetWalletBackupDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

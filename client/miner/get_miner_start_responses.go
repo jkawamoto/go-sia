@@ -24,14 +24,12 @@ type GetMinerStartReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetMinerStartReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetMinerStartOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewGetMinerStartDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -89,6 +87,10 @@ func (o *GetMinerStartDefault) Code() int {
 
 func (o *GetMinerStartDefault) Error() string {
 	return fmt.Sprintf("[GET /miner/start][%d] GetMinerStart default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *GetMinerStartDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *GetMinerStartDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

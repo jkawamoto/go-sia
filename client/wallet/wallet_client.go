@@ -49,8 +49,13 @@ func (a *Client) GetWallet(params *GetWalletParams, authInfo runtime.ClientAuthI
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetWalletOK), nil
-
+	success, ok := result.(*GetWalletOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetWalletDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -78,8 +83,13 @@ func (a *Client) GetWalletAddress(params *GetWalletAddressParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetWalletAddressOK), nil
-
+	success, ok := result.(*GetWalletAddressOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetWalletAddressDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -107,8 +117,13 @@ func (a *Client) GetWalletAddresses(params *GetWalletAddressesParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetWalletAddressesOK), nil
-
+	success, ok := result.(*GetWalletAddressesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetWalletAddressesDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -136,8 +151,13 @@ func (a *Client) GetWalletBackup(params *GetWalletBackupParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetWalletBackupNoContent), nil
-
+	success, ok := result.(*GetWalletBackupNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetWalletBackupDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -166,8 +186,13 @@ func (a *Client) GetWalletSeeds(params *GetWalletSeedsParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetWalletSeedsOK), nil
-
+	success, ok := result.(*GetWalletSeedsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetWalletSeedsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -195,8 +220,13 @@ func (a *Client) GetWalletTransactionID(params *GetWalletTransactionIDParams, au
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetWalletTransactionIDOK), nil
-
+	success, ok := result.(*GetWalletTransactionIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetWalletTransactionIDDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -224,8 +254,13 @@ func (a *Client) GetWalletTransactions(params *GetWalletTransactionsParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetWalletTransactionsOK), nil
-
+	success, ok := result.(*GetWalletTransactionsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetWalletTransactionsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -253,8 +288,13 @@ func (a *Client) GetWalletTransactionsAddr(params *GetWalletTransactionsAddrPara
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetWalletTransactionsAddrOK), nil
-
+	success, ok := result.(*GetWalletTransactionsAddrOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetWalletTransactionsAddrDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -282,8 +322,13 @@ func (a *Client) GetWalletVerifyAddressAddr(params *GetWalletVerifyAddressAddrPa
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetWalletVerifyAddressAddrOK), nil
-
+	success, ok := result.(*GetWalletVerifyAddressAddrOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetWalletVerifyAddressAddrDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -311,8 +356,13 @@ func (a *Client) PostWallet033x(params *PostWallet033xParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostWallet033xNoContent), nil
-
+	success, ok := result.(*PostWallet033xNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostWallet033xDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -340,8 +390,13 @@ func (a *Client) PostWalletChangepassword(params *PostWalletChangepasswordParams
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostWalletChangepasswordNoContent), nil
-
+	success, ok := result.(*PostWalletChangepasswordNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostWalletChangepasswordDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -369,8 +424,13 @@ func (a *Client) PostWalletInit(params *PostWalletInitParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostWalletInitOK), nil
-
+	success, ok := result.(*PostWalletInitOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostWalletInitDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -398,8 +458,13 @@ func (a *Client) PostWalletInitSeed(params *PostWalletInitSeedParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostWalletInitSeedNoContent), nil
-
+	success, ok := result.(*PostWalletInitSeedNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostWalletInitSeedDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -427,8 +492,13 @@ func (a *Client) PostWalletLock(params *PostWalletLockParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostWalletLockNoContent), nil
-
+	success, ok := result.(*PostWalletLockNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostWalletLockDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -456,8 +526,13 @@ func (a *Client) PostWalletSeed(params *PostWalletSeedParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostWalletSeedNoContent), nil
-
+	success, ok := result.(*PostWalletSeedNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostWalletSeedDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -485,8 +560,13 @@ func (a *Client) PostWalletSiacoins(params *PostWalletSiacoinsParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostWalletSiacoinsOK), nil
-
+	success, ok := result.(*PostWalletSiacoinsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostWalletSiacoinsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -514,8 +594,13 @@ func (a *Client) PostWalletSiafunds(params *PostWalletSiafundsParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostWalletSiafundsOK), nil
-
+	success, ok := result.(*PostWalletSiafundsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostWalletSiafundsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -543,8 +628,13 @@ func (a *Client) PostWalletSiagkey(params *PostWalletSiagkeyParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostWalletSiagkeyNoContent), nil
-
+	success, ok := result.(*PostWalletSiagkeyNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostWalletSiagkeyDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -572,8 +662,13 @@ func (a *Client) PostWalletSweepSeed(params *PostWalletSweepSeedParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostWalletSweepSeedOK), nil
-
+	success, ok := result.(*PostWalletSweepSeedOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostWalletSweepSeedDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -601,8 +696,13 @@ func (a *Client) PostWalletUnlock(params *PostWalletUnlockParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostWalletUnlockNoContent), nil
-
+	success, ok := result.(*PostWalletUnlockNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostWalletUnlockDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 // SetTransport changes the transport on the client

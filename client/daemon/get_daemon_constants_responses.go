@@ -25,14 +25,12 @@ type GetDaemonConstantsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetDaemonConstantsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetDaemonConstantsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewGetDaemonConstantsDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -60,6 +58,10 @@ type GetDaemonConstantsOK struct {
 
 func (o *GetDaemonConstantsOK) Error() string {
 	return fmt.Sprintf("[GET /daemon/constants][%d] getDaemonConstantsOK  %+v", 200, o.Payload)
+}
+
+func (o *GetDaemonConstantsOK) GetPayload() *GetDaemonConstantsOKBody {
+	return o.Payload
 }
 
 func (o *GetDaemonConstantsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -98,6 +100,10 @@ func (o *GetDaemonConstantsDefault) Code() int {
 
 func (o *GetDaemonConstantsDefault) Error() string {
 	return fmt.Sprintf("[GET /daemon/constants][%d] GetDaemonConstants default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *GetDaemonConstantsDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *GetDaemonConstantsDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

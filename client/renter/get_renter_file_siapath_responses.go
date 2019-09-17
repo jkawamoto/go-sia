@@ -26,14 +26,12 @@ type GetRenterFileSiapathReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetRenterFileSiapathReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetRenterFileSiapathOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewGetRenterFileSiapathDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -61,6 +59,10 @@ type GetRenterFileSiapathOK struct {
 
 func (o *GetRenterFileSiapathOK) Error() string {
 	return fmt.Sprintf("[GET /renter/file/{siapath}][%d] getRenterFileSiapathOK  %+v", 200, o.Payload)
+}
+
+func (o *GetRenterFileSiapathOK) GetPayload() *GetRenterFileSiapathOKBody {
+	return o.Payload
 }
 
 func (o *GetRenterFileSiapathOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -99,6 +101,10 @@ func (o *GetRenterFileSiapathDefault) Code() int {
 
 func (o *GetRenterFileSiapathDefault) Error() string {
 	return fmt.Sprintf("[GET /renter/file/{siapath}][%d] GetRenterFileSiapath default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *GetRenterFileSiapathDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *GetRenterFileSiapathDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -25,14 +25,12 @@ type GetConsensusReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetConsensusReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetConsensusOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewGetConsensusDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -60,6 +58,10 @@ type GetConsensusOK struct {
 
 func (o *GetConsensusOK) Error() string {
 	return fmt.Sprintf("[GET /consensus][%d] getConsensusOK  %+v", 200, o.Payload)
+}
+
+func (o *GetConsensusOK) GetPayload() *GetConsensusOKBody {
+	return o.Payload
 }
 
 func (o *GetConsensusOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -98,6 +100,10 @@ func (o *GetConsensusDefault) Code() int {
 
 func (o *GetConsensusDefault) Error() string {
 	return fmt.Sprintf("[GET /consensus][%d] GetConsensus default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *GetConsensusDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *GetConsensusDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

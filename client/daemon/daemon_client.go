@@ -49,8 +49,13 @@ func (a *Client) GetDaemonConstants(params *GetDaemonConstantsParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetDaemonConstantsOK), nil
-
+	success, ok := result.(*GetDaemonConstantsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetDaemonConstantsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -78,8 +83,47 @@ func (a *Client) GetDaemonStop(params *GetDaemonStopParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetDaemonStopOK), nil
+	success, ok := result.(*GetDaemonStopOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetDaemonStopDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
 
+/*
+GetDaemonUpdate returns the the status of any updates available for the daemon
+*/
+func (a *Client) GetDaemonUpdate(params *GetDaemonUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*GetDaemonUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDaemonUpdateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetDaemonUpdate",
+		Method:             "GET",
+		PathPattern:        "/daemon/update",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &GetDaemonUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetDaemonUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetDaemonUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -107,8 +151,47 @@ func (a *Client) GetDaemonVersion(params *GetDaemonVersionParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetDaemonVersionOK), nil
+	success, ok := result.(*GetDaemonVersionOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetDaemonVersionDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
 
+/*
+PostDaemonUpdate updates the daemon to the latest available version release.
+*/
+func (a *Client) PostDaemonUpdate(params *PostDaemonUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*PostDaemonUpdateNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostDaemonUpdateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostDaemonUpdate",
+		Method:             "POST",
+		PathPattern:        "/daemon/update",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &PostDaemonUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PostDaemonUpdateNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostDaemonUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 // SetTransport changes the transport on the client
