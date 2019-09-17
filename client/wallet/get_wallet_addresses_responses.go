@@ -25,14 +25,12 @@ type GetWalletAddressesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetWalletAddressesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetWalletAddressesOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewGetWalletAddressesDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -60,6 +58,10 @@ type GetWalletAddressesOK struct {
 
 func (o *GetWalletAddressesOK) Error() string {
 	return fmt.Sprintf("[GET /wallet/addresses][%d] getWalletAddressesOK  %+v", 200, o.Payload)
+}
+
+func (o *GetWalletAddressesOK) GetPayload() *GetWalletAddressesOKBody {
+	return o.Payload
 }
 
 func (o *GetWalletAddressesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -98,6 +100,10 @@ func (o *GetWalletAddressesDefault) Code() int {
 
 func (o *GetWalletAddressesDefault) Error() string {
 	return fmt.Sprintf("[GET /wallet/addresses][%d] GetWalletAddresses default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *GetWalletAddressesDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *GetWalletAddressesDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

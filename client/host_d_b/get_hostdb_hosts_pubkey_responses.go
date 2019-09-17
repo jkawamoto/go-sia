@@ -26,14 +26,12 @@ type GetHostdbHostsPubkeyReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetHostdbHostsPubkeyReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetHostdbHostsPubkeyOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewGetHostdbHostsPubkeyDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -61,6 +59,10 @@ type GetHostdbHostsPubkeyOK struct {
 
 func (o *GetHostdbHostsPubkeyOK) Error() string {
 	return fmt.Sprintf("[GET /hostdb/hosts/{pubkey}][%d] getHostdbHostsPubkeyOK  %+v", 200, o.Payload)
+}
+
+func (o *GetHostdbHostsPubkeyOK) GetPayload() *GetHostdbHostsPubkeyOKBody {
+	return o.Payload
 }
 
 func (o *GetHostdbHostsPubkeyOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -99,6 +101,10 @@ func (o *GetHostdbHostsPubkeyDefault) Code() int {
 
 func (o *GetHostdbHostsPubkeyDefault) Error() string {
 	return fmt.Sprintf("[GET /hostdb/hosts/{pubkey}][%d] GetHostdbHostsPubkey default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *GetHostdbHostsPubkeyDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *GetHostdbHostsPubkeyDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

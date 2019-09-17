@@ -24,14 +24,12 @@ type PostGatewayDisconnectNetaddressReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostGatewayDisconnectNetaddressReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewPostGatewayDisconnectNetaddressNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewPostGatewayDisconnectNetaddressDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -89,6 +87,10 @@ func (o *PostGatewayDisconnectNetaddressDefault) Code() int {
 
 func (o *PostGatewayDisconnectNetaddressDefault) Error() string {
 	return fmt.Sprintf("[POST /gateway/disconnect/{netaddress}][%d] PostGatewayDisconnectNetaddress default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *PostGatewayDisconnectNetaddressDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *PostGatewayDisconnectNetaddressDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

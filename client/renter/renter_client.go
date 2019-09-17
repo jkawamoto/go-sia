@@ -49,8 +49,47 @@ func (a *Client) GetRenter(params *GetRenterParams, authInfo runtime.ClientAuthI
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetRenterOK), nil
+	success, ok := result.(*GetRenterOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetRenterDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
 
+/*
+GetRenterBackup Lists backups.
+*/
+func (a *Client) GetRenterBackup(params *GetRenterBackupParams, authInfo runtime.ClientAuthInfoWriter) (*GetRenterBackupOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetRenterBackupParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetRenterBackup",
+		Method:             "GET",
+		PathPattern:        "/renter/backup",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &GetRenterBackupReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetRenterBackupOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetRenterBackupDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -78,8 +117,47 @@ func (a *Client) GetRenterContracts(params *GetRenterContractsParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetRenterContractsOK), nil
+	success, ok := result.(*GetRenterContractsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetRenterContractsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
 
+/*
+GetRenterDirSiapath retrieves the contents of a directory on the sia network
+*/
+func (a *Client) GetRenterDirSiapath(params *GetRenterDirSiapathParams, authInfo runtime.ClientAuthInfoWriter) (*GetRenterDirSiapathOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetRenterDirSiapathParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetRenterDirSiapath",
+		Method:             "GET",
+		PathPattern:        "/renter/dir/{siapath}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &GetRenterDirSiapathReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetRenterDirSiapathOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetRenterDirSiapathDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -107,8 +185,13 @@ func (a *Client) GetRenterDownloadSiapath(params *GetRenterDownloadSiapathParams
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetRenterDownloadSiapathNoContent), nil
-
+	success, ok := result.(*GetRenterDownloadSiapathNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetRenterDownloadSiapathDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -136,8 +219,13 @@ func (a *Client) GetRenterDownloadasyncSiapath(params *GetRenterDownloadasyncSia
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetRenterDownloadasyncSiapathNoContent), nil
-
+	success, ok := result.(*GetRenterDownloadasyncSiapathNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetRenterDownloadasyncSiapathDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -165,8 +253,13 @@ func (a *Client) GetRenterDownloads(params *GetRenterDownloadsParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetRenterDownloadsOK), nil
-
+	success, ok := result.(*GetRenterDownloadsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetRenterDownloadsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -194,8 +287,13 @@ func (a *Client) GetRenterFileSiapath(params *GetRenterFileSiapathParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetRenterFileSiapathOK), nil
-
+	success, ok := result.(*GetRenterFileSiapathOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetRenterFileSiapathDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -223,8 +321,13 @@ func (a *Client) GetRenterFiles(params *GetRenterFilesParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetRenterFilesOK), nil
-
+	success, ok := result.(*GetRenterFilesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetRenterFilesDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -252,8 +355,13 @@ func (a *Client) GetRenterPrices(params *GetRenterPricesParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetRenterPricesOK), nil
-
+	success, ok := result.(*GetRenterPricesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetRenterPricesDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -281,8 +389,13 @@ func (a *Client) GetRenterStreamSiapath(params *GetRenterStreamSiapathParams, au
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetRenterStreamSiapathOK), nil
-
+	success, ok := result.(*GetRenterStreamSiapathOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetRenterStreamSiapathDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -310,8 +423,81 @@ func (a *Client) PostRenter(params *PostRenterParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostRenterNoContent), nil
+	success, ok := result.(*PostRenterNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostRenterDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
 
+/*
+PostRenterBackupsCreate Creates a backup of all siafiles.
+*/
+func (a *Client) PostRenterBackupsCreate(params *PostRenterBackupsCreateParams, authInfo runtime.ClientAuthInfoWriter) (*PostRenterBackupsCreateNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostRenterBackupsCreateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostRenterBackupsCreate",
+		Method:             "POST",
+		PathPattern:        "/renter/backups/create",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &PostRenterBackupsCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PostRenterBackupsCreateNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostRenterBackupsCreateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+PostRenterBackupsRestore Restores siafiles from a backup.
+*/
+func (a *Client) PostRenterBackupsRestore(params *PostRenterBackupsRestoreParams, authInfo runtime.ClientAuthInfoWriter) (*PostRenterBackupsRestoreNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostRenterBackupsRestoreParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostRenterBackupsRestore",
+		Method:             "POST",
+		PathPattern:        "/renter/backups/restore",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &PostRenterBackupsRestoreReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PostRenterBackupsRestoreNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostRenterBackupsRestoreDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -339,8 +525,81 @@ func (a *Client) PostRenterDeleteSiapath(params *PostRenterDeleteSiapathParams, 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostRenterDeleteSiapathNoContent), nil
+	success, ok := result.(*PostRenterDeleteSiapathNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostRenterDeleteSiapathDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
 
+/*
+PostRenterDirSiapath performs various functions on the renter's directories
+*/
+func (a *Client) PostRenterDirSiapath(params *PostRenterDirSiapathParams, authInfo runtime.ClientAuthInfoWriter) (*PostRenterDirSiapathNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostRenterDirSiapathParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostRenterDirSiapath",
+		Method:             "POST",
+		PathPattern:        "/renter/dir/{siapath}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &PostRenterDirSiapathReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PostRenterDirSiapathNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostRenterDirSiapathDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+PostRenterDownloadsClear Clears the download history of the renter for a range of unix time stamps. Both parameters are optional, if no parameters are provided, the entire download history will be cleared. To clear a single download, provide the timestamp for the download as both parameters. Providing only the before parameter will clear all downloads older than the timestamp. Conversely, providing only the after parameter will clear all downloads newer than the timestamp.
+*/
+func (a *Client) PostRenterDownloadsClear(params *PostRenterDownloadsClearParams, authInfo runtime.ClientAuthInfoWriter) (*PostRenterDownloadsClearNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostRenterDownloadsClearParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostRenterDownloadsClear",
+		Method:             "POST",
+		PathPattern:        "/renter/downloads/clear",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &PostRenterDownloadsClearReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PostRenterDownloadsClearNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostRenterDownloadsClearDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -368,8 +627,13 @@ func (a *Client) PostRenterRenameSiapath(params *PostRenterRenameSiapathParams, 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostRenterRenameSiapathNoContent), nil
-
+	success, ok := result.(*PostRenterRenameSiapathNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostRenterRenameSiapathDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -397,8 +661,13 @@ func (a *Client) PostRenterUploadSiapath(params *PostRenterUploadSiapathParams, 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostRenterUploadSiapathNoContent), nil
-
+	success, ok := result.(*PostRenterUploadSiapathNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostRenterUploadSiapathDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 // SetTransport changes the transport on the client

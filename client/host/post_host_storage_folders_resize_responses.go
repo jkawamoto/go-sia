@@ -24,14 +24,12 @@ type PostHostStorageFoldersResizeReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostHostStorageFoldersResizeReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewPostHostStorageFoldersResizeNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewPostHostStorageFoldersResizeDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -89,6 +87,10 @@ func (o *PostHostStorageFoldersResizeDefault) Code() int {
 
 func (o *PostHostStorageFoldersResizeDefault) Error() string {
 	return fmt.Sprintf("[POST /host/storage/folders/resize][%d] PostHostStorageFoldersResize default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *PostHostStorageFoldersResizeDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *PostHostStorageFoldersResizeDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

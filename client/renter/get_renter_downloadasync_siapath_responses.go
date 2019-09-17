@@ -24,14 +24,12 @@ type GetRenterDownloadasyncSiapathReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetRenterDownloadasyncSiapathReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewGetRenterDownloadasyncSiapathNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewGetRenterDownloadasyncSiapathDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -89,6 +87,10 @@ func (o *GetRenterDownloadasyncSiapathDefault) Code() int {
 
 func (o *GetRenterDownloadasyncSiapathDefault) Error() string {
 	return fmt.Sprintf("[GET /renter/downloadasync/{siapath}][%d] GetRenterDownloadasyncSiapath default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *GetRenterDownloadasyncSiapathDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *GetRenterDownloadasyncSiapathDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

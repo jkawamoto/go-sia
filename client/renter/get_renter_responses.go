@@ -26,14 +26,12 @@ type GetRenterReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetRenterReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetRenterOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewGetRenterDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -61,6 +59,10 @@ type GetRenterOK struct {
 
 func (o *GetRenterOK) Error() string {
 	return fmt.Sprintf("[GET /renter][%d] getRenterOK  %+v", 200, o.Payload)
+}
+
+func (o *GetRenterOK) GetPayload() *GetRenterOKBody {
+	return o.Payload
 }
 
 func (o *GetRenterOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -99,6 +101,10 @@ func (o *GetRenterDefault) Code() int {
 
 func (o *GetRenterDefault) Error() string {
 	return fmt.Sprintf("[GET /renter][%d] GetRenter default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *GetRenterDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *GetRenterDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

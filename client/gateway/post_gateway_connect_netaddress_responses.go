@@ -24,14 +24,12 @@ type PostGatewayConnectNetaddressReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostGatewayConnectNetaddressReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewPostGatewayConnectNetaddressNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewPostGatewayConnectNetaddressDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -89,6 +87,10 @@ func (o *PostGatewayConnectNetaddressDefault) Code() int {
 
 func (o *PostGatewayConnectNetaddressDefault) Error() string {
 	return fmt.Sprintf("[POST /gateway/connect/{netaddress}][%d] PostGatewayConnectNetaddress default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *PostGatewayConnectNetaddressDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *PostGatewayConnectNetaddressDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

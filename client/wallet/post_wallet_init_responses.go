@@ -25,14 +25,12 @@ type PostWalletInitReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostWalletInitReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewPostWalletInitOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewPostWalletInitDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -60,6 +58,10 @@ type PostWalletInitOK struct {
 
 func (o *PostWalletInitOK) Error() string {
 	return fmt.Sprintf("[POST /wallet/init][%d] postWalletInitOK  %+v", 200, o.Payload)
+}
+
+func (o *PostWalletInitOK) GetPayload() *PostWalletInitOKBody {
+	return o.Payload
 }
 
 func (o *PostWalletInitOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -98,6 +100,10 @@ func (o *PostWalletInitDefault) Code() int {
 
 func (o *PostWalletInitDefault) Error() string {
 	return fmt.Sprintf("[POST /wallet/init][%d] PostWalletInit default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *PostWalletInitDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *PostWalletInitDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

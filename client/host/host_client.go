@@ -6,6 +6,8 @@ package host
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"fmt"
+
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
@@ -49,8 +51,14 @@ func (a *Client) GetHost(params *GetHostParams, authInfo runtime.ClientAuthInfoW
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetHostOK), nil
-
+	success, ok := result.(*GetHostOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetHost: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -78,8 +86,13 @@ func (a *Client) GetHostStorage(params *GetHostStorageParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetHostStorageOK), nil
-
+	success, ok := result.(*GetHostStorageOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetHostStorageDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -107,8 +120,13 @@ func (a *Client) PostHost(params *PostHostParams, authInfo runtime.ClientAuthInf
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostHostNoContent), nil
-
+	success, ok := result.(*PostHostNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostHostDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -136,8 +154,13 @@ func (a *Client) PostHostAnnounce(params *PostHostAnnounceParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostHostAnnounceNoContent), nil
-
+	success, ok := result.(*PostHostAnnounceNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostHostAnnounceDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -165,8 +188,13 @@ func (a *Client) PostHostStorageFoldersAdd(params *PostHostStorageFoldersAddPara
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostHostStorageFoldersAddNoContent), nil
-
+	success, ok := result.(*PostHostStorageFoldersAddNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostHostStorageFoldersAddDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -195,8 +223,13 @@ func (a *Client) PostHostStorageFoldersRemove(params *PostHostStorageFoldersRemo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostHostStorageFoldersRemoveNoContent), nil
-
+	success, ok := result.(*PostHostStorageFoldersRemoveNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostHostStorageFoldersRemoveDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -225,8 +258,13 @@ func (a *Client) PostHostStorageFoldersResize(params *PostHostStorageFoldersResi
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostHostStorageFoldersResizeNoContent), nil
-
+	success, ok := result.(*PostHostStorageFoldersResizeNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostHostStorageFoldersResizeDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -257,8 +295,13 @@ func (a *Client) PostHostStorageSectorsDeleteMerkleroot(params *PostHostStorageS
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostHostStorageSectorsDeleteMerklerootNoContent), nil
-
+	success, ok := result.(*PostHostStorageSectorsDeleteMerklerootNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostHostStorageSectorsDeleteMerklerootDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 // SetTransport changes the transport on the client

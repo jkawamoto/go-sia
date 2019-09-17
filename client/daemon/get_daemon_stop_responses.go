@@ -24,14 +24,12 @@ type GetDaemonStopReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetDaemonStopReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetDaemonStopOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewGetDaemonStopDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -89,6 +87,10 @@ func (o *GetDaemonStopDefault) Code() int {
 
 func (o *GetDaemonStopDefault) Error() string {
 	return fmt.Sprintf("[GET /daemon/stop][%d] GetDaemonStop default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *GetDaemonStopDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *GetDaemonStopDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

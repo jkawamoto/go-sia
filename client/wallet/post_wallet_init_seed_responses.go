@@ -24,14 +24,12 @@ type PostWalletInitSeedReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostWalletInitSeedReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewPostWalletInitSeedNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewPostWalletInitSeedDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -89,6 +87,10 @@ func (o *PostWalletInitSeedDefault) Code() int {
 
 func (o *PostWalletInitSeedDefault) Error() string {
 	return fmt.Sprintf("[POST /wallet/init/seed][%d] PostWalletInitSeed default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *PostWalletInitSeedDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *PostWalletInitSeedDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
