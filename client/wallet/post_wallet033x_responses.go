@@ -24,14 +24,12 @@ type PostWallet033xReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostWallet033xReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewPostWallet033xNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewPostWallet033xDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -89,6 +87,10 @@ func (o *PostWallet033xDefault) Code() int {
 
 func (o *PostWallet033xDefault) Error() string {
 	return fmt.Sprintf("[POST /wallet/033x][%d] PostWallet033x default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *PostWallet033xDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *PostWallet033xDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

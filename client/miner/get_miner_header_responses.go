@@ -24,14 +24,12 @@ type GetMinerHeaderReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetMinerHeaderReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetMinerHeaderOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewGetMinerHeaderDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -89,6 +87,10 @@ func (o *GetMinerHeaderDefault) Code() int {
 
 func (o *GetMinerHeaderDefault) Error() string {
 	return fmt.Sprintf("[GET /miner/header][%d] GetMinerHeader default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *GetMinerHeaderDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *GetMinerHeaderDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

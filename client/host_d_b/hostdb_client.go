@@ -50,8 +50,13 @@ func (a *Client) GetHostdbActive(params *GetHostdbActiveParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetHostdbActiveOK), nil
-
+	success, ok := result.(*GetHostdbActiveOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetHostdbActiveDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -80,8 +85,13 @@ func (a *Client) GetHostdbAll(params *GetHostdbAllParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetHostdbAllOK), nil
-
+	success, ok := result.(*GetHostdbAllOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetHostdbAllDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -110,8 +120,13 @@ func (a *Client) GetHostdbHostsPubkey(params *GetHostdbHostsPubkeyParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetHostdbHostsPubkeyOK), nil
-
+	success, ok := result.(*GetHostdbHostsPubkeyOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetHostdbHostsPubkeyDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 // SetTransport changes the transport on the client

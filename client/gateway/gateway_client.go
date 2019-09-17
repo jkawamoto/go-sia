@@ -49,8 +49,13 @@ func (a *Client) GetGateway(params *GetGatewayParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetGatewayOK), nil
-
+	success, ok := result.(*GetGatewayOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetGatewayDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -78,8 +83,13 @@ func (a *Client) PostGatewayConnectNetaddress(params *PostGatewayConnectNetaddre
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostGatewayConnectNetaddressNoContent), nil
-
+	success, ok := result.(*PostGatewayConnectNetaddressNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostGatewayConnectNetaddressDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -107,8 +117,13 @@ func (a *Client) PostGatewayDisconnectNetaddress(params *PostGatewayDisconnectNe
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostGatewayDisconnectNetaddressNoContent), nil
-
+	success, ok := result.(*PostGatewayDisconnectNetaddressNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostGatewayDisconnectNetaddressDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 // SetTransport changes the transport on the client

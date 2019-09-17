@@ -24,14 +24,12 @@ type PostWalletSiagkeyReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostWalletSiagkeyReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewPostWalletSiagkeyNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewPostWalletSiagkeyDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -89,6 +87,10 @@ func (o *PostWalletSiagkeyDefault) Code() int {
 
 func (o *PostWalletSiagkeyDefault) Error() string {
 	return fmt.Sprintf("[POST /wallet/siagkey][%d] PostWalletSiagkey default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *PostWalletSiagkeyDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *PostWalletSiagkeyDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

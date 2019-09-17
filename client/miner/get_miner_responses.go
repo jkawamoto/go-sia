@@ -25,14 +25,12 @@ type GetMinerReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetMinerReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetMinerOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewGetMinerDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -60,6 +58,10 @@ type GetMinerOK struct {
 
 func (o *GetMinerOK) Error() string {
 	return fmt.Sprintf("[GET /miner][%d] getMinerOK  %+v", 200, o.Payload)
+}
+
+func (o *GetMinerOK) GetPayload() *GetMinerOKBody {
+	return o.Payload
 }
 
 func (o *GetMinerOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -98,6 +100,10 @@ func (o *GetMinerDefault) Code() int {
 
 func (o *GetMinerDefault) Error() string {
 	return fmt.Sprintf("[GET /miner][%d] GetMiner default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *GetMinerDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *GetMinerDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

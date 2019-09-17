@@ -27,14 +27,12 @@ type GetRenterDownloadsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetRenterDownloadsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetRenterDownloadsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewGetRenterDownloadsDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -62,6 +60,10 @@ type GetRenterDownloadsOK struct {
 
 func (o *GetRenterDownloadsOK) Error() string {
 	return fmt.Sprintf("[GET /renter/downloads][%d] getRenterDownloadsOK  %+v", 200, o.Payload)
+}
+
+func (o *GetRenterDownloadsOK) GetPayload() *GetRenterDownloadsOKBody {
+	return o.Payload
 }
 
 func (o *GetRenterDownloadsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -100,6 +102,10 @@ func (o *GetRenterDownloadsDefault) Code() int {
 
 func (o *GetRenterDownloadsDefault) Error() string {
 	return fmt.Sprintf("[GET /renter/downloads][%d] GetRenterDownloads default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *GetRenterDownloadsDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *GetRenterDownloadsDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

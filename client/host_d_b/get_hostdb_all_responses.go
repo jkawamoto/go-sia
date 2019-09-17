@@ -24,14 +24,12 @@ type GetHostdbAllReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetHostdbAllReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetHostdbAllOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewGetHostdbAllDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +57,10 @@ type GetHostdbAllOK struct {
 
 func (o *GetHostdbAllOK) Error() string {
 	return fmt.Sprintf("[GET /hostdb/all][%d] getHostdbAllOK  %+v", 200, o.Payload)
+}
+
+func (o *GetHostdbAllOK) GetPayload() *models.Hostdb {
+	return o.Payload
 }
 
 func (o *GetHostdbAllOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +99,10 @@ func (o *GetHostdbAllDefault) Code() int {
 
 func (o *GetHostdbAllDefault) Error() string {
 	return fmt.Sprintf("[GET /hostdb/all][%d] GetHostdbAll default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *GetHostdbAllDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *GetHostdbAllDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -17,21 +17,21 @@ import (
 // swagger:model FileInfo
 type FileInfo struct {
 
-	// accesstime
+	// indicates the last time the siafile was accessed
 	// Format: date-time
 	Accesstime strfmt.DateTime `json:"accesstime,omitempty"`
 
 	// true if the file is available for download. Files may be available before they are completely uploaded.
 	Available bool `json:"available,omitempty"`
 
-	// changetime
+	// indicates the last time the siafile metadata was updated
 	// Format: date-time
 	Changetime strfmt.DateTime `json:"changetime,omitempty"`
 
-	// ciphertype
+	// indicates the encryption used for the siafile
 	Ciphertype string `json:"ciphertype,omitempty"`
 
-	// createtime
+	// indicates when the siafile was created
 	// Format: date-time
 	Createtime strfmt.DateTime `json:"createtime,omitempty"`
 
@@ -41,23 +41,23 @@ type FileInfo struct {
 	// Size of the file in bytes.
 	Filesize int64 `json:"filesize,omitempty"`
 
-	// health
+	// health is an indication of the amount of redundancy missing where 0 is full redundancy and >1 means the file is not available. The health of the siafile is the health of the worst unstuck chunk.
 	Health float64 `json:"health,omitempty"`
 
 	// Path to the local file on disk.
 	Localpath string `json:"localpath,omitempty"`
 
-	// maxhealth
+	// the maxhealth is either the health or the stuckhealth of the siafile, whichever is worst
 	Maxhealth float64 `json:"maxhealth,omitempty"`
 
-	// maxhealthpercent
+	// maxhealthpercent is the maxhealth converted to be out of 100% to be more easily understood
 	Maxhealthpercent float64 `json:"maxhealthpercent,omitempty"`
 
-	// modtime
+	// indicates the last time the siafile contents where modified
 	// Format: date-time
 	Modtime strfmt.DateTime `json:"modtime,omitempty"`
 
-	// numstuckchunks
+	// indicates the number of stuck chunks in a file. A chunk is stuck if it cannot reach full redundancy
 	Numstuckchunks int64 `json:"numstuckchunks,omitempty"`
 
 	// indicates if the source file is found on disk
@@ -75,10 +75,10 @@ type FileInfo struct {
 	// Path to the file in the renter on the network.
 	Siapath string `json:"siapath,omitempty"`
 
-	// stuck
+	// a file is stuck if there are any stuck chunks in the file, which means the file cannot reach full redundancy
 	Stuck bool `json:"stuck,omitempty"`
 
-	// stuckhealth
+	// stuckhealth is the worst health of any of the stuck chunks.
 	Stuckhealth float64 `json:"stuckhealth,omitempty"`
 
 	// Total number of bytes successfully uploaded via current file contracts. This number includes padding and rendundancy, so a file with a size of 8192 bytes might be padded to 40 MiB and, with a redundancy of 5, encoded to 200 MiB for upload.

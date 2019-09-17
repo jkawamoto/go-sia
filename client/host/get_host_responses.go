@@ -24,7 +24,6 @@ type GetHostReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetHostReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetHostOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -52,6 +51,10 @@ type GetHostOK struct {
 
 func (o *GetHostOK) Error() string {
 	return fmt.Sprintf("[GET /host][%d] getHostOK  %+v", 200, o.Payload)
+}
+
+func (o *GetHostOK) GetPayload() *GetHostOKBody {
+	return o.Payload
 }
 
 func (o *GetHostOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -24,14 +24,12 @@ type PostWalletChangepasswordReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostWalletChangepasswordReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewPostWalletChangepasswordNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewPostWalletChangepasswordDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -89,6 +87,10 @@ func (o *PostWalletChangepasswordDefault) Code() int {
 
 func (o *PostWalletChangepasswordDefault) Error() string {
 	return fmt.Sprintf("[POST /wallet/changepassword][%d] PostWalletChangepassword default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *PostWalletChangepasswordDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *PostWalletChangepasswordDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

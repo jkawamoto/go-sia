@@ -25,14 +25,12 @@ type GetDaemonVersionReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetDaemonVersionReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetDaemonVersionOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewGetDaemonVersionDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -60,6 +58,10 @@ type GetDaemonVersionOK struct {
 
 func (o *GetDaemonVersionOK) Error() string {
 	return fmt.Sprintf("[GET /daemon/version][%d] getDaemonVersionOK  %+v", 200, o.Payload)
+}
+
+func (o *GetDaemonVersionOK) GetPayload() *GetDaemonVersionOKBody {
+	return o.Payload
 }
 
 func (o *GetDaemonVersionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -98,6 +100,10 @@ func (o *GetDaemonVersionDefault) Code() int {
 
 func (o *GetDaemonVersionDefault) Error() string {
 	return fmt.Sprintf("[GET /daemon/version][%d] GetDaemonVersion default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *GetDaemonVersionDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *GetDaemonVersionDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

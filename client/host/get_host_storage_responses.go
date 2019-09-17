@@ -27,14 +27,12 @@ type GetHostStorageReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetHostStorageReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetHostStorageOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewGetHostStorageDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -62,6 +60,10 @@ type GetHostStorageOK struct {
 
 func (o *GetHostStorageOK) Error() string {
 	return fmt.Sprintf("[GET /host/storage][%d] getHostStorageOK  %+v", 200, o.Payload)
+}
+
+func (o *GetHostStorageOK) GetPayload() *GetHostStorageOKBody {
+	return o.Payload
 }
 
 func (o *GetHostStorageOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -100,6 +102,10 @@ func (o *GetHostStorageDefault) Code() int {
 
 func (o *GetHostStorageDefault) Error() string {
 	return fmt.Sprintf("[GET /host/storage][%d] GetHostStorage default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *GetHostStorageDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *GetHostStorageDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

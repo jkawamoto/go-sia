@@ -49,8 +49,13 @@ func (a *Client) GetConsensus(params *GetConsensusParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetConsensusOK), nil
-
+	success, ok := result.(*GetConsensusOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetConsensusDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -78,8 +83,13 @@ func (a *Client) PostConsensusValidateTransactionset(params *PostConsensusValida
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostConsensusValidateTransactionsetNoContent), nil
-
+	success, ok := result.(*PostConsensusValidateTransactionsetNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostConsensusValidateTransactionsetDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 // SetTransport changes the transport on the client

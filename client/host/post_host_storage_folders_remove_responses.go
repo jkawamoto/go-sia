@@ -24,14 +24,12 @@ type PostHostStorageFoldersRemoveReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostHostStorageFoldersRemoveReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewPostHostStorageFoldersRemoveNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewPostHostStorageFoldersRemoveDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -89,6 +87,10 @@ func (o *PostHostStorageFoldersRemoveDefault) Code() int {
 
 func (o *PostHostStorageFoldersRemoveDefault) Error() string {
 	return fmt.Sprintf("[POST /host/storage/folders/remove][%d] PostHostStorageFoldersRemove default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *PostHostStorageFoldersRemoveDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *PostHostStorageFoldersRemoveDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

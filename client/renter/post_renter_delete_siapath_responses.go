@@ -24,14 +24,12 @@ type PostRenterDeleteSiapathReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostRenterDeleteSiapathReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewPostRenterDeleteSiapathNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewPostRenterDeleteSiapathDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -89,6 +87,10 @@ func (o *PostRenterDeleteSiapathDefault) Code() int {
 
 func (o *PostRenterDeleteSiapathDefault) Error() string {
 	return fmt.Sprintf("[POST /renter/delete/{siapath}][%d] PostRenterDeleteSiapath default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *PostRenterDeleteSiapathDefault) GetPayload() *models.StandardError {
+	return o.Payload
 }
 
 func (o *PostRenterDeleteSiapathDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
