@@ -95,6 +95,41 @@ func (a *Client) GetHostdbAll(params *GetHostdbAllParams, authInfo runtime.Clien
 }
 
 /*
+GetHostdbFiltermode Returns the current filter mode of the hostDB and any filtered hosts.
+
+*/
+func (a *Client) GetHostdbFiltermode(params *GetHostdbFiltermodeParams, authInfo runtime.ClientAuthInfoWriter) (*GetHostdbFiltermodeOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetHostdbFiltermodeParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetHostdbFiltermode",
+		Method:             "GET",
+		PathPattern:        "/hostdb/filtermode",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &GetHostdbFiltermodeReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetHostdbFiltermodeOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetHostdbFiltermodeDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
 GetHostdbHostsPubkey fetches detailed information about a particular host, including metrics regarding the score of the host within the database. It should be noted that each renter uses different metrics for selecting hosts, and that a good score on in one hostdb does not mean that the host will be successful on the network overall.
 
 */
@@ -126,6 +161,51 @@ func (a *Client) GetHostdbHostsPubkey(params *GetHostdbHostsPubkeyParams, authIn
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*GetHostdbHostsPubkeyDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+PostHostdbFiltermode Lets you enable and disable a filter mode for the hostdb. Currently the two modes supported are blacklist mode and whitelist mode.
+In blacklist mode, any hosts you identify as being on the blacklist will not be used to form contracts.
+In whitelist mode, only the hosts identified as being on the whitelist will be used to form contracts.
+In both modes, hosts that you are blacklisted will be filtered from your hostdb.
+To enable either mode, set filtermode to the desired mode and submit a list of host pubkeys as the corresponding blacklist or whitelist.
+To disable either list, the host field can be left blank (e.g. empty slice) and the filtermode should be set to disable.
+
+NOTE: Enabling and disabling a filter mode can result in changes with your current contracts with can result in an increase in contract fee spending.
+For example, if blacklist mode is enabled, any hosts that you currently have contracts with that are also on the provide list of hosts will have their contracts replaced with non-blacklisted hosts.
+When whitelist mode is enabled, contracts will be replaced until there are only contracts with whitelisted hosts.
+Even disabling a filter mode can result in a change in contracts if there are better scoring hosts in your hostdb that were previously being filtered out.
+
+*/
+func (a *Client) PostHostdbFiltermode(params *PostHostdbFiltermodeParams, authInfo runtime.ClientAuthInfoWriter) (*PostHostdbFiltermodeNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostHostdbFiltermodeParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostHostdbFiltermode",
+		Method:             "POST",
+		PathPattern:        "/hostdb/filtermode",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &PostHostdbFiltermodeReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PostHostdbFiltermodeNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostHostdbFiltermodeDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
