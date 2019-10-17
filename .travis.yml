@@ -9,10 +9,6 @@
 #
 language: go
 go:
-  - "1.11.4"
-before_install:
-  - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-install:
-  - dep ensure
+  - 1.x
 script:
   - go test -v ./...
