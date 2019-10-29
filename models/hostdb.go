@@ -106,10 +106,10 @@ type HostdbHostsItems0 struct {
 	Historicdowntime int64 `json:"historicdowntime,omitempty"`
 
 	// Number of historic failed interactions with the host.
-	Historicfailedinteractions int64 `json:"historicfailedinteractions,omitempty"`
+	Historicfailedinteractions float64 `json:"historicfailedinteractions,omitempty"`
 
 	// Number of historic successful interactions with the host.
-	Historicsuccessfulinteractions int64 `json:"historicsuccessfulinteractions,omitempty"`
+	Historicsuccessfulinteractions float64 `json:"historicsuccessfulinteractions,omitempty"`
 
 	// Total amount of time the host has been online in nanosecounds.
 	Historicuptime int64 `json:"historicuptime,omitempty"`
