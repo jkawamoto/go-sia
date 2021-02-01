@@ -6,15 +6,15 @@ package daemon
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // GetDaemonUpdateReader is a Reader for the GetDaemonUpdate structure.
@@ -48,7 +48,7 @@ func NewGetDaemonUpdateOK() *GetDaemonUpdateOK {
 	return &GetDaemonUpdateOK{}
 }
 
-/*GetDaemonUpdateOK handles this case with default header values.
+/* GetDaemonUpdateOK describes a response with status code 200, with default header values.
 
 Successful Response
 */
@@ -59,7 +59,6 @@ type GetDaemonUpdateOK struct {
 func (o *GetDaemonUpdateOK) Error() string {
 	return fmt.Sprintf("[GET /daemon/update][%d] getDaemonUpdateOK  %+v", 200, o.Payload)
 }
-
 func (o *GetDaemonUpdateOK) GetPayload() *GetDaemonUpdateOKBody {
 	return o.Payload
 }
@@ -83,7 +82,7 @@ func NewGetDaemonUpdateDefault(code int) *GetDaemonUpdateDefault {
 	}
 }
 
-/*GetDaemonUpdateDefault handles this case with default header values.
+/* GetDaemonUpdateDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -101,7 +100,6 @@ func (o *GetDaemonUpdateDefault) Code() int {
 func (o *GetDaemonUpdateDefault) Error() string {
 	return fmt.Sprintf("[GET /daemon/update][%d] GetDaemonUpdate default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *GetDaemonUpdateDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }
@@ -124,14 +122,21 @@ swagger:model GetDaemonUpdateOKBody
 type GetDaemonUpdateOKBody struct {
 
 	// Available indicates whether or not there is an update available for the daemon.
+	// Example: false
 	Available bool `json:"available,omitempty"`
 
 	// Version is the version of the latest release.
+	// Example: 1.4.0
 	Version string `json:"version,omitempty"`
 }
 
 // Validate validates this get daemon update o k body
 func (o *GetDaemonUpdateOKBody) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this get daemon update o k body based on context it is used
+func (o *GetDaemonUpdateOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

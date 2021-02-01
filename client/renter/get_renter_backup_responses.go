@@ -6,17 +6,17 @@ package renter
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // GetRenterBackupReader is a Reader for the GetRenterBackup structure.
@@ -50,7 +50,7 @@ func NewGetRenterBackupOK() *GetRenterBackupOK {
 	return &GetRenterBackupOK{}
 }
 
-/*GetRenterBackupOK handles this case with default header values.
+/* GetRenterBackupOK describes a response with status code 200, with default header values.
 
 Successful Response
 */
@@ -61,7 +61,6 @@ type GetRenterBackupOK struct {
 func (o *GetRenterBackupOK) Error() string {
 	return fmt.Sprintf("[GET /renter/backup][%d] getRenterBackupOK  %+v", 200, o.Payload)
 }
-
 func (o *GetRenterBackupOK) GetPayload() *GetRenterBackupOKBody {
 	return o.Payload
 }
@@ -85,7 +84,7 @@ func NewGetRenterBackupDefault(code int) *GetRenterBackupDefault {
 	}
 }
 
-/*GetRenterBackupDefault handles this case with default header values.
+/* GetRenterBackupDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -103,7 +102,6 @@ func (o *GetRenterBackupDefault) Code() int {
 func (o *GetRenterBackupDefault) Error() string {
 	return fmt.Sprintf("[GET /renter/backup][%d] GetRenterBackup default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *GetRenterBackupDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }
@@ -120,60 +118,19 @@ func (o *GetRenterBackupDefault) readResponse(response runtime.ClientResponse, c
 	return nil
 }
 
-/*BackupsItems0 backups items0
-swagger:model BackupsItems0
-*/
-type BackupsItems0 struct {
-
-	// creationdate
-	Creationdate int64 `json:"creationdate,omitempty"`
-
-	// name
-	Name string `json:"name,omitempty"`
-
-	// size
-	Size int64 `json:"size,omitempty"`
-
-	// uploadprogress
-	Uploadprogress float64 `json:"uploadprogress,omitempty"`
-}
-
-// Validate validates this backups items0
-func (o *BackupsItems0) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (o *BackupsItems0) MarshalBinary() ([]byte, error) {
-	if o == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(o)
-}
-
-// UnmarshalBinary interface implementation
-func (o *BackupsItems0) UnmarshalBinary(b []byte) error {
-	var res BackupsItems0
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*o = res
-	return nil
-}
-
 /*GetRenterBackupOKBody get renter backup o k body
 swagger:model GetRenterBackupOKBody
 */
 type GetRenterBackupOKBody struct {
 
 	// backups
-	Backups []*BackupsItems0 `json:"backups"`
+	Backups []*GetRenterBackupOKBodyBackupsItems0 `json:"backups"`
 
 	// syncedhosts
-	Syncedhosts []*SyncedhostsItems0 `json:"syncedhosts"`
+	Syncedhosts []*GetRenterBackupOKBodySyncedhostsItems0 `json:"syncedhosts"`
 
 	// unsyncedhosts
-	Unsyncedhosts []*UnsyncedhostsItems0 `json:"unsyncedhosts"`
+	Unsyncedhosts []*GetRenterBackupOKBodyUnsyncedhostsItems0 `json:"unsyncedhosts"`
 }
 
 // Validate validates this get renter backup o k body
@@ -199,7 +156,6 @@ func (o *GetRenterBackupOKBody) Validate(formats strfmt.Registry) error {
 }
 
 func (o *GetRenterBackupOKBody) validateBackups(formats strfmt.Registry) error {
-
 	if swag.IsZero(o.Backups) { // not required
 		return nil
 	}
@@ -224,7 +180,6 @@ func (o *GetRenterBackupOKBody) validateBackups(formats strfmt.Registry) error {
 }
 
 func (o *GetRenterBackupOKBody) validateSyncedhosts(formats strfmt.Registry) error {
-
 	if swag.IsZero(o.Syncedhosts) { // not required
 		return nil
 	}
@@ -249,7 +204,6 @@ func (o *GetRenterBackupOKBody) validateSyncedhosts(formats strfmt.Registry) err
 }
 
 func (o *GetRenterBackupOKBody) validateUnsyncedhosts(formats strfmt.Registry) error {
-
 	if swag.IsZero(o.Unsyncedhosts) { // not required
 		return nil
 	}
@@ -261,6 +215,82 @@ func (o *GetRenterBackupOKBody) validateUnsyncedhosts(formats strfmt.Registry) e
 
 		if o.Unsyncedhosts[i] != nil {
 			if err := o.Unsyncedhosts[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("getRenterBackupOK" + "." + "unsyncedhosts" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this get renter backup o k body based on the context it is used
+func (o *GetRenterBackupOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.contextValidateBackups(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.contextValidateSyncedhosts(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.contextValidateUnsyncedhosts(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *GetRenterBackupOKBody) contextValidateBackups(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(o.Backups); i++ {
+
+		if o.Backups[i] != nil {
+			if err := o.Backups[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("getRenterBackupOK" + "." + "backups" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (o *GetRenterBackupOKBody) contextValidateSyncedhosts(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(o.Syncedhosts); i++ {
+
+		if o.Syncedhosts[i] != nil {
+			if err := o.Syncedhosts[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("getRenterBackupOK" + "." + "syncedhosts" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (o *GetRenterBackupOKBody) contextValidateUnsyncedhosts(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(o.Unsyncedhosts); i++ {
+
+		if o.Unsyncedhosts[i] != nil {
+			if err := o.Unsyncedhosts[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("getRenterBackupOK" + "." + "unsyncedhosts" + "." + strconv.Itoa(i))
 				}
@@ -291,25 +321,36 @@ func (o *GetRenterBackupOKBody) UnmarshalBinary(b []byte) error {
 	return nil
 }
 
-/*SyncedhostsItems0 syncedhosts items0
-swagger:model SyncedhostsItems0
+/*GetRenterBackupOKBodyBackupsItems0 get renter backup o k body backups items0
+swagger:model GetRenterBackupOKBodyBackupsItems0
 */
-type SyncedhostsItems0 struct {
+type GetRenterBackupOKBodyBackupsItems0 struct {
 
-	// algorithm
-	Algorithm string `json:"algorithm,omitempty"`
+	// creationdate
+	Creationdate int64 `json:"creationdate,omitempty"`
 
-	// key
-	Key string `json:"key,omitempty"`
+	// name
+	Name string `json:"name,omitempty"`
+
+	// size
+	Size int64 `json:"size,omitempty"`
+
+	// uploadprogress
+	Uploadprogress float64 `json:"uploadprogress,omitempty"`
 }
 
-// Validate validates this syncedhosts items0
-func (o *SyncedhostsItems0) Validate(formats strfmt.Registry) error {
+// Validate validates this get renter backup o k body backups items0
+func (o *GetRenterBackupOKBodyBackupsItems0) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this get renter backup o k body backups items0 based on context it is used
+func (o *GetRenterBackupOKBodyBackupsItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (o *SyncedhostsItems0) MarshalBinary() ([]byte, error) {
+func (o *GetRenterBackupOKBodyBackupsItems0) MarshalBinary() ([]byte, error) {
 	if o == nil {
 		return nil, nil
 	}
@@ -317,8 +358,8 @@ func (o *SyncedhostsItems0) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (o *SyncedhostsItems0) UnmarshalBinary(b []byte) error {
-	var res SyncedhostsItems0
+func (o *GetRenterBackupOKBodyBackupsItems0) UnmarshalBinary(b []byte) error {
+	var res GetRenterBackupOKBodyBackupsItems0
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
@@ -326,10 +367,10 @@ func (o *SyncedhostsItems0) UnmarshalBinary(b []byte) error {
 	return nil
 }
 
-/*UnsyncedhostsItems0 unsyncedhosts items0
-swagger:model UnsyncedhostsItems0
+/*GetRenterBackupOKBodySyncedhostsItems0 get renter backup o k body syncedhosts items0
+swagger:model GetRenterBackupOKBodySyncedhostsItems0
 */
-type UnsyncedhostsItems0 struct {
+type GetRenterBackupOKBodySyncedhostsItems0 struct {
 
 	// algorithm
 	Algorithm string `json:"algorithm,omitempty"`
@@ -338,13 +379,18 @@ type UnsyncedhostsItems0 struct {
 	Key string `json:"key,omitempty"`
 }
 
-// Validate validates this unsyncedhosts items0
-func (o *UnsyncedhostsItems0) Validate(formats strfmt.Registry) error {
+// Validate validates this get renter backup o k body syncedhosts items0
+func (o *GetRenterBackupOKBodySyncedhostsItems0) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this get renter backup o k body syncedhosts items0 based on context it is used
+func (o *GetRenterBackupOKBodySyncedhostsItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (o *UnsyncedhostsItems0) MarshalBinary() ([]byte, error) {
+func (o *GetRenterBackupOKBodySyncedhostsItems0) MarshalBinary() ([]byte, error) {
 	if o == nil {
 		return nil, nil
 	}
@@ -352,8 +398,48 @@ func (o *UnsyncedhostsItems0) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (o *UnsyncedhostsItems0) UnmarshalBinary(b []byte) error {
-	var res UnsyncedhostsItems0
+func (o *GetRenterBackupOKBodySyncedhostsItems0) UnmarshalBinary(b []byte) error {
+	var res GetRenterBackupOKBodySyncedhostsItems0
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*o = res
+	return nil
+}
+
+/*GetRenterBackupOKBodyUnsyncedhostsItems0 get renter backup o k body unsyncedhosts items0
+swagger:model GetRenterBackupOKBodyUnsyncedhostsItems0
+*/
+type GetRenterBackupOKBodyUnsyncedhostsItems0 struct {
+
+	// algorithm
+	Algorithm string `json:"algorithm,omitempty"`
+
+	// key
+	Key string `json:"key,omitempty"`
+}
+
+// Validate validates this get renter backup o k body unsyncedhosts items0
+func (o *GetRenterBackupOKBodyUnsyncedhostsItems0) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this get renter backup o k body unsyncedhosts items0 based on context it is used
+func (o *GetRenterBackupOKBodyUnsyncedhostsItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (o *GetRenterBackupOKBodyUnsyncedhostsItems0) MarshalBinary() ([]byte, error) {
+	if o == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(o)
+}
+
+// UnmarshalBinary interface implementation
+func (o *GetRenterBackupOKBodyUnsyncedhostsItems0) UnmarshalBinary(b []byte) error {
+	var res GetRenterBackupOKBodyUnsyncedhostsItems0
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

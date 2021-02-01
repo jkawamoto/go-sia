@@ -6,15 +6,15 @@ package host_d_b
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // GetHostdbFiltermodeReader is a Reader for the GetHostdbFiltermode structure.
@@ -48,7 +48,7 @@ func NewGetHostdbFiltermodeOK() *GetHostdbFiltermodeOK {
 	return &GetHostdbFiltermodeOK{}
 }
 
-/*GetHostdbFiltermodeOK handles this case with default header values.
+/* GetHostdbFiltermodeOK describes a response with status code 200, with default header values.
 
 Successful Response
 */
@@ -59,7 +59,6 @@ type GetHostdbFiltermodeOK struct {
 func (o *GetHostdbFiltermodeOK) Error() string {
 	return fmt.Sprintf("[GET /hostdb/filtermode][%d] getHostdbFiltermodeOK  %+v", 200, o.Payload)
 }
-
 func (o *GetHostdbFiltermodeOK) GetPayload() *GetHostdbFiltermodeOKBody {
 	return o.Payload
 }
@@ -83,7 +82,7 @@ func NewGetHostdbFiltermodeDefault(code int) *GetHostdbFiltermodeDefault {
 	}
 }
 
-/*GetHostdbFiltermodeDefault handles this case with default header values.
+/* GetHostdbFiltermodeDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -101,7 +100,6 @@ func (o *GetHostdbFiltermodeDefault) Code() int {
 func (o *GetHostdbFiltermodeDefault) Error() string {
 	return fmt.Sprintf("[GET /hostdb/filtermode][%d] GetHostdbFiltermode default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *GetHostdbFiltermodeDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }
@@ -132,6 +130,11 @@ type GetHostdbFiltermodeOKBody struct {
 
 // Validate validates this get hostdb filtermode o k body
 func (o *GetHostdbFiltermodeOKBody) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this get hostdb filtermode o k body based on context it is used
+func (o *GetHostdbFiltermodeOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

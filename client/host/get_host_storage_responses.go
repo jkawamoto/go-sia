@@ -6,17 +6,17 @@ package host
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // GetHostStorageReader is a Reader for the GetHostStorage structure.
@@ -50,7 +50,7 @@ func NewGetHostStorageOK() *GetHostStorageOK {
 	return &GetHostStorageOK{}
 }
 
-/*GetHostStorageOK handles this case with default header values.
+/* GetHostStorageOK describes a response with status code 200, with default header values.
 
 Successful Response
 */
@@ -61,7 +61,6 @@ type GetHostStorageOK struct {
 func (o *GetHostStorageOK) Error() string {
 	return fmt.Sprintf("[GET /host/storage][%d] getHostStorageOK  %+v", 200, o.Payload)
 }
-
 func (o *GetHostStorageOK) GetPayload() *GetHostStorageOKBody {
 	return o.Payload
 }
@@ -85,7 +84,7 @@ func NewGetHostStorageDefault(code int) *GetHostStorageDefault {
 	}
 }
 
-/*GetHostStorageDefault handles this case with default header values.
+/* GetHostStorageDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -103,7 +102,6 @@ func (o *GetHostStorageDefault) Code() int {
 func (o *GetHostStorageDefault) Error() string {
 	return fmt.Sprintf("[GET /host/storage][%d] GetHostStorage default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *GetHostStorageDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }
@@ -120,71 +118,13 @@ func (o *GetHostStorageDefault) readResponse(response runtime.ClientResponse, co
 	return nil
 }
 
-/*FoldersItems0 folders items0
-swagger:model FoldersItems0
-*/
-type FoldersItems0 struct {
-
-	// Maximum capacity of the storage folder. The host will not store more
-	// than this many bytes in the folder. This capacity is not checked
-	// against the drive's remaining capacity. Therefore, you must manually
-	// ensure the disk has sufficient capacity for the folder at all times.
-	// Otherwise you risk losing renter's data and failing storage proofs.
-	//
-	Capacity int64 `json:"capacity,omitempty"`
-
-	// Unused capacity of the storage folder.
-	Capacityremaining int64 `json:"capacityremaining,omitempty"`
-
-	// Number of failed disk read & write operations. A large number of
-	// failed reads or writes indicates a problem with the filesystem or
-	// drive's hardware.
-	//
-	Failedreads int64 `json:"failedreads,omitempty"`
-
-	// failedwrites
-	Failedwrites int64 `json:"failedwrites,omitempty"`
-
-	// Absolute path to the storage folder on the local filesystem.
-	Path string `json:"path,omitempty"`
-
-	// Number of successful read & write operations.
-	Successfulreads int64 `json:"successfulreads,omitempty"`
-
-	// successfulwrites
-	Successfulwrites int64 `json:"successfulwrites,omitempty"`
-}
-
-// Validate validates this folders items0
-func (o *FoldersItems0) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (o *FoldersItems0) MarshalBinary() ([]byte, error) {
-	if o == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(o)
-}
-
-// UnmarshalBinary interface implementation
-func (o *FoldersItems0) UnmarshalBinary(b []byte) error {
-	var res FoldersItems0
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*o = res
-	return nil
-}
-
 /*GetHostStorageOKBody get host storage o k body
 swagger:model GetHostStorageOKBody
 */
 type GetHostStorageOKBody struct {
 
 	// folders
-	Folders []*FoldersItems0 `json:"folders"`
+	Folders []*GetHostStorageOKBodyFoldersItems0 `json:"folders"`
 }
 
 // Validate validates this get host storage o k body
@@ -202,7 +142,6 @@ func (o *GetHostStorageOKBody) Validate(formats strfmt.Registry) error {
 }
 
 func (o *GetHostStorageOKBody) validateFolders(formats strfmt.Registry) error {
-
 	if swag.IsZero(o.Folders) { // not required
 		return nil
 	}
@@ -226,6 +165,38 @@ func (o *GetHostStorageOKBody) validateFolders(formats strfmt.Registry) error {
 	return nil
 }
 
+// ContextValidate validate this get host storage o k body based on the context it is used
+func (o *GetHostStorageOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.contextValidateFolders(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *GetHostStorageOKBody) contextValidateFolders(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(o.Folders); i++ {
+
+		if o.Folders[i] != nil {
+			if err := o.Folders[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("getHostStorageOK" + "." + "folders" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
 // MarshalBinary interface implementation
 func (o *GetHostStorageOKBody) MarshalBinary() ([]byte, error) {
 	if o == nil {
@@ -237,6 +208,76 @@ func (o *GetHostStorageOKBody) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (o *GetHostStorageOKBody) UnmarshalBinary(b []byte) error {
 	var res GetHostStorageOKBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*o = res
+	return nil
+}
+
+/*GetHostStorageOKBodyFoldersItems0 get host storage o k body folders items0
+swagger:model GetHostStorageOKBodyFoldersItems0
+*/
+type GetHostStorageOKBodyFoldersItems0 struct {
+
+	// Maximum capacity of the storage folder. The host will not store more
+	// than this many bytes in the folder. This capacity is not checked
+	// against the drive's remaining capacity. Therefore, you must manually
+	// ensure the disk has sufficient capacity for the folder at all times.
+	// Otherwise you risk losing renter's data and failing storage proofs.
+	//
+	// Example: 50000000000
+	Capacity int64 `json:"capacity,omitempty"`
+
+	// Unused capacity of the storage folder.
+	// Example: 100000
+	Capacityremaining int64 `json:"capacityremaining,omitempty"`
+
+	// Number of failed disk read & write operations. A large number of
+	// failed reads or writes indicates a problem with the filesystem or
+	// drive's hardware.
+	//
+	// Example: 1
+	Failedreads int64 `json:"failedreads,omitempty"`
+
+	// failedwrites
+	// Example: 0
+	Failedwrites int64 `json:"failedwrites,omitempty"`
+
+	// Absolute path to the storage folder on the local filesystem.
+	// Example: /home/foo/bar
+	Path string `json:"path,omitempty"`
+
+	// Number of successful read & write operations.
+	// Example: 2
+	Successfulreads int64 `json:"successfulreads,omitempty"`
+
+	// successfulwrites
+	// Example: 3
+	Successfulwrites int64 `json:"successfulwrites,omitempty"`
+}
+
+// Validate validates this get host storage o k body folders items0
+func (o *GetHostStorageOKBodyFoldersItems0) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this get host storage o k body folders items0 based on context it is used
+func (o *GetHostStorageOKBodyFoldersItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (o *GetHostStorageOKBodyFoldersItems0) MarshalBinary() ([]byte, error) {
+	if o == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(o)
+}
+
+// UnmarshalBinary interface implementation
+func (o *GetHostStorageOKBodyFoldersItems0) UnmarshalBinary(b []byte) error {
+	var res GetHostStorageOKBodyFoldersItems0
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

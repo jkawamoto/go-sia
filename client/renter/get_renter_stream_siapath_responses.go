@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // GetRenterStreamSiapathReader is a Reader for the GetRenterStreamSiapath structure.
@@ -47,7 +46,7 @@ func NewGetRenterStreamSiapathOK() *GetRenterStreamSiapathOK {
 	return &GetRenterStreamSiapathOK{}
 }
 
-/*GetRenterStreamSiapathOK handles this case with default header values.
+/* GetRenterStreamSiapathOK describes a response with status code 200, with default header values.
 
 Successful Response
 */
@@ -70,7 +69,7 @@ func NewGetRenterStreamSiapathDefault(code int) *GetRenterStreamSiapathDefault {
 	}
 }
 
-/*GetRenterStreamSiapathDefault handles this case with default header values.
+/* GetRenterStreamSiapathDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -88,7 +87,6 @@ func (o *GetRenterStreamSiapathDefault) Code() int {
 func (o *GetRenterStreamSiapathDefault) Error() string {
 	return fmt.Sprintf("[GET /renter/stream/{siapath}][%d] GetRenterStreamSiapath default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *GetRenterStreamSiapathDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }

@@ -7,12 +7,11 @@ package host_d_b
 
 import (
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new host d b API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,8 +23,23 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	GetHostdbActive(params *GetHostdbActiveParams, authInfo runtime.ClientAuthInfoWriter) (*GetHostdbActiveOK, error)
+
+	GetHostdbAll(params *GetHostdbAllParams, authInfo runtime.ClientAuthInfoWriter) (*GetHostdbAllOK, error)
+
+	GetHostdbFiltermode(params *GetHostdbFiltermodeParams, authInfo runtime.ClientAuthInfoWriter) (*GetHostdbFiltermodeOK, error)
+
+	GetHostdbHostsPubkey(params *GetHostdbHostsPubkeyParams, authInfo runtime.ClientAuthInfoWriter) (*GetHostdbHostsPubkeyOK, error)
+
+	PostHostdbFiltermode(params *PostHostdbFiltermodeParams, authInfo runtime.ClientAuthInfoWriter) (*PostHostdbFiltermodeNoContent, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-GetHostdbActive lists all of the active hosts known to the renter, sorted by preference.
+  GetHostdbActive lists all of the active hosts known to the renter, sorted by preference.
 
 */
 func (a *Client) GetHostdbActive(params *GetHostdbActiveParams, authInfo runtime.ClientAuthInfoWriter) (*GetHostdbActiveOK, error) {
@@ -39,7 +53,7 @@ func (a *Client) GetHostdbActive(params *GetHostdbActiveParams, authInfo runtime
 		Method:             "GET",
 		PathPattern:        "/hostdb/active",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &GetHostdbActiveReader{formats: a.formats},
@@ -60,7 +74,7 @@ func (a *Client) GetHostdbActive(params *GetHostdbActiveParams, authInfo runtime
 }
 
 /*
-GetHostdbAll lists all of the hosts known to the renter. Hosts are not guaranteed to be in any particular order, and the order may change in subsequent calls.
+  GetHostdbAll lists all of the hosts known to the renter. Hosts are not guaranteed to be in any particular order, and the order may change in subsequent calls.
 
 */
 func (a *Client) GetHostdbAll(params *GetHostdbAllParams, authInfo runtime.ClientAuthInfoWriter) (*GetHostdbAllOK, error) {
@@ -74,7 +88,7 @@ func (a *Client) GetHostdbAll(params *GetHostdbAllParams, authInfo runtime.Clien
 		Method:             "GET",
 		PathPattern:        "/hostdb/all",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &GetHostdbAllReader{formats: a.formats},
@@ -95,7 +109,7 @@ func (a *Client) GetHostdbAll(params *GetHostdbAllParams, authInfo runtime.Clien
 }
 
 /*
-GetHostdbFiltermode Returns the current filter mode of the hostDB and any filtered hosts.
+  GetHostdbFiltermode Returns the current filter mode of the hostDB and any filtered hosts.
 
 */
 func (a *Client) GetHostdbFiltermode(params *GetHostdbFiltermodeParams, authInfo runtime.ClientAuthInfoWriter) (*GetHostdbFiltermodeOK, error) {
@@ -109,7 +123,7 @@ func (a *Client) GetHostdbFiltermode(params *GetHostdbFiltermodeParams, authInfo
 		Method:             "GET",
 		PathPattern:        "/hostdb/filtermode",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &GetHostdbFiltermodeReader{formats: a.formats},
@@ -130,7 +144,7 @@ func (a *Client) GetHostdbFiltermode(params *GetHostdbFiltermodeParams, authInfo
 }
 
 /*
-GetHostdbHostsPubkey fetches detailed information about a particular host, including metrics regarding the score of the host within the database. It should be noted that each renter uses different metrics for selecting hosts, and that a good score on in one hostdb does not mean that the host will be successful on the network overall.
+  GetHostdbHostsPubkey fetches detailed information about a particular host, including metrics regarding the score of the host within the database. It should be noted that each renter uses different metrics for selecting hosts, and that a good score on in one hostdb does not mean that the host will be successful on the network overall.
 
 */
 func (a *Client) GetHostdbHostsPubkey(params *GetHostdbHostsPubkeyParams, authInfo runtime.ClientAuthInfoWriter) (*GetHostdbHostsPubkeyOK, error) {
@@ -144,7 +158,7 @@ func (a *Client) GetHostdbHostsPubkey(params *GetHostdbHostsPubkeyParams, authIn
 		Method:             "GET",
 		PathPattern:        "/hostdb/hosts/{pubkey}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &GetHostdbHostsPubkeyReader{formats: a.formats},
@@ -165,7 +179,7 @@ func (a *Client) GetHostdbHostsPubkey(params *GetHostdbHostsPubkeyParams, authIn
 }
 
 /*
-PostHostdbFiltermode Lets you enable and disable a filter mode for the hostdb. Currently the two modes supported are blacklist mode and whitelist mode.
+  PostHostdbFiltermode Lets you enable and disable a filter mode for the hostdb. Currently the two modes supported are blacklist mode and whitelist mode.
 In blacklist mode, any hosts you identify as being on the blacklist will not be used to form contracts.
 In whitelist mode, only the hosts identified as being on the whitelist will be used to form contracts.
 In both modes, hosts that you are blacklisted will be filtered from your hostdb.
@@ -189,7 +203,7 @@ func (a *Client) PostHostdbFiltermode(params *PostHostdbFiltermodeParams, authIn
 		Method:             "POST",
 		PathPattern:        "/hostdb/filtermode",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &PostHostdbFiltermodeReader{formats: a.formats},

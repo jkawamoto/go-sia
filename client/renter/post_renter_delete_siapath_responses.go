@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // PostRenterDeleteSiapathReader is a Reader for the PostRenterDeleteSiapath structure.
@@ -47,7 +46,7 @@ func NewPostRenterDeleteSiapathNoContent() *PostRenterDeleteSiapathNoContent {
 	return &PostRenterDeleteSiapathNoContent{}
 }
 
-/*PostRenterDeleteSiapathNoContent handles this case with default header values.
+/* PostRenterDeleteSiapathNoContent describes a response with status code 204, with default header values.
 
 Successful Response
 */
@@ -70,7 +69,7 @@ func NewPostRenterDeleteSiapathDefault(code int) *PostRenterDeleteSiapathDefault
 	}
 }
 
-/*PostRenterDeleteSiapathDefault handles this case with default header values.
+/* PostRenterDeleteSiapathDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -88,7 +87,6 @@ func (o *PostRenterDeleteSiapathDefault) Code() int {
 func (o *PostRenterDeleteSiapathDefault) Error() string {
 	return fmt.Sprintf("[POST /renter/delete/{siapath}][%d] PostRenterDeleteSiapath default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *PostRenterDeleteSiapathDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }

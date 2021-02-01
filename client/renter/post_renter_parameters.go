@@ -13,94 +13,123 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-
-	strfmt "github.com/go-openapi/strfmt"
 )
 
-// NewPostRenterParams creates a new PostRenterParams object
-// with the default values initialized.
+// NewPostRenterParams creates a new PostRenterParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostRenterParams() *PostRenterParams {
-	var ()
 	return &PostRenterParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostRenterParamsWithTimeout creates a new PostRenterParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostRenterParamsWithTimeout(timeout time.Duration) *PostRenterParams {
-	var ()
 	return &PostRenterParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostRenterParamsWithContext creates a new PostRenterParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostRenterParamsWithContext(ctx context.Context) *PostRenterParams {
-	var ()
 	return &PostRenterParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostRenterParamsWithHTTPClient creates a new PostRenterParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostRenterParamsWithHTTPClient(client *http.Client) *PostRenterParams {
-	var ()
 	return &PostRenterParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostRenterParams contains all the parameters to send to the API endpoint
-for the post renter operation typically these are written to a http.Request
+/* PostRenterParams contains all the parameters to send to the API endpoint
+   for the post renter operation.
+
+   Typically these are written to a http.Request.
 */
 type PostRenterParams struct {
 
-	/*Funds
-	  Number of hastings allocated for file contracts in the given period.
+	/* Funds.
 
+	   Number of hastings allocated for file contracts in the given period.
 	*/
 	Funds *string
-	/*Hosts
-	  Number of hosts that contracts should be formed with. Files cannot be uploaded to more hosts than you have contracts with, and it's generally good to form a few more contracts than you need.
 
+	/* Hosts.
+
+	   Number of hosts that contracts should be formed with. Files cannot be uploaded to more hosts than you have contracts with, and it's generally good to form a few more contracts than you need.
+
+	   Format: int64
 	*/
 	Hosts *int64
-	/*Maxdownloadspeed
-	  Max download speed permitted, speed provide in bytes per second.
 
+	/* Maxdownloadspeed.
+
+	   Max download speed permitted, speed provide in bytes per second.
+
+	   Format: int64
 	*/
 	Maxdownloadspeed *int64
-	/*Maxuploadspeed
-	  Max upload speed permitted, speed provide in bytes per second
 
+	/* Maxuploadspeed.
+
+	   Max upload speed permitted, speed provide in bytes per second
+
+	   Format: int64
 	*/
 	Maxuploadspeed *int64
-	/*Period
-	  Duration of contracts formed. Must be nonzero.
 
+	/* Period.
+
+	   Duration of contracts formed. Must be nonzero.
 	*/
 	Period *int64
-	/*Renewwindow
-	  Renew window specifies how many blocks before the expiration of the current contracts the renter will wait before renewing the contracts. A smaller renew window means that Sia must be run more frequently, but also means fewer total transaction fees. Storage spending is not affected by the renew window size.
 
+	/* Renewwindow.
+
+	   Renew window specifies how many blocks before the expiration of the current contracts the renter will wait before renewing the contracts. A smaller renew window means that Sia must be run more frequently, but also means fewer total transaction fees. Storage spending is not affected by the renew window size.
+
+	   Format: int64
 	*/
 	Renewwindow *int64
-	/*Streamcachesize
-	  Stream cache size specifies how many data chunks will be cached while streaming.
 
+	/* Streamcachesize.
+
+	   Stream cache size specifies how many data chunks will be cached while streaming.
+
+	   Format: int64
 	*/
 	Streamcachesize *int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post renter params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostRenterParams) WithDefaults() *PostRenterParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post renter params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostRenterParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post renter params
@@ -225,112 +254,119 @@ func (o *PostRenterParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 
 		// query param funds
 		var qrFunds string
+
 		if o.Funds != nil {
 			qrFunds = *o.Funds
 		}
 		qFunds := qrFunds
 		if qFunds != "" {
+
 			if err := r.SetQueryParam("funds", qFunds); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Hosts != nil {
 
 		// query param hosts
 		var qrHosts int64
+
 		if o.Hosts != nil {
 			qrHosts = *o.Hosts
 		}
 		qHosts := swag.FormatInt64(qrHosts)
 		if qHosts != "" {
+
 			if err := r.SetQueryParam("hosts", qHosts); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Maxdownloadspeed != nil {
 
 		// query param maxdownloadspeed
 		var qrMaxdownloadspeed int64
+
 		if o.Maxdownloadspeed != nil {
 			qrMaxdownloadspeed = *o.Maxdownloadspeed
 		}
 		qMaxdownloadspeed := swag.FormatInt64(qrMaxdownloadspeed)
 		if qMaxdownloadspeed != "" {
+
 			if err := r.SetQueryParam("maxdownloadspeed", qMaxdownloadspeed); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Maxuploadspeed != nil {
 
 		// query param maxuploadspeed
 		var qrMaxuploadspeed int64
+
 		if o.Maxuploadspeed != nil {
 			qrMaxuploadspeed = *o.Maxuploadspeed
 		}
 		qMaxuploadspeed := swag.FormatInt64(qrMaxuploadspeed)
 		if qMaxuploadspeed != "" {
+
 			if err := r.SetQueryParam("maxuploadspeed", qMaxuploadspeed); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Period != nil {
 
 		// query param period
 		var qrPeriod int64
+
 		if o.Period != nil {
 			qrPeriod = *o.Period
 		}
 		qPeriod := swag.FormatInt64(qrPeriod)
 		if qPeriod != "" {
+
 			if err := r.SetQueryParam("period", qPeriod); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Renewwindow != nil {
 
 		// query param renewwindow
 		var qrRenewwindow int64
+
 		if o.Renewwindow != nil {
 			qrRenewwindow = *o.Renewwindow
 		}
 		qRenewwindow := swag.FormatInt64(qrRenewwindow)
 		if qRenewwindow != "" {
+
 			if err := r.SetQueryParam("renewwindow", qRenewwindow); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Streamcachesize != nil {
 
 		// query param streamcachesize
 		var qrStreamcachesize int64
+
 		if o.Streamcachesize != nil {
 			qrStreamcachesize = *o.Streamcachesize
 		}
 		qStreamcachesize := swag.FormatInt64(qrStreamcachesize)
 		if qStreamcachesize != "" {
+
 			if err := r.SetQueryParam("streamcachesize", qStreamcachesize); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

@@ -13,56 +13,69 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
-// NewPostWalletLockParams creates a new PostWalletLockParams object
-// with the default values initialized.
+// NewPostWalletLockParams creates a new PostWalletLockParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostWalletLockParams() *PostWalletLockParams {
-
 	return &PostWalletLockParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostWalletLockParamsWithTimeout creates a new PostWalletLockParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostWalletLockParamsWithTimeout(timeout time.Duration) *PostWalletLockParams {
-
 	return &PostWalletLockParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostWalletLockParamsWithContext creates a new PostWalletLockParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostWalletLockParamsWithContext(ctx context.Context) *PostWalletLockParams {
-
 	return &PostWalletLockParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostWalletLockParamsWithHTTPClient creates a new PostWalletLockParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostWalletLockParamsWithHTTPClient(client *http.Client) *PostWalletLockParams {
-
 	return &PostWalletLockParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostWalletLockParams contains all the parameters to send to the API endpoint
-for the post wallet lock operation typically these are written to a http.Request
+/* PostWalletLockParams contains all the parameters to send to the API endpoint
+   for the post wallet lock operation.
+
+   Typically these are written to a http.Request.
 */
 type PostWalletLockParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post wallet lock params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostWalletLockParams) WithDefaults() *PostWalletLockParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post wallet lock params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostWalletLockParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post wallet lock params

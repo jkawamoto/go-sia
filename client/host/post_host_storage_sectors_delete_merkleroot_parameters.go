@@ -13,63 +13,76 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
-// NewPostHostStorageSectorsDeleteMerklerootParams creates a new PostHostStorageSectorsDeleteMerklerootParams object
-// with the default values initialized.
+// NewPostHostStorageSectorsDeleteMerklerootParams creates a new PostHostStorageSectorsDeleteMerklerootParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostHostStorageSectorsDeleteMerklerootParams() *PostHostStorageSectorsDeleteMerklerootParams {
-	var ()
 	return &PostHostStorageSectorsDeleteMerklerootParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostHostStorageSectorsDeleteMerklerootParamsWithTimeout creates a new PostHostStorageSectorsDeleteMerklerootParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostHostStorageSectorsDeleteMerklerootParamsWithTimeout(timeout time.Duration) *PostHostStorageSectorsDeleteMerklerootParams {
-	var ()
 	return &PostHostStorageSectorsDeleteMerklerootParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostHostStorageSectorsDeleteMerklerootParamsWithContext creates a new PostHostStorageSectorsDeleteMerklerootParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostHostStorageSectorsDeleteMerklerootParamsWithContext(ctx context.Context) *PostHostStorageSectorsDeleteMerklerootParams {
-	var ()
 	return &PostHostStorageSectorsDeleteMerklerootParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostHostStorageSectorsDeleteMerklerootParamsWithHTTPClient creates a new PostHostStorageSectorsDeleteMerklerootParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostHostStorageSectorsDeleteMerklerootParamsWithHTTPClient(client *http.Client) *PostHostStorageSectorsDeleteMerklerootParams {
-	var ()
 	return &PostHostStorageSectorsDeleteMerklerootParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostHostStorageSectorsDeleteMerklerootParams contains all the parameters to send to the API endpoint
-for the post host storage sectors delete merkleroot operation typically these are written to a http.Request
+/* PostHostStorageSectorsDeleteMerklerootParams contains all the parameters to send to the API endpoint
+   for the post host storage sectors delete merkleroot operation.
+
+   Typically these are written to a http.Request.
 */
 type PostHostStorageSectorsDeleteMerklerootParams struct {
 
-	/*Merkleroot
-	  Merkleroot of the sector to delete.
+	/* Merkleroot.
 
+	   Merkleroot of the sector to delete.
 	*/
 	Merkleroot string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post host storage sectors delete merkleroot params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostHostStorageSectorsDeleteMerklerootParams) WithDefaults() *PostHostStorageSectorsDeleteMerklerootParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post host storage sectors delete merkleroot params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostHostStorageSectorsDeleteMerklerootParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post host storage sectors delete merkleroot params

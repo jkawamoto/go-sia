@@ -13,56 +13,69 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
-// NewGetDaemonUpdateParams creates a new GetDaemonUpdateParams object
-// with the default values initialized.
+// NewGetDaemonUpdateParams creates a new GetDaemonUpdateParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetDaemonUpdateParams() *GetDaemonUpdateParams {
-
 	return &GetDaemonUpdateParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetDaemonUpdateParamsWithTimeout creates a new GetDaemonUpdateParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetDaemonUpdateParamsWithTimeout(timeout time.Duration) *GetDaemonUpdateParams {
-
 	return &GetDaemonUpdateParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetDaemonUpdateParamsWithContext creates a new GetDaemonUpdateParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetDaemonUpdateParamsWithContext(ctx context.Context) *GetDaemonUpdateParams {
-
 	return &GetDaemonUpdateParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetDaemonUpdateParamsWithHTTPClient creates a new GetDaemonUpdateParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetDaemonUpdateParamsWithHTTPClient(client *http.Client) *GetDaemonUpdateParams {
-
 	return &GetDaemonUpdateParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetDaemonUpdateParams contains all the parameters to send to the API endpoint
-for the get daemon update operation typically these are written to a http.Request
+/* GetDaemonUpdateParams contains all the parameters to send to the API endpoint
+   for the get daemon update operation.
+
+   Typically these are written to a http.Request.
 */
 type GetDaemonUpdateParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get daemon update params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetDaemonUpdateParams) WithDefaults() *GetDaemonUpdateParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get daemon update params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetDaemonUpdateParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get daemon update params

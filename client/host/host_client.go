@@ -9,12 +9,11 @@ import (
 	"fmt"
 
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new host API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -26,8 +25,29 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	GetHost(params *GetHostParams, authInfo runtime.ClientAuthInfoWriter) (*GetHostOK, error)
+
+	GetHostStorage(params *GetHostStorageParams, authInfo runtime.ClientAuthInfoWriter) (*GetHostStorageOK, error)
+
+	PostHost(params *PostHostParams, authInfo runtime.ClientAuthInfoWriter) (*PostHostNoContent, error)
+
+	PostHostAnnounce(params *PostHostAnnounceParams, authInfo runtime.ClientAuthInfoWriter) (*PostHostAnnounceNoContent, error)
+
+	PostHostStorageFoldersAdd(params *PostHostStorageFoldersAddParams, authInfo runtime.ClientAuthInfoWriter) (*PostHostStorageFoldersAddNoContent, error)
+
+	PostHostStorageFoldersRemove(params *PostHostStorageFoldersRemoveParams, authInfo runtime.ClientAuthInfoWriter) (*PostHostStorageFoldersRemoveNoContent, error)
+
+	PostHostStorageFoldersResize(params *PostHostStorageFoldersResizeParams, authInfo runtime.ClientAuthInfoWriter) (*PostHostStorageFoldersResizeNoContent, error)
+
+	PostHostStorageSectorsDeleteMerkleroot(params *PostHostStorageSectorsDeleteMerklerootParams, authInfo runtime.ClientAuthInfoWriter) (*PostHostStorageSectorsDeleteMerklerootNoContent, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-GetHost fetches status information about the host
+  GetHost fetches status information about the host
 */
 func (a *Client) GetHost(params *GetHostParams, authInfo runtime.ClientAuthInfoWriter) (*GetHostOK, error) {
 	// TODO: Validate the params before sending
@@ -40,7 +60,7 @@ func (a *Client) GetHost(params *GetHostParams, authInfo runtime.ClientAuthInfoW
 		Method:             "GET",
 		PathPattern:        "/host",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &GetHostReader{formats: a.formats},
@@ -62,7 +82,7 @@ func (a *Client) GetHost(params *GetHostParams, authInfo runtime.ClientAuthInfoW
 }
 
 /*
-GetHostStorage gets a list of folders tracked by the host's storage manager.
+  GetHostStorage gets a list of folders tracked by the host's storage manager.
 */
 func (a *Client) GetHostStorage(params *GetHostStorageParams, authInfo runtime.ClientAuthInfoWriter) (*GetHostStorageOK, error) {
 	// TODO: Validate the params before sending
@@ -75,7 +95,7 @@ func (a *Client) GetHostStorage(params *GetHostStorageParams, authInfo runtime.C
 		Method:             "GET",
 		PathPattern:        "/host/storage",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &GetHostStorageReader{formats: a.formats},
@@ -96,7 +116,7 @@ func (a *Client) GetHostStorage(params *GetHostStorageParams, authInfo runtime.C
 }
 
 /*
-PostHost configures hosting parameters. All parameters are optional; unspecified parameters will be left unchanged.
+  PostHost configures hosting parameters. All parameters are optional; unspecified parameters will be left unchanged.
 */
 func (a *Client) PostHost(params *PostHostParams, authInfo runtime.ClientAuthInfoWriter) (*PostHostNoContent, error) {
 	// TODO: Validate the params before sending
@@ -109,7 +129,7 @@ func (a *Client) PostHost(params *PostHostParams, authInfo runtime.ClientAuthInf
 		Method:             "POST",
 		PathPattern:        "/host",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &PostHostReader{formats: a.formats},
@@ -130,7 +150,7 @@ func (a *Client) PostHost(params *PostHostParams, authInfo runtime.ClientAuthInf
 }
 
 /*
-PostHostAnnounce Announce the host to the network as a source of storage. Generally only needs to be called once.
+  PostHostAnnounce Announce the host to the network as a source of storage. Generally only needs to be called once.
 */
 func (a *Client) PostHostAnnounce(params *PostHostAnnounceParams, authInfo runtime.ClientAuthInfoWriter) (*PostHostAnnounceNoContent, error) {
 	// TODO: Validate the params before sending
@@ -143,7 +163,7 @@ func (a *Client) PostHostAnnounce(params *PostHostAnnounceParams, authInfo runti
 		Method:             "POST",
 		PathPattern:        "/host/announce",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &PostHostAnnounceReader{formats: a.formats},
@@ -164,7 +184,7 @@ func (a *Client) PostHostAnnounce(params *PostHostAnnounceParams, authInfo runti
 }
 
 /*
-PostHostStorageFoldersAdd adds a storage folder to the manager. The manager may not check that there is enough space available on-disk to support as much storage as requested
+  PostHostStorageFoldersAdd adds a storage folder to the manager. The manager may not check that there is enough space available on-disk to support as much storage as requested
 */
 func (a *Client) PostHostStorageFoldersAdd(params *PostHostStorageFoldersAddParams, authInfo runtime.ClientAuthInfoWriter) (*PostHostStorageFoldersAddNoContent, error) {
 	// TODO: Validate the params before sending
@@ -177,7 +197,7 @@ func (a *Client) PostHostStorageFoldersAdd(params *PostHostStorageFoldersAddPara
 		Method:             "POST",
 		PathPattern:        "/host/storage/folders/add",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &PostHostStorageFoldersAddReader{formats: a.formats},
@@ -198,7 +218,7 @@ func (a *Client) PostHostStorageFoldersAdd(params *PostHostStorageFoldersAddPara
 }
 
 /*
-PostHostStorageFoldersRemove Remove a storage folder from the manager. All storage on the folder will be moved to other storage folders, meaning that no data will be lost. If the manager is unable to save data, an error will be returned and the operation will be stopped.
+  PostHostStorageFoldersRemove Remove a storage folder from the manager. All storage on the folder will be moved to other storage folders, meaning that no data will be lost. If the manager is unable to save data, an error will be returned and the operation will be stopped.
 
 */
 func (a *Client) PostHostStorageFoldersRemove(params *PostHostStorageFoldersRemoveParams, authInfo runtime.ClientAuthInfoWriter) (*PostHostStorageFoldersRemoveNoContent, error) {
@@ -212,7 +232,7 @@ func (a *Client) PostHostStorageFoldersRemove(params *PostHostStorageFoldersRemo
 		Method:             "POST",
 		PathPattern:        "/host/storage/folders/remove",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &PostHostStorageFoldersRemoveReader{formats: a.formats},
@@ -233,7 +253,7 @@ func (a *Client) PostHostStorageFoldersRemove(params *PostHostStorageFoldersRemo
 }
 
 /*
-PostHostStorageFoldersResize grows or shrink a storage folder in the manager. The manager may not check that there is enough space on-disk to support growing the storage folder, but should gracefully handle running out of space unexpectedly. When shrinking a storage folder, any data in the folder that needs to be moved will be placed into other storage folders, meaning that no data will be lost. If the manager is unable to migrate the data, an error will be returned and the operation will be stopped.
+  PostHostStorageFoldersResize grows or shrink a storage folder in the manager. The manager may not check that there is enough space on-disk to support growing the storage folder, but should gracefully handle running out of space unexpectedly. When shrinking a storage folder, any data in the folder that needs to be moved will be placed into other storage folders, meaning that no data will be lost. If the manager is unable to migrate the data, an error will be returned and the operation will be stopped.
 
 */
 func (a *Client) PostHostStorageFoldersResize(params *PostHostStorageFoldersResizeParams, authInfo runtime.ClientAuthInfoWriter) (*PostHostStorageFoldersResizeNoContent, error) {
@@ -247,7 +267,7 @@ func (a *Client) PostHostStorageFoldersResize(params *PostHostStorageFoldersResi
 		Method:             "POST",
 		PathPattern:        "/host/storage/folders/resize",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &PostHostStorageFoldersResizeReader{formats: a.formats},
@@ -268,7 +288,7 @@ func (a *Client) PostHostStorageFoldersResize(params *PostHostStorageFoldersResi
 }
 
 /*
-PostHostStorageSectorsDeleteMerkleroot deletes a sector, meaning that the manager will be unable to upload that sector and be unable to provide a storage proof on that sector.
+  PostHostStorageSectorsDeleteMerkleroot deletes a sector, meaning that the manager will be unable to upload that sector and be unable to provide a storage proof on that sector.
 This endpoint is for removing the data entirely, and will remove instances of the sector appearing at all heights.
 The primary purpose is to comply with legal requests to remove data.
 
@@ -284,7 +304,7 @@ func (a *Client) PostHostStorageSectorsDeleteMerkleroot(params *PostHostStorageS
 		Method:             "POST",
 		PathPattern:        "/host/storage/sectors/delete/{merkleroot}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &PostHostStorageSectorsDeleteMerklerootReader{formats: a.formats},

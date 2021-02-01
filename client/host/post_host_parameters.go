@@ -13,156 +13,166 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-
-	strfmt "github.com/go-openapi/strfmt"
 )
 
-// NewPostHostParams creates a new PostHostParams object
-// with the default values initialized.
+// NewPostHostParams creates a new PostHostParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostHostParams() *PostHostParams {
-	var ()
 	return &PostHostParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostHostParamsWithTimeout creates a new PostHostParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostHostParamsWithTimeout(timeout time.Duration) *PostHostParams {
-	var ()
 	return &PostHostParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostHostParamsWithContext creates a new PostHostParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostHostParamsWithContext(ctx context.Context) *PostHostParams {
-	var ()
 	return &PostHostParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostHostParamsWithHTTPClient creates a new PostHostParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostHostParamsWithHTTPClient(client *http.Client) *PostHostParams {
-	var ()
 	return &PostHostParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostHostParams contains all the parameters to send to the API endpoint
-for the post host operation typically these are written to a http.Request
+/* PostHostParams contains all the parameters to send to the API endpoint
+   for the post host operation.
+
+   Typically these are written to a http.Request.
 */
 type PostHostParams struct {
 
-	/*Acceptingcontracts
-	  When set to true, the host will accept new file contracts if the
+	/* Acceptingcontracts.
+
+	     When set to true, the host will accept new file contracts if the
 	terms are reasonable. When set to false, the host will not accept new
 	file contracts at all.
 
-
 	*/
 	Acceptingcontracts *bool
-	/*Collateral
-	  The maximum amount of money that the host will put up as collateral per byte per block of storage that is contracted by the renter.
 
+	/* Collateral.
+
+	   The maximum amount of money that the host will put up as collateral per byte per block of storage that is contracted by the renter.
 	*/
 	Collateral *string
-	/*Collateralbudget
-	  The total amount of money that the host will allocate to collateral across all file contracts.
 
+	/* Collateralbudget.
+
+	   The total amount of money that the host will allocate to collateral across all file contracts.
 	*/
 	Collateralbudget *string
-	/*Maxcollateral
-	  The maximum amount of collateral that the host will put into a single file contract.
 
+	/* Maxcollateral.
+
+	   The maximum amount of collateral that the host will put into a single file contract.
 	*/
 	Maxcollateral *string
-	/*Maxdownloadbatchsize
-	  The maximum size of a single download request from a renter. Each
+
+	/* Maxdownloadbatchsize.
+
+	     The maximum size of a single download request from a renter. Each
 	download request has multiple round trips of communication that
 	exchange money. Larger batch sizes mean fewer round trips, but more
 	financial risk for the host - the renter can get a free batch when
 	downloading by refusing to provide a signature.
 
-
 	*/
 	Maxdownloadbatchsize *string
-	/*Maxduration
-	  The maximum duration of a file contract that the host will accept.
+
+	/* Maxduration.
+
+	     The maximum duration of a file contract that the host will accept.
 	The storage proof window must end before the current height +
 	maxduration.
 
-
 	*/
 	Maxduration *string
-	/*Maxrevisebatchsize
-	  The maximum size of a single batch of file contract revisions. The
+
+	/* Maxrevisebatchsize.
+
+	     The maximum size of a single batch of file contract revisions. The
 	renter can perform DoS attacks on the host by uploading a batch of
 	data then refusing to provide a signature to pay for the data. The
 	host can reduce this exposure by limiting the batch size. Larger
 	batch sizes allow for higher throughput as there is significant
 	communication overhead associated with performing a batch upload.
 
-
 	*/
 	Maxrevisebatchsize *string
-	/*Mincontractprice
-	  The minimum price that the host will demand from a renter when
+
+	/* Mincontractprice.
+
+	     The minimum price that the host will demand from a renter when
 	forming a contract. Typically this price is to cover transaction
 	fees on the file contract revision and storage proof, but can also
 	be used if the host has a low amount of collateral. The price is a
 	minimum because the host may automatically adjust the price upwards
 	in times of high demand.
 
-
 	*/
 	Mincontractprice *string
-	/*Mindownloadbandwidthprice
-	  The minimum price that the host will demand from a renter when the
+
+	/* Mindownloadbandwidthprice.
+
+	     The minimum price that the host will demand from a renter when the
 	renter is downloading data. If the host is saturated, the host may
 	increase the price from the minimum.
 
-
 	*/
 	Mindownloadbandwidthprice *string
-	/*Minstorageprice
-	  The minimum price that the host will demand when storing data for
+
+	/* Minstorageprice.
+
+	     The minimum price that the host will demand when storing data for
 	extended periods of time. If the host is low on space, the price of
 	storage may be set higher than the minimum.
 
-
 	*/
 	Minstorageprice *string
-	/*Minuploadbandwidthprice
-	  The minimum price that the host will demand from a renter when the
+
+	/* Minuploadbandwidthprice.
+
+	     The minimum price that the host will demand from a renter when the
 	renter is uploading data. If the host is saturated, the host may
 	increase the price from the minimum.
 
-
 	*/
 	Minuploadbandwidthprice *string
-	/*Netaddress
-	  The IP address or hostname (including port) that the host should be
+
+	/* Netaddress.
+
+	     The IP address or hostname (including port) that the host should be
 	contacted at. If left blank, the host will automatically figure out
 	its ip address and use that. If given, the host will use the address
 	given.
 
-
 	*/
 	Netaddress *string
-	/*Windowsize
-	  The storage proof window is the number of blocks that the host has
+
+	/* Windowsize.
+
+	     The storage proof window is the number of blocks that the host has
 	to get a storage proof onto the blockchain. The window size is the
 	minimum size of window that the host will accept in a file contract.
-
 
 	*/
 	Windowsize *string
@@ -170,6 +180,21 @@ type PostHostParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post host params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostHostParams) WithDefaults() *PostHostParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post host params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostHostParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post host params
@@ -360,208 +385,221 @@ func (o *PostHostParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regi
 
 		// query param acceptingcontracts
 		var qrAcceptingcontracts bool
+
 		if o.Acceptingcontracts != nil {
 			qrAcceptingcontracts = *o.Acceptingcontracts
 		}
 		qAcceptingcontracts := swag.FormatBool(qrAcceptingcontracts)
 		if qAcceptingcontracts != "" {
+
 			if err := r.SetQueryParam("acceptingcontracts", qAcceptingcontracts); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Collateral != nil {
 
 		// query param collateral
 		var qrCollateral string
+
 		if o.Collateral != nil {
 			qrCollateral = *o.Collateral
 		}
 		qCollateral := qrCollateral
 		if qCollateral != "" {
+
 			if err := r.SetQueryParam("collateral", qCollateral); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Collateralbudget != nil {
 
 		// query param collateralbudget
 		var qrCollateralbudget string
+
 		if o.Collateralbudget != nil {
 			qrCollateralbudget = *o.Collateralbudget
 		}
 		qCollateralbudget := qrCollateralbudget
 		if qCollateralbudget != "" {
+
 			if err := r.SetQueryParam("collateralbudget", qCollateralbudget); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Maxcollateral != nil {
 
 		// query param maxcollateral
 		var qrMaxcollateral string
+
 		if o.Maxcollateral != nil {
 			qrMaxcollateral = *o.Maxcollateral
 		}
 		qMaxcollateral := qrMaxcollateral
 		if qMaxcollateral != "" {
+
 			if err := r.SetQueryParam("maxcollateral", qMaxcollateral); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Maxdownloadbatchsize != nil {
 
 		// query param maxdownloadbatchsize
 		var qrMaxdownloadbatchsize string
+
 		if o.Maxdownloadbatchsize != nil {
 			qrMaxdownloadbatchsize = *o.Maxdownloadbatchsize
 		}
 		qMaxdownloadbatchsize := qrMaxdownloadbatchsize
 		if qMaxdownloadbatchsize != "" {
+
 			if err := r.SetQueryParam("maxdownloadbatchsize", qMaxdownloadbatchsize); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Maxduration != nil {
 
 		// query param maxduration
 		var qrMaxduration string
+
 		if o.Maxduration != nil {
 			qrMaxduration = *o.Maxduration
 		}
 		qMaxduration := qrMaxduration
 		if qMaxduration != "" {
+
 			if err := r.SetQueryParam("maxduration", qMaxduration); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Maxrevisebatchsize != nil {
 
 		// query param maxrevisebatchsize
 		var qrMaxrevisebatchsize string
+
 		if o.Maxrevisebatchsize != nil {
 			qrMaxrevisebatchsize = *o.Maxrevisebatchsize
 		}
 		qMaxrevisebatchsize := qrMaxrevisebatchsize
 		if qMaxrevisebatchsize != "" {
+
 			if err := r.SetQueryParam("maxrevisebatchsize", qMaxrevisebatchsize); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Mincontractprice != nil {
 
 		// query param mincontractprice
 		var qrMincontractprice string
+
 		if o.Mincontractprice != nil {
 			qrMincontractprice = *o.Mincontractprice
 		}
 		qMincontractprice := qrMincontractprice
 		if qMincontractprice != "" {
+
 			if err := r.SetQueryParam("mincontractprice", qMincontractprice); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Mindownloadbandwidthprice != nil {
 
 		// query param mindownloadbandwidthprice
 		var qrMindownloadbandwidthprice string
+
 		if o.Mindownloadbandwidthprice != nil {
 			qrMindownloadbandwidthprice = *o.Mindownloadbandwidthprice
 		}
 		qMindownloadbandwidthprice := qrMindownloadbandwidthprice
 		if qMindownloadbandwidthprice != "" {
+
 			if err := r.SetQueryParam("mindownloadbandwidthprice", qMindownloadbandwidthprice); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Minstorageprice != nil {
 
 		// query param minstorageprice
 		var qrMinstorageprice string
+
 		if o.Minstorageprice != nil {
 			qrMinstorageprice = *o.Minstorageprice
 		}
 		qMinstorageprice := qrMinstorageprice
 		if qMinstorageprice != "" {
+
 			if err := r.SetQueryParam("minstorageprice", qMinstorageprice); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Minuploadbandwidthprice != nil {
 
 		// query param minuploadbandwidthprice
 		var qrMinuploadbandwidthprice string
+
 		if o.Minuploadbandwidthprice != nil {
 			qrMinuploadbandwidthprice = *o.Minuploadbandwidthprice
 		}
 		qMinuploadbandwidthprice := qrMinuploadbandwidthprice
 		if qMinuploadbandwidthprice != "" {
+
 			if err := r.SetQueryParam("minuploadbandwidthprice", qMinuploadbandwidthprice); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Netaddress != nil {
 
 		// query param netaddress
 		var qrNetaddress string
+
 		if o.Netaddress != nil {
 			qrNetaddress = *o.Netaddress
 		}
 		qNetaddress := qrNetaddress
 		if qNetaddress != "" {
+
 			if err := r.SetQueryParam("netaddress", qNetaddress); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Windowsize != nil {
 
 		// query param windowsize
 		var qrWindowsize string
+
 		if o.Windowsize != nil {
 			qrWindowsize = *o.Windowsize
 		}
 		qWindowsize := qrWindowsize
 		if qWindowsize != "" {
+
 			if err := r.SetQueryParam("windowsize", qWindowsize); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // PostHostStorageSectorsDeleteMerklerootReader is a Reader for the PostHostStorageSectorsDeleteMerkleroot structure.
@@ -47,7 +46,7 @@ func NewPostHostStorageSectorsDeleteMerklerootNoContent() *PostHostStorageSector
 	return &PostHostStorageSectorsDeleteMerklerootNoContent{}
 }
 
-/*PostHostStorageSectorsDeleteMerklerootNoContent handles this case with default header values.
+/* PostHostStorageSectorsDeleteMerklerootNoContent describes a response with status code 204, with default header values.
 
 Successful Response
 */
@@ -70,7 +69,7 @@ func NewPostHostStorageSectorsDeleteMerklerootDefault(code int) *PostHostStorage
 	}
 }
 
-/*PostHostStorageSectorsDeleteMerklerootDefault handles this case with default header values.
+/* PostHostStorageSectorsDeleteMerklerootDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -88,7 +87,6 @@ func (o *PostHostStorageSectorsDeleteMerklerootDefault) Code() int {
 func (o *PostHostStorageSectorsDeleteMerklerootDefault) Error() string {
 	return fmt.Sprintf("[POST /host/storage/sectors/delete/{merkleroot}][%d] PostHostStorageSectorsDeleteMerkleroot default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *PostHostStorageSectorsDeleteMerklerootDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }

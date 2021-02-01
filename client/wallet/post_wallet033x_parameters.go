@@ -13,68 +13,82 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
-// NewPostWallet033xParams creates a new PostWallet033xParams object
-// with the default values initialized.
+// NewPostWallet033xParams creates a new PostWallet033xParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostWallet033xParams() *PostWallet033xParams {
-	var ()
 	return &PostWallet033xParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostWallet033xParamsWithTimeout creates a new PostWallet033xParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostWallet033xParamsWithTimeout(timeout time.Duration) *PostWallet033xParams {
-	var ()
 	return &PostWallet033xParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostWallet033xParamsWithContext creates a new PostWallet033xParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostWallet033xParamsWithContext(ctx context.Context) *PostWallet033xParams {
-	var ()
 	return &PostWallet033xParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostWallet033xParamsWithHTTPClient creates a new PostWallet033xParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostWallet033xParamsWithHTTPClient(client *http.Client) *PostWallet033xParams {
-	var ()
 	return &PostWallet033xParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostWallet033xParams contains all the parameters to send to the API endpoint
-for the post wallet033x operation typically these are written to a http.Request
+/* PostWallet033xParams contains all the parameters to send to the API endpoint
+   for the post wallet033x operation.
+
+   Typically these are written to a http.Request.
 */
 type PostWallet033xParams struct {
 
-	/*Encryptionpassword
-	  Encryption key of the wallet.
+	/* Encryptionpassword.
 
+	   Encryption key of the wallet.
 	*/
 	Encryptionpassword *string
-	/*Source
-	  Path on disk to the v0.3.3.x wallet to be loaded.
 
+	/* Source.
+
+	   Path on disk to the v0.3.3.x wallet to be loaded.
 	*/
 	Source *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post wallet033x params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostWallet033xParams) WithDefaults() *PostWallet033xParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post wallet033x params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostWallet033xParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post wallet033x params
@@ -144,32 +158,34 @@ func (o *PostWallet033xParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 
 		// query param encryptionpassword
 		var qrEncryptionpassword string
+
 		if o.Encryptionpassword != nil {
 			qrEncryptionpassword = *o.Encryptionpassword
 		}
 		qEncryptionpassword := qrEncryptionpassword
 		if qEncryptionpassword != "" {
+
 			if err := r.SetQueryParam("encryptionpassword", qEncryptionpassword); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Source != nil {
 
 		// query param source
 		var qrSource string
+
 		if o.Source != nil {
 			qrSource = *o.Source
 		}
 		qSource := qrSource
 		if qSource != "" {
+
 			if err := r.SetQueryParam("source", qSource); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

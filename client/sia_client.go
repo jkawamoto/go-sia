@@ -8,8 +8,7 @@ package client
 import (
 	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 
 	"github.com/jkawamoto/go-sia/client/consensus"
 	"github.com/jkawamoto/go-sia/client/daemon"
@@ -63,23 +62,14 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Sia {
 
 	cli := new(Sia)
 	cli.Transport = transport
-
 	cli.Consensus = consensus.New(transport, formats)
-
 	cli.Daemon = daemon.New(transport, formats)
-
 	cli.Gateway = gateway.New(transport, formats)
-
 	cli.Host = host.New(transport, formats)
-
 	cli.Hostdb = host_d_b.New(transport, formats)
-
 	cli.Miner = miner.New(transport, formats)
-
 	cli.Renter = renter.New(transport, formats)
-
 	cli.Wallet = wallet.New(transport, formats)
-
 	return cli
 }
 
@@ -124,21 +114,21 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 
 // Sia is a client for sia
 type Sia struct {
-	Consensus *consensus.Client
+	Consensus consensus.ClientService
 
-	Daemon *daemon.Client
+	Daemon daemon.ClientService
 
-	Gateway *gateway.Client
+	Gateway gateway.ClientService
 
-	Host *host.Client
+	Host host.ClientService
 
-	Hostdb *host_d_b.Client
+	Hostdb host_d_b.ClientService
 
-	Miner *miner.Client
+	Miner miner.ClientService
 
-	Renter *renter.Client
+	Renter renter.ClientService
 
-	Wallet *wallet.Client
+	Wallet wallet.ClientService
 
 	Transport runtime.ClientTransport
 }
@@ -146,21 +136,12 @@ type Sia struct {
 // SetTransport changes the transport on the client and all its subresources
 func (c *Sia) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
-
 	c.Consensus.SetTransport(transport)
-
 	c.Daemon.SetTransport(transport)
-
 	c.Gateway.SetTransport(transport)
-
 	c.Host.SetTransport(transport)
-
 	c.Hostdb.SetTransport(transport)
-
 	c.Miner.SetTransport(transport)
-
 	c.Renter.SetTransport(transport)
-
 	c.Wallet.SetTransport(transport)
-
 }

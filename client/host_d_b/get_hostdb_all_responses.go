@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // GetHostdbAllReader is a Reader for the GetHostdbAll structure.
@@ -47,7 +46,7 @@ func NewGetHostdbAllOK() *GetHostdbAllOK {
 	return &GetHostdbAllOK{}
 }
 
-/*GetHostdbAllOK handles this case with default header values.
+/* GetHostdbAllOK describes a response with status code 200, with default header values.
 
 Successful Response
 */
@@ -58,7 +57,6 @@ type GetHostdbAllOK struct {
 func (o *GetHostdbAllOK) Error() string {
 	return fmt.Sprintf("[GET /hostdb/all][%d] getHostdbAllOK  %+v", 200, o.Payload)
 }
-
 func (o *GetHostdbAllOK) GetPayload() *models.Hostdb {
 	return o.Payload
 }
@@ -82,7 +80,7 @@ func NewGetHostdbAllDefault(code int) *GetHostdbAllDefault {
 	}
 }
 
-/*GetHostdbAllDefault handles this case with default header values.
+/* GetHostdbAllDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -100,7 +98,6 @@ func (o *GetHostdbAllDefault) Code() int {
 func (o *GetHostdbAllDefault) Error() string {
 	return fmt.Sprintf("[GET /hostdb/all][%d] GetHostdbAll default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *GetHostdbAllDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }

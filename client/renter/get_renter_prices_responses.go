@@ -6,15 +6,15 @@ package renter
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // GetRenterPricesReader is a Reader for the GetRenterPrices structure.
@@ -48,7 +48,7 @@ func NewGetRenterPricesOK() *GetRenterPricesOK {
 	return &GetRenterPricesOK{}
 }
 
-/*GetRenterPricesOK handles this case with default header values.
+/* GetRenterPricesOK describes a response with status code 200, with default header values.
 
 Successful Response
 */
@@ -59,7 +59,6 @@ type GetRenterPricesOK struct {
 func (o *GetRenterPricesOK) Error() string {
 	return fmt.Sprintf("[GET /renter/prices][%d] getRenterPricesOK  %+v", 200, o.Payload)
 }
-
 func (o *GetRenterPricesOK) GetPayload() *GetRenterPricesOKBody {
 	return o.Payload
 }
@@ -83,7 +82,7 @@ func NewGetRenterPricesDefault(code int) *GetRenterPricesDefault {
 	}
 }
 
-/*GetRenterPricesDefault handles this case with default header values.
+/* GetRenterPricesDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -101,7 +100,6 @@ func (o *GetRenterPricesDefault) Code() int {
 func (o *GetRenterPricesDefault) Error() string {
 	return fmt.Sprintf("[GET /renter/prices][%d] GetRenterPrices default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *GetRenterPricesDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }
@@ -124,20 +122,29 @@ swagger:model GetRenterPricesOKBody
 type GetRenterPricesOKBody struct {
 
 	// The estimated cost of downloading one terabyte of data from the network.
+	// Example: 1234
 	Downloadterabyte string `json:"downloadterabyte,omitempty"`
 
 	// The estimated cost of forming a set of contracts on the network. This cost also applies to the estimated cost of renewing the renter's set of contracts.
+	// Example: 1234
 	Formcontracts string `json:"formcontracts,omitempty"`
 
 	// The estimated cost of storing one terabyte of data on the network for a month, including accounting for redundancy.
+	// Example: 1234
 	Storageterabytemonth string `json:"storageterabytemonth,omitempty"`
 
 	// The estimated cost of uploading one terabyte of data to the network, including accounting for redundancy.
+	// Example: 1234
 	Uploadterabyte string `json:"uploadterabyte,omitempty"`
 }
 
 // Validate validates this get renter prices o k body
 func (o *GetRenterPricesOKBody) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this get renter prices o k body based on context it is used
+func (o *GetRenterPricesOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

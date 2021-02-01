@@ -7,12 +7,11 @@ package daemon
 
 import (
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new daemon API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,8 +23,23 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	GetDaemonConstants(params *GetDaemonConstantsParams, authInfo runtime.ClientAuthInfoWriter) (*GetDaemonConstantsOK, error)
+
+	GetDaemonStop(params *GetDaemonStopParams, authInfo runtime.ClientAuthInfoWriter) (*GetDaemonStopOK, error)
+
+	GetDaemonUpdate(params *GetDaemonUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*GetDaemonUpdateOK, error)
+
+	GetDaemonVersion(params *GetDaemonVersionParams, authInfo runtime.ClientAuthInfoWriter) (*GetDaemonVersionOK, error)
+
+	PostDaemonUpdate(params *PostDaemonUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*PostDaemonUpdateNoContent, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-GetDaemonConstants Returns the set of constants in use.
+  GetDaemonConstants Returns the set of constants in use.
 */
 func (a *Client) GetDaemonConstants(params *GetDaemonConstantsParams, authInfo runtime.ClientAuthInfoWriter) (*GetDaemonConstantsOK, error) {
 	// TODO: Validate the params before sending
@@ -38,7 +52,7 @@ func (a *Client) GetDaemonConstants(params *GetDaemonConstantsParams, authInfo r
 		Method:             "GET",
 		PathPattern:        "/daemon/constants",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &GetDaemonConstantsReader{formats: a.formats},
@@ -59,7 +73,7 @@ func (a *Client) GetDaemonConstants(params *GetDaemonConstantsParams, authInfo r
 }
 
 /*
-GetDaemonStop cleanly shuts down the daemon. May take a few seconds.
+  GetDaemonStop cleanly shuts down the daemon. May take a few seconds.
 */
 func (a *Client) GetDaemonStop(params *GetDaemonStopParams, authInfo runtime.ClientAuthInfoWriter) (*GetDaemonStopOK, error) {
 	// TODO: Validate the params before sending
@@ -72,7 +86,7 @@ func (a *Client) GetDaemonStop(params *GetDaemonStopParams, authInfo runtime.Cli
 		Method:             "GET",
 		PathPattern:        "/daemon/stop",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &GetDaemonStopReader{formats: a.formats},
@@ -93,7 +107,7 @@ func (a *Client) GetDaemonStop(params *GetDaemonStopParams, authInfo runtime.Cli
 }
 
 /*
-GetDaemonUpdate returns the the status of any updates available for the daemon
+  GetDaemonUpdate returns the the status of any updates available for the daemon
 */
 func (a *Client) GetDaemonUpdate(params *GetDaemonUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*GetDaemonUpdateOK, error) {
 	// TODO: Validate the params before sending
@@ -106,7 +120,7 @@ func (a *Client) GetDaemonUpdate(params *GetDaemonUpdateParams, authInfo runtime
 		Method:             "GET",
 		PathPattern:        "/daemon/update",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &GetDaemonUpdateReader{formats: a.formats},
@@ -127,7 +141,7 @@ func (a *Client) GetDaemonUpdate(params *GetDaemonUpdateParams, authInfo runtime
 }
 
 /*
-GetDaemonVersion returns the version of the Sia daemon currently running.
+  GetDaemonVersion returns the version of the Sia daemon currently running.
 */
 func (a *Client) GetDaemonVersion(params *GetDaemonVersionParams, authInfo runtime.ClientAuthInfoWriter) (*GetDaemonVersionOK, error) {
 	// TODO: Validate the params before sending
@@ -140,7 +154,7 @@ func (a *Client) GetDaemonVersion(params *GetDaemonVersionParams, authInfo runti
 		Method:             "GET",
 		PathPattern:        "/daemon/version",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &GetDaemonVersionReader{formats: a.formats},
@@ -161,7 +175,7 @@ func (a *Client) GetDaemonVersion(params *GetDaemonVersionParams, authInfo runti
 }
 
 /*
-PostDaemonUpdate updates the daemon to the latest available version release.
+  PostDaemonUpdate updates the daemon to the latest available version release.
 */
 func (a *Client) PostDaemonUpdate(params *PostDaemonUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*PostDaemonUpdateNoContent, error) {
 	// TODO: Validate the params before sending
@@ -174,7 +188,7 @@ func (a *Client) PostDaemonUpdate(params *PostDaemonUpdateParams, authInfo runti
 		Method:             "POST",
 		PathPattern:        "/daemon/update",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &PostDaemonUpdateReader{formats: a.formats},

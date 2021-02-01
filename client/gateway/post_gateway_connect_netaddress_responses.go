@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // PostGatewayConnectNetaddressReader is a Reader for the PostGatewayConnectNetaddress structure.
@@ -47,7 +46,7 @@ func NewPostGatewayConnectNetaddressNoContent() *PostGatewayConnectNetaddressNoC
 	return &PostGatewayConnectNetaddressNoContent{}
 }
 
-/*PostGatewayConnectNetaddressNoContent handles this case with default header values.
+/* PostGatewayConnectNetaddressNoContent describes a response with status code 204, with default header values.
 
 Successful Response
 */
@@ -70,7 +69,7 @@ func NewPostGatewayConnectNetaddressDefault(code int) *PostGatewayConnectNetaddr
 	}
 }
 
-/*PostGatewayConnectNetaddressDefault handles this case with default header values.
+/* PostGatewayConnectNetaddressDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -88,7 +87,6 @@ func (o *PostGatewayConnectNetaddressDefault) Code() int {
 func (o *PostGatewayConnectNetaddressDefault) Error() string {
 	return fmt.Sprintf("[POST /gateway/connect/{netaddress}][%d] PostGatewayConnectNetaddress default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *PostGatewayConnectNetaddressDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }

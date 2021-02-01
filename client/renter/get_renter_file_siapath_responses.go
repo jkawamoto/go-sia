@@ -6,16 +6,16 @@ package renter
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // GetRenterFileSiapathReader is a Reader for the GetRenterFileSiapath structure.
@@ -49,7 +49,7 @@ func NewGetRenterFileSiapathOK() *GetRenterFileSiapathOK {
 	return &GetRenterFileSiapathOK{}
 }
 
-/*GetRenterFileSiapathOK handles this case with default header values.
+/* GetRenterFileSiapathOK describes a response with status code 200, with default header values.
 
 Successful Response
 */
@@ -60,7 +60,6 @@ type GetRenterFileSiapathOK struct {
 func (o *GetRenterFileSiapathOK) Error() string {
 	return fmt.Sprintf("[GET /renter/file/{siapath}][%d] getRenterFileSiapathOK  %+v", 200, o.Payload)
 }
-
 func (o *GetRenterFileSiapathOK) GetPayload() *GetRenterFileSiapathOKBody {
 	return o.Payload
 }
@@ -84,7 +83,7 @@ func NewGetRenterFileSiapathDefault(code int) *GetRenterFileSiapathDefault {
 	}
 }
 
-/*GetRenterFileSiapathDefault handles this case with default header values.
+/* GetRenterFileSiapathDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -102,7 +101,6 @@ func (o *GetRenterFileSiapathDefault) Code() int {
 func (o *GetRenterFileSiapathDefault) Error() string {
 	return fmt.Sprintf("[GET /renter/file/{siapath}][%d] GetRenterFileSiapath default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *GetRenterFileSiapathDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }
@@ -143,13 +141,40 @@ func (o *GetRenterFileSiapathOKBody) Validate(formats strfmt.Registry) error {
 }
 
 func (o *GetRenterFileSiapathOKBody) validateFile(formats strfmt.Registry) error {
-
 	if swag.IsZero(o.File) { // not required
 		return nil
 	}
 
 	if o.File != nil {
 		if err := o.File.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("getRenterFileSiapathOK" + "." + "file")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this get renter file siapath o k body based on the context it is used
+func (o *GetRenterFileSiapathOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.contextValidateFile(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *GetRenterFileSiapathOKBody) contextValidateFile(ctx context.Context, formats strfmt.Registry) error {
+
+	if o.File != nil {
+		if err := o.File.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("getRenterFileSiapathOK" + "." + "file")
 			}

@@ -13,56 +13,69 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
-// NewGetHostdbAllParams creates a new GetHostdbAllParams object
-// with the default values initialized.
+// NewGetHostdbAllParams creates a new GetHostdbAllParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetHostdbAllParams() *GetHostdbAllParams {
-
 	return &GetHostdbAllParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetHostdbAllParamsWithTimeout creates a new GetHostdbAllParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetHostdbAllParamsWithTimeout(timeout time.Duration) *GetHostdbAllParams {
-
 	return &GetHostdbAllParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetHostdbAllParamsWithContext creates a new GetHostdbAllParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetHostdbAllParamsWithContext(ctx context.Context) *GetHostdbAllParams {
-
 	return &GetHostdbAllParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetHostdbAllParamsWithHTTPClient creates a new GetHostdbAllParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetHostdbAllParamsWithHTTPClient(client *http.Client) *GetHostdbAllParams {
-
 	return &GetHostdbAllParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetHostdbAllParams contains all the parameters to send to the API endpoint
-for the get hostdb all operation typically these are written to a http.Request
+/* GetHostdbAllParams contains all the parameters to send to the API endpoint
+   for the get hostdb all operation.
+
+   Typically these are written to a http.Request.
 */
 type GetHostdbAllParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get hostdb all params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetHostdbAllParams) WithDefaults() *GetHostdbAllParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get hostdb all params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetHostdbAllParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get hostdb all params

@@ -13,68 +13,82 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
-// NewPostWalletChangepasswordParams creates a new PostWalletChangepasswordParams object
-// with the default values initialized.
+// NewPostWalletChangepasswordParams creates a new PostWalletChangepasswordParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostWalletChangepasswordParams() *PostWalletChangepasswordParams {
-	var ()
 	return &PostWalletChangepasswordParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostWalletChangepasswordParamsWithTimeout creates a new PostWalletChangepasswordParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostWalletChangepasswordParamsWithTimeout(timeout time.Duration) *PostWalletChangepasswordParams {
-	var ()
 	return &PostWalletChangepasswordParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostWalletChangepasswordParamsWithContext creates a new PostWalletChangepasswordParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostWalletChangepasswordParamsWithContext(ctx context.Context) *PostWalletChangepasswordParams {
-	var ()
 	return &PostWalletChangepasswordParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostWalletChangepasswordParamsWithHTTPClient creates a new PostWalletChangepasswordParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostWalletChangepasswordParamsWithHTTPClient(client *http.Client) *PostWalletChangepasswordParams {
-	var ()
 	return &PostWalletChangepasswordParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostWalletChangepasswordParams contains all the parameters to send to the API endpoint
-for the post wallet changepassword operation typically these are written to a http.Request
+/* PostWalletChangepasswordParams contains all the parameters to send to the API endpoint
+   for the post wallet changepassword operation.
+
+   Typically these are written to a http.Request.
 */
 type PostWalletChangepasswordParams struct {
 
-	/*Encryptionpassword
-	  encryptionpassword is the wallet's current encryption password.
+	/* Encryptionpassword.
 
+	   encryptionpassword is the wallet's current encryption password.
 	*/
 	Encryptionpassword string
-	/*Newpassword
-	  newpassword is the new password for the wallet.
 
+	/* Newpassword.
+
+	   newpassword is the new password for the wallet.
 	*/
 	Newpassword string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post wallet changepassword params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostWalletChangepasswordParams) WithDefaults() *PostWalletChangepasswordParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post wallet changepassword params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostWalletChangepasswordParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post wallet changepassword params
@@ -144,6 +158,7 @@ func (o *PostWalletChangepasswordParams) WriteToRequest(r runtime.ClientRequest,
 	qrEncryptionpassword := o.Encryptionpassword
 	qEncryptionpassword := qrEncryptionpassword
 	if qEncryptionpassword != "" {
+
 		if err := r.SetQueryParam("encryptionpassword", qEncryptionpassword); err != nil {
 			return err
 		}
@@ -153,6 +168,7 @@ func (o *PostWalletChangepasswordParams) WriteToRequest(r runtime.ClientRequest,
 	qrNewpassword := o.Newpassword
 	qNewpassword := qrNewpassword
 	if qNewpassword != "" {
+
 		if err := r.SetQueryParam("newpassword", qNewpassword); err != nil {
 			return err
 		}

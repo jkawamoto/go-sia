@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // PostWalletUnlockReader is a Reader for the PostWalletUnlock structure.
@@ -47,7 +46,7 @@ func NewPostWalletUnlockNoContent() *PostWalletUnlockNoContent {
 	return &PostWalletUnlockNoContent{}
 }
 
-/*PostWalletUnlockNoContent handles this case with default header values.
+/* PostWalletUnlockNoContent describes a response with status code 204, with default header values.
 
 Successful Response
 */
@@ -70,7 +69,7 @@ func NewPostWalletUnlockDefault(code int) *PostWalletUnlockDefault {
 	}
 }
 
-/*PostWalletUnlockDefault handles this case with default header values.
+/* PostWalletUnlockDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -88,7 +87,6 @@ func (o *PostWalletUnlockDefault) Code() int {
 func (o *PostWalletUnlockDefault) Error() string {
 	return fmt.Sprintf("[POST /wallet/unlock][%d] PostWalletUnlock default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *PostWalletUnlockDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }

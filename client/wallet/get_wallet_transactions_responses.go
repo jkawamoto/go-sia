@@ -6,17 +6,17 @@ package wallet
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // GetWalletTransactionsReader is a Reader for the GetWalletTransactions structure.
@@ -50,7 +50,7 @@ func NewGetWalletTransactionsOK() *GetWalletTransactionsOK {
 	return &GetWalletTransactionsOK{}
 }
 
-/*GetWalletTransactionsOK handles this case with default header values.
+/* GetWalletTransactionsOK describes a response with status code 200, with default header values.
 
 Successful Response
 */
@@ -61,7 +61,6 @@ type GetWalletTransactionsOK struct {
 func (o *GetWalletTransactionsOK) Error() string {
 	return fmt.Sprintf("[GET /wallet/transactions][%d] getWalletTransactionsOK  %+v", 200, o.Payload)
 }
-
 func (o *GetWalletTransactionsOK) GetPayload() *GetWalletTransactionsOKBody {
 	return o.Payload
 }
@@ -85,7 +84,7 @@ func NewGetWalletTransactionsDefault(code int) *GetWalletTransactionsDefault {
 	}
 }
 
-/*GetWalletTransactionsDefault handles this case with default header values.
+/* GetWalletTransactionsDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -103,7 +102,6 @@ func (o *GetWalletTransactionsDefault) Code() int {
 func (o *GetWalletTransactionsDefault) Error() string {
 	return fmt.Sprintf("[GET /wallet/transactions][%d] GetWalletTransactions default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *GetWalletTransactionsDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }
@@ -151,7 +149,6 @@ func (o *GetWalletTransactionsOKBody) Validate(formats strfmt.Registry) error {
 }
 
 func (o *GetWalletTransactionsOKBody) validateConfirmedtransactions(formats strfmt.Registry) error {
-
 	if swag.IsZero(o.Confirmedtransactions) { // not required
 		return nil
 	}
@@ -176,7 +173,6 @@ func (o *GetWalletTransactionsOKBody) validateConfirmedtransactions(formats strf
 }
 
 func (o *GetWalletTransactionsOKBody) validateUnconfirmedtransactions(formats strfmt.Registry) error {
-
 	if swag.IsZero(o.Unconfirmedtransactions) { // not required
 		return nil
 	}
@@ -188,6 +184,60 @@ func (o *GetWalletTransactionsOKBody) validateUnconfirmedtransactions(formats st
 
 		if o.Unconfirmedtransactions[i] != nil {
 			if err := o.Unconfirmedtransactions[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("getWalletTransactionsOK" + "." + "unconfirmedtransactions" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this get wallet transactions o k body based on the context it is used
+func (o *GetWalletTransactionsOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.contextValidateConfirmedtransactions(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.contextValidateUnconfirmedtransactions(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *GetWalletTransactionsOKBody) contextValidateConfirmedtransactions(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(o.Confirmedtransactions); i++ {
+
+		if o.Confirmedtransactions[i] != nil {
+			if err := o.Confirmedtransactions[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("getWalletTransactionsOK" + "." + "confirmedtransactions" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (o *GetWalletTransactionsOKBody) contextValidateUnconfirmedtransactions(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(o.Unconfirmedtransactions); i++ {
+
+		if o.Unconfirmedtransactions[i] != nil {
+			if err := o.Unconfirmedtransactions[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("getWalletTransactionsOK" + "." + "unconfirmedtransactions" + "." + strconv.Itoa(i))
 				}

@@ -7,12 +7,11 @@ package gateway
 
 import (
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new gateway API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,8 +23,19 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	GetGateway(params *GetGatewayParams, authInfo runtime.ClientAuthInfoWriter) (*GetGatewayOK, error)
+
+	PostGatewayConnectNetaddress(params *PostGatewayConnectNetaddressParams, authInfo runtime.ClientAuthInfoWriter) (*PostGatewayConnectNetaddressNoContent, error)
+
+	PostGatewayDisconnectNetaddress(params *PostGatewayDisconnectNetaddressParams, authInfo runtime.ClientAuthInfoWriter) (*PostGatewayDisconnectNetaddressNoContent, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-GetGateway returns information about the gateway, including the list of connected peers.
+  GetGateway returns information about the gateway, including the list of connected peers.
 */
 func (a *Client) GetGateway(params *GetGatewayParams, authInfo runtime.ClientAuthInfoWriter) (*GetGatewayOK, error) {
 	// TODO: Validate the params before sending
@@ -38,7 +48,7 @@ func (a *Client) GetGateway(params *GetGatewayParams, authInfo runtime.ClientAut
 		Method:             "GET",
 		PathPattern:        "/gateway",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &GetGatewayReader{formats: a.formats},
@@ -59,7 +69,7 @@ func (a *Client) GetGateway(params *GetGatewayParams, authInfo runtime.ClientAut
 }
 
 /*
-PostGatewayConnectNetaddress connects the gateway to a peer. The peer is added to the node list if it is not already present. The node list is the list of all nodes the gateway knows about, but is not necessarily connected to.
+  PostGatewayConnectNetaddress connects the gateway to a peer. The peer is added to the node list if it is not already present. The node list is the list of all nodes the gateway knows about, but is not necessarily connected to.
 */
 func (a *Client) PostGatewayConnectNetaddress(params *PostGatewayConnectNetaddressParams, authInfo runtime.ClientAuthInfoWriter) (*PostGatewayConnectNetaddressNoContent, error) {
 	// TODO: Validate the params before sending
@@ -72,7 +82,7 @@ func (a *Client) PostGatewayConnectNetaddress(params *PostGatewayConnectNetaddre
 		Method:             "POST",
 		PathPattern:        "/gateway/connect/{netaddress}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &PostGatewayConnectNetaddressReader{formats: a.formats},
@@ -93,7 +103,7 @@ func (a *Client) PostGatewayConnectNetaddress(params *PostGatewayConnectNetaddre
 }
 
 /*
-PostGatewayDisconnectNetaddress disconnects the gateway from a peer. The peer remains in the node list. Disconnecting from a peer does not prevent the gateway from automatically connecting to the peer in the future.
+  PostGatewayDisconnectNetaddress disconnects the gateway from a peer. The peer remains in the node list. Disconnecting from a peer does not prevent the gateway from automatically connecting to the peer in the future.
 */
 func (a *Client) PostGatewayDisconnectNetaddress(params *PostGatewayDisconnectNetaddressParams, authInfo runtime.ClientAuthInfoWriter) (*PostGatewayDisconnectNetaddressNoContent, error) {
 	// TODO: Validate the params before sending
@@ -106,7 +116,7 @@ func (a *Client) PostGatewayDisconnectNetaddress(params *PostGatewayDisconnectNe
 		Method:             "POST",
 		PathPattern:        "/gateway/disconnect/{netaddress}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &PostGatewayDisconnectNetaddressReader{formats: a.formats},

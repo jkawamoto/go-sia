@@ -13,63 +13,76 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
-// NewGetRenterFileSiapathParams creates a new GetRenterFileSiapathParams object
-// with the default values initialized.
+// NewGetRenterFileSiapathParams creates a new GetRenterFileSiapathParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetRenterFileSiapathParams() *GetRenterFileSiapathParams {
-	var ()
 	return &GetRenterFileSiapathParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetRenterFileSiapathParamsWithTimeout creates a new GetRenterFileSiapathParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetRenterFileSiapathParamsWithTimeout(timeout time.Duration) *GetRenterFileSiapathParams {
-	var ()
 	return &GetRenterFileSiapathParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetRenterFileSiapathParamsWithContext creates a new GetRenterFileSiapathParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetRenterFileSiapathParamsWithContext(ctx context.Context) *GetRenterFileSiapathParams {
-	var ()
 	return &GetRenterFileSiapathParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetRenterFileSiapathParamsWithHTTPClient creates a new GetRenterFileSiapathParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetRenterFileSiapathParamsWithHTTPClient(client *http.Client) *GetRenterFileSiapathParams {
-	var ()
 	return &GetRenterFileSiapathParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetRenterFileSiapathParams contains all the parameters to send to the API endpoint
-for the get renter file siapath operation typically these are written to a http.Request
+/* GetRenterFileSiapathParams contains all the parameters to send to the API endpoint
+   for the get renter file siapath operation.
+
+   Typically these are written to a http.Request.
 */
 type GetRenterFileSiapathParams struct {
 
-	/*Siapath
-	  Location of the file in the renter on the network.
+	/* Siapath.
 
+	   Location of the file in the renter on the network.
 	*/
 	Siapath string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get renter file siapath params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetRenterFileSiapathParams) WithDefaults() *GetRenterFileSiapathParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get renter file siapath params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetRenterFileSiapathParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get renter file siapath params

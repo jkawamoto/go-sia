@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // PostHostStorageFoldersResizeReader is a Reader for the PostHostStorageFoldersResize structure.
@@ -47,7 +46,7 @@ func NewPostHostStorageFoldersResizeNoContent() *PostHostStorageFoldersResizeNoC
 	return &PostHostStorageFoldersResizeNoContent{}
 }
 
-/*PostHostStorageFoldersResizeNoContent handles this case with default header values.
+/* PostHostStorageFoldersResizeNoContent describes a response with status code 204, with default header values.
 
 Successful Response
 */
@@ -70,7 +69,7 @@ func NewPostHostStorageFoldersResizeDefault(code int) *PostHostStorageFoldersRes
 	}
 }
 
-/*PostHostStorageFoldersResizeDefault handles this case with default header values.
+/* PostHostStorageFoldersResizeDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -88,7 +87,6 @@ func (o *PostHostStorageFoldersResizeDefault) Code() int {
 func (o *PostHostStorageFoldersResizeDefault) Error() string {
 	return fmt.Sprintf("[POST /host/storage/folders/resize][%d] PostHostStorageFoldersResize default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *PostHostStorageFoldersResizeDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }

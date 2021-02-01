@@ -13,56 +13,69 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
-// NewGetRenterFilesParams creates a new GetRenterFilesParams object
-// with the default values initialized.
+// NewGetRenterFilesParams creates a new GetRenterFilesParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetRenterFilesParams() *GetRenterFilesParams {
-
 	return &GetRenterFilesParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetRenterFilesParamsWithTimeout creates a new GetRenterFilesParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetRenterFilesParamsWithTimeout(timeout time.Duration) *GetRenterFilesParams {
-
 	return &GetRenterFilesParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetRenterFilesParamsWithContext creates a new GetRenterFilesParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetRenterFilesParamsWithContext(ctx context.Context) *GetRenterFilesParams {
-
 	return &GetRenterFilesParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetRenterFilesParamsWithHTTPClient creates a new GetRenterFilesParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetRenterFilesParamsWithHTTPClient(client *http.Client) *GetRenterFilesParams {
-
 	return &GetRenterFilesParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetRenterFilesParams contains all the parameters to send to the API endpoint
-for the get renter files operation typically these are written to a http.Request
+/* GetRenterFilesParams contains all the parameters to send to the API endpoint
+   for the get renter files operation.
+
+   Typically these are written to a http.Request.
 */
 type GetRenterFilesParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get renter files params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetRenterFilesParams) WithDefaults() *GetRenterFilesParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get renter files params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetRenterFilesParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get renter files params

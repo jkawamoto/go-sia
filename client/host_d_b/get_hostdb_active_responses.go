@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // GetHostdbActiveReader is a Reader for the GetHostdbActive structure.
@@ -47,7 +46,7 @@ func NewGetHostdbActiveOK() *GetHostdbActiveOK {
 	return &GetHostdbActiveOK{}
 }
 
-/*GetHostdbActiveOK handles this case with default header values.
+/* GetHostdbActiveOK describes a response with status code 200, with default header values.
 
 Successful Response
 */
@@ -58,7 +57,6 @@ type GetHostdbActiveOK struct {
 func (o *GetHostdbActiveOK) Error() string {
 	return fmt.Sprintf("[GET /hostdb/active][%d] getHostdbActiveOK  %+v", 200, o.Payload)
 }
-
 func (o *GetHostdbActiveOK) GetPayload() *models.Hostdb {
 	return o.Payload
 }
@@ -82,7 +80,7 @@ func NewGetHostdbActiveDefault(code int) *GetHostdbActiveDefault {
 	}
 }
 
-/*GetHostdbActiveDefault handles this case with default header values.
+/* GetHostdbActiveDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -100,7 +98,6 @@ func (o *GetHostdbActiveDefault) Code() int {
 func (o *GetHostdbActiveDefault) Error() string {
 	return fmt.Sprintf("[GET /hostdb/active][%d] GetHostdbActive default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *GetHostdbActiveDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }

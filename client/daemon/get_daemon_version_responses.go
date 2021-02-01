@@ -6,15 +6,15 @@ package daemon
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // GetDaemonVersionReader is a Reader for the GetDaemonVersion structure.
@@ -48,7 +48,7 @@ func NewGetDaemonVersionOK() *GetDaemonVersionOK {
 	return &GetDaemonVersionOK{}
 }
 
-/*GetDaemonVersionOK handles this case with default header values.
+/* GetDaemonVersionOK describes a response with status code 200, with default header values.
 
 returns the version of the Sia daemon currently running.
 */
@@ -59,7 +59,6 @@ type GetDaemonVersionOK struct {
 func (o *GetDaemonVersionOK) Error() string {
 	return fmt.Sprintf("[GET /daemon/version][%d] getDaemonVersionOK  %+v", 200, o.Payload)
 }
-
 func (o *GetDaemonVersionOK) GetPayload() *GetDaemonVersionOKBody {
 	return o.Payload
 }
@@ -83,7 +82,7 @@ func NewGetDaemonVersionDefault(code int) *GetDaemonVersionDefault {
 	}
 }
 
-/*GetDaemonVersionDefault handles this case with default header values.
+/* GetDaemonVersionDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -101,7 +100,6 @@ func (o *GetDaemonVersionDefault) Code() int {
 func (o *GetDaemonVersionDefault) Error() string {
 	return fmt.Sprintf("[GET /daemon/version][%d] GetDaemonVersion default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *GetDaemonVersionDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }
@@ -126,11 +124,17 @@ type GetDaemonVersionOKBody struct {
 	// Version number of the running Sia Daemon. This number is visible to its
 	// peers on the network.
 	//
+	// Example: 1.0.0
 	Version string `json:"version,omitempty"`
 }
 
 // Validate validates this get daemon version o k body
 func (o *GetDaemonVersionOKBody) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this get daemon version o k body based on context it is used
+func (o *GetDaemonVersionOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

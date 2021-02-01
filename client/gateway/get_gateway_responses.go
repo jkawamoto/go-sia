@@ -6,17 +6,17 @@ package gateway
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // GetGatewayReader is a Reader for the GetGateway structure.
@@ -50,7 +50,7 @@ func NewGetGatewayOK() *GetGatewayOK {
 	return &GetGatewayOK{}
 }
 
-/*GetGatewayOK handles this case with default header values.
+/* GetGatewayOK describes a response with status code 200, with default header values.
 
 Successful Response
 */
@@ -61,7 +61,6 @@ type GetGatewayOK struct {
 func (o *GetGatewayOK) Error() string {
 	return fmt.Sprintf("[GET /gateway][%d] getGatewayOK  %+v", 200, o.Payload)
 }
-
 func (o *GetGatewayOK) GetPayload() *GetGatewayOKBody {
 	return o.Payload
 }
@@ -85,7 +84,7 @@ func NewGetGatewayDefault(code int) *GetGatewayDefault {
 	}
 }
 
-/*GetGatewayDefault handles this case with default header values.
+/* GetGatewayDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -103,7 +102,6 @@ func (o *GetGatewayDefault) Code() int {
 func (o *GetGatewayDefault) Error() string {
 	return fmt.Sprintf("[GET /gateway][%d] GetGateway default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *GetGatewayDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }
@@ -132,7 +130,7 @@ type GetGatewayOKBody struct {
 	Netaddress string `json:"netaddress,omitempty"`
 
 	// peers is an array of peers the gateway is connected to. It represents an array of `modules.Peer`s.
-	Peers []*PeersItems0 `json:"peers"`
+	Peers []*GetGatewayOKBodyPeersItems0 `json:"peers"`
 }
 
 // Validate validates this get gateway o k body
@@ -150,7 +148,6 @@ func (o *GetGatewayOKBody) Validate(formats strfmt.Registry) error {
 }
 
 func (o *GetGatewayOKBody) validatePeers(formats strfmt.Registry) error {
-
 	if swag.IsZero(o.Peers) { // not required
 		return nil
 	}
@@ -162,6 +159,38 @@ func (o *GetGatewayOKBody) validatePeers(formats strfmt.Registry) error {
 
 		if o.Peers[i] != nil {
 			if err := o.Peers[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("getGatewayOK" + "." + "peers" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this get gateway o k body based on the context it is used
+func (o *GetGatewayOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.contextValidatePeers(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *GetGatewayOKBody) contextValidatePeers(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(o.Peers); i++ {
+
+		if o.Peers[i] != nil {
+			if err := o.Peers[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("getGatewayOK" + "." + "peers" + "." + strconv.Itoa(i))
 				}
@@ -192,10 +221,10 @@ func (o *GetGatewayOKBody) UnmarshalBinary(b []byte) error {
 	return nil
 }
 
-/*PeersItems0 peers items0
-swagger:model PeersItems0
+/*GetGatewayOKBodyPeersItems0 get gateway o k body peers items0
+swagger:model GetGatewayOKBodyPeersItems0
 */
-type PeersItems0 struct {
+type GetGatewayOKBodyPeersItems0 struct {
 
 	// inbound is true when the peer initiated the connection. This field
 	// is exposed as outbound peers are generally trusted more than inbound
@@ -210,13 +239,18 @@ type PeersItems0 struct {
 	Version string `json:"version,omitempty"`
 }
 
-// Validate validates this peers items0
-func (o *PeersItems0) Validate(formats strfmt.Registry) error {
+// Validate validates this get gateway o k body peers items0
+func (o *GetGatewayOKBodyPeersItems0) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this get gateway o k body peers items0 based on context it is used
+func (o *GetGatewayOKBodyPeersItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (o *PeersItems0) MarshalBinary() ([]byte, error) {
+func (o *GetGatewayOKBodyPeersItems0) MarshalBinary() ([]byte, error) {
 	if o == nil {
 		return nil, nil
 	}
@@ -224,8 +258,8 @@ func (o *PeersItems0) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (o *PeersItems0) UnmarshalBinary(b []byte) error {
-	var res PeersItems0
+func (o *GetGatewayOKBodyPeersItems0) UnmarshalBinary(b []byte) error {
+	var res GetGatewayOKBodyPeersItems0
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

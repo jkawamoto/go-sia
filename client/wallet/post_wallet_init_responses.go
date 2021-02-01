@@ -6,15 +6,15 @@ package wallet
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // PostWalletInitReader is a Reader for the PostWalletInit structure.
@@ -48,7 +48,7 @@ func NewPostWalletInitOK() *PostWalletInitOK {
 	return &PostWalletInitOK{}
 }
 
-/*PostWalletInitOK handles this case with default header values.
+/* PostWalletInitOK describes a response with status code 200, with default header values.
 
 Successful Response
 */
@@ -59,7 +59,6 @@ type PostWalletInitOK struct {
 func (o *PostWalletInitOK) Error() string {
 	return fmt.Sprintf("[POST /wallet/init][%d] postWalletInitOK  %+v", 200, o.Payload)
 }
-
 func (o *PostWalletInitOK) GetPayload() *PostWalletInitOKBody {
 	return o.Payload
 }
@@ -83,7 +82,7 @@ func NewPostWalletInitDefault(code int) *PostWalletInitDefault {
 	}
 }
 
-/*PostWalletInitDefault handles this case with default header values.
+/* PostWalletInitDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -101,7 +100,6 @@ func (o *PostWalletInitDefault) Code() int {
 func (o *PostWalletInitDefault) Error() string {
 	return fmt.Sprintf("[POST /wallet/init][%d] PostWalletInit default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *PostWalletInitDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }
@@ -124,11 +122,17 @@ swagger:model PostWalletInitOKBody
 type PostWalletInitOKBody struct {
 
 	// Wallet seed used to generate addresses that the wallet is able to spend.
+	// Example: hello world hello world hello world hello world hello world hello world  hello world hello world hello world hello world hello world hello world  hello world hello world hello
 	Primaryseed string `json:"primaryseed,omitempty"`
 }
 
 // Validate validates this post wallet init o k body
 func (o *PostWalletInitOKBody) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this post wallet init o k body based on context it is used
+func (o *PostWalletInitOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

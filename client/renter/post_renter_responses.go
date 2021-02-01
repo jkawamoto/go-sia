@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // PostRenterReader is a Reader for the PostRenter structure.
@@ -47,7 +46,7 @@ func NewPostRenterNoContent() *PostRenterNoContent {
 	return &PostRenterNoContent{}
 }
 
-/*PostRenterNoContent handles this case with default header values.
+/* PostRenterNoContent describes a response with status code 204, with default header values.
 
 Successful Response
 */
@@ -70,7 +69,7 @@ func NewPostRenterDefault(code int) *PostRenterDefault {
 	}
 }
 
-/*PostRenterDefault handles this case with default header values.
+/* PostRenterDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -88,7 +87,6 @@ func (o *PostRenterDefault) Code() int {
 func (o *PostRenterDefault) Error() string {
 	return fmt.Sprintf("[POST /renter][%d] PostRenter default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *PostRenterDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }
