@@ -13,69 +13,83 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-
-	strfmt "github.com/go-openapi/strfmt"
 )
 
-// NewPostWalletSiafundsParams creates a new PostWalletSiafundsParams object
-// with the default values initialized.
+// NewPostWalletSiafundsParams creates a new PostWalletSiafundsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostWalletSiafundsParams() *PostWalletSiafundsParams {
-	var ()
 	return &PostWalletSiafundsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostWalletSiafundsParamsWithTimeout creates a new PostWalletSiafundsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostWalletSiafundsParamsWithTimeout(timeout time.Duration) *PostWalletSiafundsParams {
-	var ()
 	return &PostWalletSiafundsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostWalletSiafundsParamsWithContext creates a new PostWalletSiafundsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostWalletSiafundsParamsWithContext(ctx context.Context) *PostWalletSiafundsParams {
-	var ()
 	return &PostWalletSiafundsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostWalletSiafundsParamsWithHTTPClient creates a new PostWalletSiafundsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostWalletSiafundsParamsWithHTTPClient(client *http.Client) *PostWalletSiafundsParams {
-	var ()
 	return &PostWalletSiafundsParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostWalletSiafundsParams contains all the parameters to send to the API endpoint
-for the post wallet siafunds operation typically these are written to a http.Request
+/* PostWalletSiafundsParams contains all the parameters to send to the API endpoint
+   for the post wallet siafunds operation.
+
+   Typically these are written to a http.Request.
 */
 type PostWalletSiafundsParams struct {
 
-	/*Amount
-	  Number of siafunds being sent.
+	/* Amount.
 
+	   Number of siafunds being sent.
 	*/
 	Amount *int64
-	/*Destination
-	  Address that is receiving the funds.
 
+	/* Destination.
+
+	   Address that is receiving the funds.
 	*/
 	Destination *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post wallet siafunds params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostWalletSiafundsParams) WithDefaults() *PostWalletSiafundsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post wallet siafunds params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostWalletSiafundsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post wallet siafunds params
@@ -145,32 +159,34 @@ func (o *PostWalletSiafundsParams) WriteToRequest(r runtime.ClientRequest, reg s
 
 		// query param amount
 		var qrAmount int64
+
 		if o.Amount != nil {
 			qrAmount = *o.Amount
 		}
 		qAmount := swag.FormatInt64(qrAmount)
 		if qAmount != "" {
+
 			if err := r.SetQueryParam("amount", qAmount); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Destination != nil {
 
 		// query param destination
 		var qrDestination string
+
 		if o.Destination != nil {
 			qrDestination = *o.Destination
 		}
 		qDestination := qrDestination
 		if qDestination != "" {
+
 			if err := r.SetQueryParam("destination", qDestination); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

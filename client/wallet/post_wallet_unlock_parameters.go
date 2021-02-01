@@ -13,63 +13,76 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
-// NewPostWalletUnlockParams creates a new PostWalletUnlockParams object
-// with the default values initialized.
+// NewPostWalletUnlockParams creates a new PostWalletUnlockParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostWalletUnlockParams() *PostWalletUnlockParams {
-	var ()
 	return &PostWalletUnlockParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostWalletUnlockParamsWithTimeout creates a new PostWalletUnlockParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostWalletUnlockParamsWithTimeout(timeout time.Duration) *PostWalletUnlockParams {
-	var ()
 	return &PostWalletUnlockParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostWalletUnlockParamsWithContext creates a new PostWalletUnlockParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostWalletUnlockParamsWithContext(ctx context.Context) *PostWalletUnlockParams {
-	var ()
 	return &PostWalletUnlockParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostWalletUnlockParamsWithHTTPClient creates a new PostWalletUnlockParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostWalletUnlockParamsWithHTTPClient(client *http.Client) *PostWalletUnlockParams {
-	var ()
 	return &PostWalletUnlockParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostWalletUnlockParams contains all the parameters to send to the API endpoint
-for the post wallet unlock operation typically these are written to a http.Request
+/* PostWalletUnlockParams contains all the parameters to send to the API endpoint
+   for the post wallet unlock operation.
+
+   Typically these are written to a http.Request.
 */
 type PostWalletUnlockParams struct {
 
-	/*Encryptionpassword
-	  Password that gets used to decrypt the file. Most frequently, the encryption password is the same as the primary wallet seed.
+	/* Encryptionpassword.
 
+	   Password that gets used to decrypt the file. Most frequently, the encryption password is the same as the primary wallet seed.
 	*/
 	Encryptionpassword *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post wallet unlock params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostWalletUnlockParams) WithDefaults() *PostWalletUnlockParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post wallet unlock params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostWalletUnlockParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post wallet unlock params
@@ -128,16 +141,17 @@ func (o *PostWalletUnlockParams) WriteToRequest(r runtime.ClientRequest, reg str
 
 		// query param encryptionpassword
 		var qrEncryptionpassword string
+
 		if o.Encryptionpassword != nil {
 			qrEncryptionpassword = *o.Encryptionpassword
 		}
 		qEncryptionpassword := qrEncryptionpassword
 		if qEncryptionpassword != "" {
+
 			if err := r.SetQueryParam("encryptionpassword", qEncryptionpassword); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

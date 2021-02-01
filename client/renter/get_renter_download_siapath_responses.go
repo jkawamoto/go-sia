@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // GetRenterDownloadSiapathReader is a Reader for the GetRenterDownloadSiapath structure.
@@ -47,7 +46,7 @@ func NewGetRenterDownloadSiapathNoContent() *GetRenterDownloadSiapathNoContent {
 	return &GetRenterDownloadSiapathNoContent{}
 }
 
-/*GetRenterDownloadSiapathNoContent handles this case with default header values.
+/* GetRenterDownloadSiapathNoContent describes a response with status code 204, with default header values.
 
 Successful Response
 */
@@ -70,7 +69,7 @@ func NewGetRenterDownloadSiapathDefault(code int) *GetRenterDownloadSiapathDefau
 	}
 }
 
-/*GetRenterDownloadSiapathDefault handles this case with default header values.
+/* GetRenterDownloadSiapathDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -88,7 +87,6 @@ func (o *GetRenterDownloadSiapathDefault) Code() int {
 func (o *GetRenterDownloadSiapathDefault) Error() string {
 	return fmt.Sprintf("[GET /renter/download/{siapath}][%d] GetRenterDownloadSiapath default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *GetRenterDownloadSiapathDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }

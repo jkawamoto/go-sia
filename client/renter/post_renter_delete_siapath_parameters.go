@@ -13,63 +13,76 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
-// NewPostRenterDeleteSiapathParams creates a new PostRenterDeleteSiapathParams object
-// with the default values initialized.
+// NewPostRenterDeleteSiapathParams creates a new PostRenterDeleteSiapathParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostRenterDeleteSiapathParams() *PostRenterDeleteSiapathParams {
-	var ()
 	return &PostRenterDeleteSiapathParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostRenterDeleteSiapathParamsWithTimeout creates a new PostRenterDeleteSiapathParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostRenterDeleteSiapathParamsWithTimeout(timeout time.Duration) *PostRenterDeleteSiapathParams {
-	var ()
 	return &PostRenterDeleteSiapathParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostRenterDeleteSiapathParamsWithContext creates a new PostRenterDeleteSiapathParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostRenterDeleteSiapathParamsWithContext(ctx context.Context) *PostRenterDeleteSiapathParams {
-	var ()
 	return &PostRenterDeleteSiapathParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostRenterDeleteSiapathParamsWithHTTPClient creates a new PostRenterDeleteSiapathParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostRenterDeleteSiapathParamsWithHTTPClient(client *http.Client) *PostRenterDeleteSiapathParams {
-	var ()
 	return &PostRenterDeleteSiapathParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostRenterDeleteSiapathParams contains all the parameters to send to the API endpoint
-for the post renter delete siapath operation typically these are written to a http.Request
+/* PostRenterDeleteSiapathParams contains all the parameters to send to the API endpoint
+   for the post renter delete siapath operation.
+
+   Typically these are written to a http.Request.
 */
 type PostRenterDeleteSiapathParams struct {
 
-	/*Siapath
-	  Location of the file in the renter on the network.
+	/* Siapath.
 
+	   Location of the file in the renter on the network.
 	*/
 	Siapath string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post renter delete siapath params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostRenterDeleteSiapathParams) WithDefaults() *PostRenterDeleteSiapathParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post renter delete siapath params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostRenterDeleteSiapathParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post renter delete siapath params

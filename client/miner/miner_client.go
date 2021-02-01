@@ -7,12 +7,11 @@ package miner
 
 import (
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new miner API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,8 +23,23 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	GetMiner(params *GetMinerParams, authInfo runtime.ClientAuthInfoWriter) (*GetMinerOK, error)
+
+	GetMinerHeader(params *GetMinerHeaderParams, authInfo runtime.ClientAuthInfoWriter) (*GetMinerHeaderOK, error)
+
+	GetMinerStart(params *GetMinerStartParams, authInfo runtime.ClientAuthInfoWriter) (*GetMinerStartOK, error)
+
+	GetMinerStop(params *GetMinerStopParams, authInfo runtime.ClientAuthInfoWriter) (*GetMinerStopOK, error)
+
+	PostMinerHeader(params *PostMinerHeaderParams, authInfo runtime.ClientAuthInfoWriter) (*PostMinerHeaderOK, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-GetMiner returns the status of the miner.
+  GetMiner returns the status of the miner.
 */
 func (a *Client) GetMiner(params *GetMinerParams, authInfo runtime.ClientAuthInfoWriter) (*GetMinerOK, error) {
 	// TODO: Validate the params before sending
@@ -38,7 +52,7 @@ func (a *Client) GetMiner(params *GetMinerParams, authInfo runtime.ClientAuthInf
 		Method:             "GET",
 		PathPattern:        "/miner",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &GetMinerReader{formats: a.formats},
@@ -59,7 +73,7 @@ func (a *Client) GetMiner(params *GetMinerParams, authInfo runtime.ClientAuthInf
 }
 
 /*
-GetMinerHeader provides a block header that is ready to be grinded on for work.
+  GetMinerHeader provides a block header that is ready to be grinded on for work.
 */
 func (a *Client) GetMinerHeader(params *GetMinerHeaderParams, authInfo runtime.ClientAuthInfoWriter) (*GetMinerHeaderOK, error) {
 	// TODO: Validate the params before sending
@@ -72,7 +86,7 @@ func (a *Client) GetMinerHeader(params *GetMinerHeaderParams, authInfo runtime.C
 		Method:             "GET",
 		PathPattern:        "/miner/header",
 		ProducesMediaTypes: []string{"application/octet-stream"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &GetMinerHeaderReader{formats: a.formats},
@@ -93,7 +107,7 @@ func (a *Client) GetMinerHeader(params *GetMinerHeaderParams, authInfo runtime.C
 }
 
 /*
-GetMinerStart starts a single threaded cpu miner. Does nothing if the cpu miner is already running.
+  GetMinerStart starts a single threaded cpu miner. Does nothing if the cpu miner is already running.
 */
 func (a *Client) GetMinerStart(params *GetMinerStartParams, authInfo runtime.ClientAuthInfoWriter) (*GetMinerStartOK, error) {
 	// TODO: Validate the params before sending
@@ -106,7 +120,7 @@ func (a *Client) GetMinerStart(params *GetMinerStartParams, authInfo runtime.Cli
 		Method:             "GET",
 		PathPattern:        "/miner/start",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &GetMinerStartReader{formats: a.formats},
@@ -127,7 +141,7 @@ func (a *Client) GetMinerStart(params *GetMinerStartParams, authInfo runtime.Cli
 }
 
 /*
-GetMinerStop stops the cpu miner. Does nothing if the cpu miner is not running.
+  GetMinerStop stops the cpu miner. Does nothing if the cpu miner is not running.
 */
 func (a *Client) GetMinerStop(params *GetMinerStopParams, authInfo runtime.ClientAuthInfoWriter) (*GetMinerStopOK, error) {
 	// TODO: Validate the params before sending
@@ -140,7 +154,7 @@ func (a *Client) GetMinerStop(params *GetMinerStopParams, authInfo runtime.Clien
 		Method:             "GET",
 		PathPattern:        "/miner/stop",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &GetMinerStopReader{formats: a.formats},
@@ -161,7 +175,7 @@ func (a *Client) GetMinerStop(params *GetMinerStopParams, authInfo runtime.Clien
 }
 
 /*
-PostMinerHeader submits a header that has passed the POW.
+  PostMinerHeader submits a header that has passed the POW.
 */
 func (a *Client) PostMinerHeader(params *PostMinerHeaderParams, authInfo runtime.ClientAuthInfoWriter) (*PostMinerHeaderOK, error) {
 	// TODO: Validate the params before sending

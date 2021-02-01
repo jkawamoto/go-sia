@@ -6,17 +6,17 @@ package renter
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // GetRenterFilesReader is a Reader for the GetRenterFiles structure.
@@ -50,7 +50,7 @@ func NewGetRenterFilesOK() *GetRenterFilesOK {
 	return &GetRenterFilesOK{}
 }
 
-/*GetRenterFilesOK handles this case with default header values.
+/* GetRenterFilesOK describes a response with status code 200, with default header values.
 
 Successful Response
 */
@@ -61,7 +61,6 @@ type GetRenterFilesOK struct {
 func (o *GetRenterFilesOK) Error() string {
 	return fmt.Sprintf("[GET /renter/files][%d] getRenterFilesOK  %+v", 200, o.Payload)
 }
-
 func (o *GetRenterFilesOK) GetPayload() *GetRenterFilesOKBody {
 	return o.Payload
 }
@@ -85,7 +84,7 @@ func NewGetRenterFilesDefault(code int) *GetRenterFilesDefault {
 	}
 }
 
-/*GetRenterFilesDefault handles this case with default header values.
+/* GetRenterFilesDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -103,7 +102,6 @@ func (o *GetRenterFilesDefault) Code() int {
 func (o *GetRenterFilesDefault) Error() string {
 	return fmt.Sprintf("[GET /renter/files][%d] GetRenterFiles default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *GetRenterFilesDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }
@@ -144,7 +142,6 @@ func (o *GetRenterFilesOKBody) Validate(formats strfmt.Registry) error {
 }
 
 func (o *GetRenterFilesOKBody) validateFiles(formats strfmt.Registry) error {
-
 	if swag.IsZero(o.Files) { // not required
 		return nil
 	}
@@ -156,6 +153,38 @@ func (o *GetRenterFilesOKBody) validateFiles(formats strfmt.Registry) error {
 
 		if o.Files[i] != nil {
 			if err := o.Files[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("getRenterFilesOK" + "." + "files" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this get renter files o k body based on the context it is used
+func (o *GetRenterFilesOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.contextValidateFiles(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *GetRenterFilesOKBody) contextValidateFiles(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(o.Files); i++ {
+
+		if o.Files[i] != nil {
+			if err := o.Files[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("getRenterFilesOK" + "." + "files" + "." + strconv.Itoa(i))
 				}

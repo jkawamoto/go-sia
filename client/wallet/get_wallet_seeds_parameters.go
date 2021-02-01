@@ -13,63 +13,76 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
-// NewGetWalletSeedsParams creates a new GetWalletSeedsParams object
-// with the default values initialized.
+// NewGetWalletSeedsParams creates a new GetWalletSeedsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetWalletSeedsParams() *GetWalletSeedsParams {
-	var ()
 	return &GetWalletSeedsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetWalletSeedsParamsWithTimeout creates a new GetWalletSeedsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetWalletSeedsParamsWithTimeout(timeout time.Duration) *GetWalletSeedsParams {
-	var ()
 	return &GetWalletSeedsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetWalletSeedsParamsWithContext creates a new GetWalletSeedsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetWalletSeedsParamsWithContext(ctx context.Context) *GetWalletSeedsParams {
-	var ()
 	return &GetWalletSeedsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetWalletSeedsParamsWithHTTPClient creates a new GetWalletSeedsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetWalletSeedsParamsWithHTTPClient(client *http.Client) *GetWalletSeedsParams {
-	var ()
 	return &GetWalletSeedsParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetWalletSeedsParams contains all the parameters to send to the API endpoint
-for the get wallet seeds operation typically these are written to a http.Request
+/* GetWalletSeedsParams contains all the parameters to send to the API endpoint
+   for the get wallet seeds operation.
+
+   Typically these are written to a http.Request.
 */
 type GetWalletSeedsParams struct {
 
-	/*Dictionary
-	  Name of the dictionary that should be used when encoding the seed. 'english' is the most common choice when picking a dictionary.
+	/* Dictionary.
 
+	   Name of the dictionary that should be used when encoding the seed. 'english' is the most common choice when picking a dictionary.
 	*/
 	Dictionary *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get wallet seeds params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetWalletSeedsParams) WithDefaults() *GetWalletSeedsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get wallet seeds params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetWalletSeedsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get wallet seeds params
@@ -128,16 +141,17 @@ func (o *GetWalletSeedsParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 
 		// query param dictionary
 		var qrDictionary string
+
 		if o.Dictionary != nil {
 			qrDictionary = *o.Dictionary
 		}
 		qDictionary := qrDictionary
 		if qDictionary != "" {
+
 			if err := r.SetQueryParam("dictionary", qDictionary); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

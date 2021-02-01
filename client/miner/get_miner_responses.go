@@ -6,15 +6,15 @@ package miner
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // GetMinerReader is a Reader for the GetMiner structure.
@@ -48,7 +48,7 @@ func NewGetMinerOK() *GetMinerOK {
 	return &GetMinerOK{}
 }
 
-/*GetMinerOK handles this case with default header values.
+/* GetMinerOK describes a response with status code 200, with default header values.
 
 Successful Response
 */
@@ -59,7 +59,6 @@ type GetMinerOK struct {
 func (o *GetMinerOK) Error() string {
 	return fmt.Sprintf("[GET /miner][%d] getMinerOK  %+v", 200, o.Payload)
 }
-
 func (o *GetMinerOK) GetPayload() *GetMinerOKBody {
 	return o.Payload
 }
@@ -83,7 +82,7 @@ func NewGetMinerDefault(code int) *GetMinerDefault {
 	}
 }
 
-/*GetMinerDefault handles this case with default header values.
+/* GetMinerDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -101,7 +100,6 @@ func (o *GetMinerDefault) Code() int {
 func (o *GetMinerDefault) Error() string {
 	return fmt.Sprintf("[GET /miner][%d] GetMiner default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *GetMinerDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }
@@ -124,23 +122,32 @@ swagger:model GetMinerOKBody
 type GetMinerOKBody struct {
 
 	// Number of mined blocks. This value is remembered after restarting.
+	// Example: 9001
 	Blocksmined int64 `json:"blocksmined,omitempty"`
 
 	// How fast the cpu is hashing, in hashes per second.
+	// Example: 1337
 	Cpuhashrate int64 `json:"cpuhashrate,omitempty"`
 
 	// true if the cpu miner is active.
+	// Example: false
 	Cpumining bool `json:"cpumining,omitempty"`
 
 	// Number of mined blocks that are stale, indicating that they are not
 	// included in the current longest chain, likely because some other block at
 	// the same height had its chain extended first.
 	//
+	// Example: 0
 	Staleblocksmined int64 `json:"staleblocksmined,omitempty"`
 }
 
 // Validate validates this get miner o k body
 func (o *GetMinerOKBody) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this get miner o k body based on context it is used
+func (o *GetMinerOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

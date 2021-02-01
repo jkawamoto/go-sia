@@ -7,12 +7,11 @@ package consensus
 
 import (
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new consensus API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,8 +23,17 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	GetConsensus(params *GetConsensusParams, authInfo runtime.ClientAuthInfoWriter) (*GetConsensusOK, error)
+
+	PostConsensusValidateTransactionset(params *PostConsensusValidateTransactionsetParams, authInfo runtime.ClientAuthInfoWriter) (*PostConsensusValidateTransactionsetNoContent, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-GetConsensus returns information about the consensus set, such as the current block height.
+  GetConsensus returns information about the consensus set, such as the current block height.
 */
 func (a *Client) GetConsensus(params *GetConsensusParams, authInfo runtime.ClientAuthInfoWriter) (*GetConsensusOK, error) {
 	// TODO: Validate the params before sending
@@ -38,7 +46,7 @@ func (a *Client) GetConsensus(params *GetConsensusParams, authInfo runtime.Clien
 		Method:             "GET",
 		PathPattern:        "/consensus",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &GetConsensusReader{formats: a.formats},
@@ -59,7 +67,7 @@ func (a *Client) GetConsensus(params *GetConsensusParams, authInfo runtime.Clien
 }
 
 /*
-PostConsensusValidateTransactionset validates a set of transactions using the current utxo set.
+  PostConsensusValidateTransactionset validates a set of transactions using the current utxo set.
 */
 func (a *Client) PostConsensusValidateTransactionset(params *PostConsensusValidateTransactionsetParams, authInfo runtime.ClientAuthInfoWriter) (*PostConsensusValidateTransactionsetNoContent, error) {
 	// TODO: Validate the params before sending
@@ -72,7 +80,7 @@ func (a *Client) PostConsensusValidateTransactionset(params *PostConsensusValida
 		Method:             "POST",
 		PathPattern:        "/consensus/validate/transactionset",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &PostConsensusValidateTransactionsetReader{formats: a.formats},

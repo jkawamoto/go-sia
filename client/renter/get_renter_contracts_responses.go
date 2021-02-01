@@ -6,17 +6,17 @@ package renter
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // GetRenterContractsReader is a Reader for the GetRenterContracts structure.
@@ -50,7 +50,7 @@ func NewGetRenterContractsOK() *GetRenterContractsOK {
 	return &GetRenterContractsOK{}
 }
 
-/*GetRenterContractsOK handles this case with default header values.
+/* GetRenterContractsOK describes a response with status code 200, with default header values.
 
 Successful Response
 */
@@ -61,7 +61,6 @@ type GetRenterContractsOK struct {
 func (o *GetRenterContractsOK) Error() string {
 	return fmt.Sprintf("[GET /renter/contracts][%d] getRenterContractsOK  %+v", 200, o.Payload)
 }
-
 func (o *GetRenterContractsOK) GetPayload() *GetRenterContractsOKBody {
 	return o.Payload
 }
@@ -85,7 +84,7 @@ func NewGetRenterContractsDefault(code int) *GetRenterContractsDefault {
 	}
 }
 
-/*GetRenterContractsDefault handles this case with default header values.
+/* GetRenterContractsDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -103,7 +102,6 @@ func (o *GetRenterContractsDefault) Code() int {
 func (o *GetRenterContractsDefault) Error() string {
 	return fmt.Sprintf("[GET /renter/contracts][%d] GetRenterContracts default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *GetRenterContractsDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }
@@ -120,149 +118,13 @@ func (o *GetRenterContractsDefault) readResponse(response runtime.ClientResponse
 	return nil
 }
 
-/*ContractsItems0 contracts items0
-swagger:model ContractsItems0
-*/
-type ContractsItems0 struct {
-
-	// Amount of contract funds that have been spent on downloads. In hastings.
-	Downloadspending string `json:"downloadspending,omitempty"`
-
-	// Block height that the file contract ends on.
-	Endheight int64 `json:"endheight,omitempty"`
-
-	// Fees paid in order to form the file contract.
-	Fees string `json:"fees,omitempty"`
-
-	// Signals if contract is good for a renewal
-	Goodforrenew bool `json:"goodforrenew,omitempty"`
-
-	// Signals if contract is good for uploading data
-	Goodforupload bool `json:"goodforupload,omitempty"`
-
-	// hostpublickey
-	Hostpublickey *ContractsItems0Hostpublickey `json:"hostpublickey,omitempty"`
-
-	// ID of the file contract
-	ID string `json:"id,omitempty"`
-
-	// A signed transaction containing the most recent contract revision.
-	Lasttransaction interface{} `json:"lasttransaction,omitempty"`
-
-	// Address of the host the file contract was formed with.
-	Netaddress string `json:"netaddress,omitempty"`
-
-	// Remaining funds left for the renter to spend on uploads & downloads.
-	Renterfunds string `json:"renterfunds,omitempty"`
-
-	// Size of the file contract, which is typically equal to the number of bytes that have been uploaded to the host.
-	Size int64 `json:"size,omitempty"`
-
-	// Block height that the file contract began on.
-	Startheight int64 `json:"startheight,omitempty"`
-
-	// Amount of contract funds that have been spent on storage.
-	Storagespending string `json:"storagespending,omitempty"`
-
-	// Total cost to the wallet of forming the file contract. This includes both the fees and the funds allocated in the contract.
-	Totalcost string `json:"totalcost,omitempty"`
-
-	// Amount of contract funds that have been spent on uploads.
-	Uploadspending string `json:"uploadspending,omitempty"`
-}
-
-// Validate validates this contracts items0
-func (o *ContractsItems0) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := o.validateHostpublickey(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (o *ContractsItems0) validateHostpublickey(formats strfmt.Registry) error {
-
-	if swag.IsZero(o.Hostpublickey) { // not required
-		return nil
-	}
-
-	if o.Hostpublickey != nil {
-		if err := o.Hostpublickey.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("hostpublickey")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (o *ContractsItems0) MarshalBinary() ([]byte, error) {
-	if o == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(o)
-}
-
-// UnmarshalBinary interface implementation
-func (o *ContractsItems0) UnmarshalBinary(b []byte) error {
-	var res ContractsItems0
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*o = res
-	return nil
-}
-
-/*ContractsItems0Hostpublickey Public key of the host the contract was formed with.
-swagger:model ContractsItems0Hostpublickey
-*/
-type ContractsItems0Hostpublickey struct {
-
-	// algorithm
-	Algorithm string `json:"algorithm,omitempty"`
-
-	// key
-	Key string `json:"key,omitempty"`
-}
-
-// Validate validates this contracts items0 hostpublickey
-func (o *ContractsItems0Hostpublickey) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (o *ContractsItems0Hostpublickey) MarshalBinary() ([]byte, error) {
-	if o == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(o)
-}
-
-// UnmarshalBinary interface implementation
-func (o *ContractsItems0Hostpublickey) UnmarshalBinary(b []byte) error {
-	var res ContractsItems0Hostpublickey
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*o = res
-	return nil
-}
-
 /*GetRenterContractsOKBody get renter contracts o k body
 swagger:model GetRenterContractsOKBody
 */
 type GetRenterContractsOKBody struct {
 
 	// contracts
-	Contracts []*ContractsItems0 `json:"contracts"`
+	Contracts []*GetRenterContractsOKBodyContractsItems0 `json:"contracts"`
 }
 
 // Validate validates this get renter contracts o k body
@@ -280,7 +142,6 @@ func (o *GetRenterContractsOKBody) Validate(formats strfmt.Registry) error {
 }
 
 func (o *GetRenterContractsOKBody) validateContracts(formats strfmt.Registry) error {
-
 	if swag.IsZero(o.Contracts) { // not required
 		return nil
 	}
@@ -304,6 +165,38 @@ func (o *GetRenterContractsOKBody) validateContracts(formats strfmt.Registry) er
 	return nil
 }
 
+// ContextValidate validate this get renter contracts o k body based on the context it is used
+func (o *GetRenterContractsOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.contextValidateContracts(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *GetRenterContractsOKBody) contextValidateContracts(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(o.Contracts); i++ {
+
+		if o.Contracts[i] != nil {
+			if err := o.Contracts[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("getRenterContractsOK" + "." + "contracts" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
 // MarshalBinary interface implementation
 func (o *GetRenterContractsOKBody) MarshalBinary() ([]byte, error) {
 	if o == nil {
@@ -315,6 +208,189 @@ func (o *GetRenterContractsOKBody) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (o *GetRenterContractsOKBody) UnmarshalBinary(b []byte) error {
 	var res GetRenterContractsOKBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*o = res
+	return nil
+}
+
+/*GetRenterContractsOKBodyContractsItems0 get renter contracts o k body contracts items0
+swagger:model GetRenterContractsOKBodyContractsItems0
+*/
+type GetRenterContractsOKBodyContractsItems0 struct {
+
+	// Amount of contract funds that have been spent on downloads. In hastings.
+	// Example: 1234
+	Downloadspending string `json:"downloadspending,omitempty"`
+
+	// Block height that the file contract ends on.
+	// Example: 50000
+	Endheight int64 `json:"endheight,omitempty"`
+
+	// Fees paid in order to form the file contract.
+	// Example: 1234
+	Fees string `json:"fees,omitempty"`
+
+	// Signals if contract is good for a renewal
+	// Example: false
+	Goodforrenew bool `json:"goodforrenew,omitempty"`
+
+	// Signals if contract is good for uploading data
+	// Example: true
+	Goodforupload bool `json:"goodforupload,omitempty"`
+
+	// hostpublickey
+	Hostpublickey *GetRenterContractsOKBodyContractsItems0Hostpublickey `json:"hostpublickey,omitempty"`
+
+	// ID of the file contract
+	// Example: 1234567890abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+	ID string `json:"id,omitempty"`
+
+	// A signed transaction containing the most recent contract revision.
+	Lasttransaction interface{} `json:"lasttransaction,omitempty"`
+
+	// Address of the host the file contract was formed with.
+	// Example: 12.34.56.78:9
+	Netaddress string `json:"netaddress,omitempty"`
+
+	// Remaining funds left for the renter to spend on uploads & downloads.
+	// Example: 1234
+	Renterfunds string `json:"renterfunds,omitempty"`
+
+	// Size of the file contract, which is typically equal to the number of bytes that have been uploaded to the host.
+	// Example: 8192
+	Size int64 `json:"size,omitempty"`
+
+	// Block height that the file contract began on.
+	// Example: 50000
+	Startheight int64 `json:"startheight,omitempty"`
+
+	// Amount of contract funds that have been spent on storage.
+	// Example: 1234
+	Storagespending string `json:"storagespending,omitempty"`
+
+	// Total cost to the wallet of forming the file contract. This includes both the fees and the funds allocated in the contract.
+	// Example: 1234
+	Totalcost string `json:"totalcost,omitempty"`
+
+	// Amount of contract funds that have been spent on uploads.
+	// Example: 1234
+	Uploadspending string `json:"uploadspending,omitempty"`
+}
+
+// Validate validates this get renter contracts o k body contracts items0
+func (o *GetRenterContractsOKBodyContractsItems0) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.validateHostpublickey(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *GetRenterContractsOKBodyContractsItems0) validateHostpublickey(formats strfmt.Registry) error {
+	if swag.IsZero(o.Hostpublickey) { // not required
+		return nil
+	}
+
+	if o.Hostpublickey != nil {
+		if err := o.Hostpublickey.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("hostpublickey")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this get renter contracts o k body contracts items0 based on the context it is used
+func (o *GetRenterContractsOKBodyContractsItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.contextValidateHostpublickey(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *GetRenterContractsOKBodyContractsItems0) contextValidateHostpublickey(ctx context.Context, formats strfmt.Registry) error {
+
+	if o.Hostpublickey != nil {
+		if err := o.Hostpublickey.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("hostpublickey")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (o *GetRenterContractsOKBodyContractsItems0) MarshalBinary() ([]byte, error) {
+	if o == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(o)
+}
+
+// UnmarshalBinary interface implementation
+func (o *GetRenterContractsOKBodyContractsItems0) UnmarshalBinary(b []byte) error {
+	var res GetRenterContractsOKBodyContractsItems0
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*o = res
+	return nil
+}
+
+/*GetRenterContractsOKBodyContractsItems0Hostpublickey Public key of the host the contract was formed with.
+swagger:model GetRenterContractsOKBodyContractsItems0Hostpublickey
+*/
+type GetRenterContractsOKBodyContractsItems0Hostpublickey struct {
+
+	// algorithm
+	// Example: ed25519
+	Algorithm string `json:"algorithm,omitempty"`
+
+	// key
+	// Example: RW50cm9weSBpc24ndCB3aGF0IGl0IHVzZWQgdG8gYmU
+	Key string `json:"key,omitempty"`
+}
+
+// Validate validates this get renter contracts o k body contracts items0 hostpublickey
+func (o *GetRenterContractsOKBodyContractsItems0Hostpublickey) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this get renter contracts o k body contracts items0 hostpublickey based on context it is used
+func (o *GetRenterContractsOKBodyContractsItems0Hostpublickey) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (o *GetRenterContractsOKBodyContractsItems0Hostpublickey) MarshalBinary() ([]byte, error) {
+	if o == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(o)
+}
+
+// UnmarshalBinary interface implementation
+func (o *GetRenterContractsOKBodyContractsItems0Hostpublickey) UnmarshalBinary(b []byte) error {
+	var res GetRenterContractsOKBodyContractsItems0Hostpublickey
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

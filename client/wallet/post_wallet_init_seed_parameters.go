@@ -13,79 +13,95 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-
-	strfmt "github.com/go-openapi/strfmt"
 )
 
-// NewPostWalletInitSeedParams creates a new PostWalletInitSeedParams object
-// with the default values initialized.
+// NewPostWalletInitSeedParams creates a new PostWalletInitSeedParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostWalletInitSeedParams() *PostWalletInitSeedParams {
-	var ()
 	return &PostWalletInitSeedParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostWalletInitSeedParamsWithTimeout creates a new PostWalletInitSeedParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostWalletInitSeedParamsWithTimeout(timeout time.Duration) *PostWalletInitSeedParams {
-	var ()
 	return &PostWalletInitSeedParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostWalletInitSeedParamsWithContext creates a new PostWalletInitSeedParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostWalletInitSeedParamsWithContext(ctx context.Context) *PostWalletInitSeedParams {
-	var ()
 	return &PostWalletInitSeedParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostWalletInitSeedParamsWithHTTPClient creates a new PostWalletInitSeedParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostWalletInitSeedParamsWithHTTPClient(client *http.Client) *PostWalletInitSeedParams {
-	var ()
 	return &PostWalletInitSeedParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostWalletInitSeedParams contains all the parameters to send to the API endpoint
-for the post wallet init seed operation typically these are written to a http.Request
+/* PostWalletInitSeedParams contains all the parameters to send to the API endpoint
+   for the post wallet init seed operation.
+
+   Typically these are written to a http.Request.
 */
 type PostWalletInitSeedParams struct {
 
-	/*Dictionary
-	  Name of the dictionary that should be used when encoding the seed. 'english' is the most common choice when picking a dictionary.
+	/* Dictionary.
 
+	   Name of the dictionary that should be used when encoding the seed. 'english' is the most common choice when picking a dictionary.
 	*/
 	Dictionary *string
-	/*Encryptionpassword
-	  Password that will be used to encrypt the wallet. All subsequent calls should use this password. If left blank, the seed that gets returned will also be the encryption password.
 
+	/* Encryptionpassword.
+
+	   Password that will be used to encrypt the wallet. All subsequent calls should use this password. If left blank, the seed that gets returned will also be the encryption password.
 	*/
 	Encryptionpassword string
-	/*Force
-	  boolean, when set to true /wallet/init will Reset the wallet if one exists instead of returning an error. This allows API callers to reinitialize a new wallet.
 
+	/* Force.
+
+	   boolean, when set to true /wallet/init will Reset the wallet if one exists instead of returning an error. This allows API callers to reinitialize a new wallet.
 	*/
 	Force bool
-	/*Seed
-	  Dictionary-encoded phrase that corresponds to the seed being used to initialize the wallet.
 
+	/* Seed.
+
+	   Dictionary-encoded phrase that corresponds to the seed being used to initialize the wallet.
 	*/
 	Seed string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post wallet init seed params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostWalletInitSeedParams) WithDefaults() *PostWalletInitSeedParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post wallet init seed params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostWalletInitSeedParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post wallet init seed params
@@ -177,22 +193,24 @@ func (o *PostWalletInitSeedParams) WriteToRequest(r runtime.ClientRequest, reg s
 
 		// query param dictionary
 		var qrDictionary string
+
 		if o.Dictionary != nil {
 			qrDictionary = *o.Dictionary
 		}
 		qDictionary := qrDictionary
 		if qDictionary != "" {
+
 			if err := r.SetQueryParam("dictionary", qDictionary); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// query param encryptionpassword
 	qrEncryptionpassword := o.Encryptionpassword
 	qEncryptionpassword := qrEncryptionpassword
 	if qEncryptionpassword != "" {
+
 		if err := r.SetQueryParam("encryptionpassword", qEncryptionpassword); err != nil {
 			return err
 		}
@@ -202,6 +220,7 @@ func (o *PostWalletInitSeedParams) WriteToRequest(r runtime.ClientRequest, reg s
 	qrForce := o.Force
 	qForce := swag.FormatBool(qrForce)
 	if qForce != "" {
+
 		if err := r.SetQueryParam("force", qForce); err != nil {
 			return err
 		}
@@ -211,6 +230,7 @@ func (o *PostWalletInitSeedParams) WriteToRequest(r runtime.ClientRequest, reg s
 	qrSeed := o.Seed
 	qSeed := qrSeed
 	if qSeed != "" {
+
 		if err := r.SetQueryParam("seed", qSeed); err != nil {
 			return err
 		}

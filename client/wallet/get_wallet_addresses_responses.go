@@ -6,15 +6,15 @@ package wallet
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // GetWalletAddressesReader is a Reader for the GetWalletAddresses structure.
@@ -48,7 +48,7 @@ func NewGetWalletAddressesOK() *GetWalletAddressesOK {
 	return &GetWalletAddressesOK{}
 }
 
-/*GetWalletAddressesOK handles this case with default header values.
+/* GetWalletAddressesOK describes a response with status code 200, with default header values.
 
 Successful Response
 */
@@ -59,7 +59,6 @@ type GetWalletAddressesOK struct {
 func (o *GetWalletAddressesOK) Error() string {
 	return fmt.Sprintf("[GET /wallet/addresses][%d] getWalletAddressesOK  %+v", 200, o.Payload)
 }
-
 func (o *GetWalletAddressesOK) GetPayload() *GetWalletAddressesOKBody {
 	return o.Payload
 }
@@ -83,7 +82,7 @@ func NewGetWalletAddressesDefault(code int) *GetWalletAddressesDefault {
 	}
 }
 
-/*GetWalletAddressesDefault handles this case with default header values.
+/* GetWalletAddressesDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -101,7 +100,6 @@ func (o *GetWalletAddressesDefault) Code() int {
 func (o *GetWalletAddressesDefault) Error() string {
 	return fmt.Sprintf("[GET /wallet/addresses][%d] GetWalletAddresses default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *GetWalletAddressesDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }
@@ -124,11 +122,17 @@ swagger:model GetWalletAddressesOKBody
 type GetWalletAddressesOKBody struct {
 
 	// Array of wallet addresses owned by the wallet.
+	// Example: {"addresses":["1234567890abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789ab","aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"]}
 	Addresses []string `json:"addresses"`
 }
 
 // Validate validates this get wallet addresses o k body
 func (o *GetWalletAddressesOKBody) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this get wallet addresses o k body based on context it is used
+func (o *GetWalletAddressesOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

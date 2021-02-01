@@ -6,15 +6,15 @@ package wallet
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // PostWalletSweepSeedReader is a Reader for the PostWalletSweepSeed structure.
@@ -48,7 +48,7 @@ func NewPostWalletSweepSeedOK() *PostWalletSweepSeedOK {
 	return &PostWalletSweepSeedOK{}
 }
 
-/*PostWalletSweepSeedOK handles this case with default header values.
+/* PostWalletSweepSeedOK describes a response with status code 200, with default header values.
 
 Successful Response
 */
@@ -59,7 +59,6 @@ type PostWalletSweepSeedOK struct {
 func (o *PostWalletSweepSeedOK) Error() string {
 	return fmt.Sprintf("[POST /wallet/sweep/seed][%d] postWalletSweepSeedOK  %+v", 200, o.Payload)
 }
-
 func (o *PostWalletSweepSeedOK) GetPayload() *PostWalletSweepSeedOKBody {
 	return o.Payload
 }
@@ -83,7 +82,7 @@ func NewPostWalletSweepSeedDefault(code int) *PostWalletSweepSeedDefault {
 	}
 }
 
-/*PostWalletSweepSeedDefault handles this case with default header values.
+/* PostWalletSweepSeedDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -101,7 +100,6 @@ func (o *PostWalletSweepSeedDefault) Code() int {
 func (o *PostWalletSweepSeedDefault) Error() string {
 	return fmt.Sprintf("[POST /wallet/sweep/seed][%d] PostWalletSweepSeed default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *PostWalletSweepSeedDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }
@@ -124,14 +122,21 @@ swagger:model PostWalletSweepSeedOKBody
 type PostWalletSweepSeedOKBody struct {
 
 	// Number of siacoins, in hastings, transferred to the wallet as a result of the sweep.
+	// Example: 123456
 	Coins string `json:"coins,omitempty"`
 
 	// Number of siafunds transferred to the wallet as a result of the sweep.
+	// Example: 1
 	Funds string `json:"funds,omitempty"`
 }
 
 // Validate validates this post wallet sweep seed o k body
 func (o *PostWalletSweepSeedOKBody) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this post wallet sweep seed o k body based on context it is used
+func (o *PostWalletSweepSeedOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

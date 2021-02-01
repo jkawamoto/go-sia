@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // PostHostStorageFoldersRemoveReader is a Reader for the PostHostStorageFoldersRemove structure.
@@ -47,7 +46,7 @@ func NewPostHostStorageFoldersRemoveNoContent() *PostHostStorageFoldersRemoveNoC
 	return &PostHostStorageFoldersRemoveNoContent{}
 }
 
-/*PostHostStorageFoldersRemoveNoContent handles this case with default header values.
+/* PostHostStorageFoldersRemoveNoContent describes a response with status code 204, with default header values.
 
 Successful Response
 */
@@ -70,7 +69,7 @@ func NewPostHostStorageFoldersRemoveDefault(code int) *PostHostStorageFoldersRem
 	}
 }
 
-/*PostHostStorageFoldersRemoveDefault handles this case with default header values.
+/* PostHostStorageFoldersRemoveDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -88,7 +87,6 @@ func (o *PostHostStorageFoldersRemoveDefault) Code() int {
 func (o *PostHostStorageFoldersRemoveDefault) Error() string {
 	return fmt.Sprintf("[POST /host/storage/folders/remove][%d] PostHostStorageFoldersRemove default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *PostHostStorageFoldersRemoveDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }

@@ -13,69 +13,83 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-
-	strfmt "github.com/go-openapi/strfmt"
 )
 
-// NewPostHostStorageFoldersResizeParams creates a new PostHostStorageFoldersResizeParams object
-// with the default values initialized.
+// NewPostHostStorageFoldersResizeParams creates a new PostHostStorageFoldersResizeParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostHostStorageFoldersResizeParams() *PostHostStorageFoldersResizeParams {
-	var ()
 	return &PostHostStorageFoldersResizeParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostHostStorageFoldersResizeParamsWithTimeout creates a new PostHostStorageFoldersResizeParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostHostStorageFoldersResizeParamsWithTimeout(timeout time.Duration) *PostHostStorageFoldersResizeParams {
-	var ()
 	return &PostHostStorageFoldersResizeParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostHostStorageFoldersResizeParamsWithContext creates a new PostHostStorageFoldersResizeParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostHostStorageFoldersResizeParamsWithContext(ctx context.Context) *PostHostStorageFoldersResizeParams {
-	var ()
 	return &PostHostStorageFoldersResizeParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostHostStorageFoldersResizeParamsWithHTTPClient creates a new PostHostStorageFoldersResizeParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostHostStorageFoldersResizeParamsWithHTTPClient(client *http.Client) *PostHostStorageFoldersResizeParams {
-	var ()
 	return &PostHostStorageFoldersResizeParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostHostStorageFoldersResizeParams contains all the parameters to send to the API endpoint
-for the post host storage folders resize operation typically these are written to a http.Request
+/* PostHostStorageFoldersResizeParams contains all the parameters to send to the API endpoint
+   for the post host storage folders resize operation.
+
+   Typically these are written to a http.Request.
 */
 type PostHostStorageFoldersResizeParams struct {
 
-	/*Newsize
-	  Desired new size of the storage folder. This will be the new capacity of the storage folder.
+	/* Newsize.
 
+	   Desired new size of the storage folder. This will be the new capacity of the storage folder.
 	*/
 	Newsize int64
-	/*Path
-	  Local path on disk to the storage folder to resize.
 
+	/* Path.
+
+	   Local path on disk to the storage folder to resize.
 	*/
 	Path string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post host storage folders resize params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostHostStorageFoldersResizeParams) WithDefaults() *PostHostStorageFoldersResizeParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post host storage folders resize params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostHostStorageFoldersResizeParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post host storage folders resize params
@@ -145,6 +159,7 @@ func (o *PostHostStorageFoldersResizeParams) WriteToRequest(r runtime.ClientRequ
 	qrNewsize := o.Newsize
 	qNewsize := swag.FormatInt64(qrNewsize)
 	if qNewsize != "" {
+
 		if err := r.SetQueryParam("newsize", qNewsize); err != nil {
 			return err
 		}
@@ -154,6 +169,7 @@ func (o *PostHostStorageFoldersResizeParams) WriteToRequest(r runtime.ClientRequ
 	qrPath := o.Path
 	qPath := qrPath
 	if qPath != "" {
+
 		if err := r.SetQueryParam("path", qPath); err != nil {
 			return err
 		}

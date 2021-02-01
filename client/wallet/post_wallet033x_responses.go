@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // PostWallet033xReader is a Reader for the PostWallet033x structure.
@@ -47,7 +46,7 @@ func NewPostWallet033xNoContent() *PostWallet033xNoContent {
 	return &PostWallet033xNoContent{}
 }
 
-/*PostWallet033xNoContent handles this case with default header values.
+/* PostWallet033xNoContent describes a response with status code 204, with default header values.
 
 Successful Response
 */
@@ -70,7 +69,7 @@ func NewPostWallet033xDefault(code int) *PostWallet033xDefault {
 	}
 }
 
-/*PostWallet033xDefault handles this case with default header values.
+/* PostWallet033xDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -88,7 +87,6 @@ func (o *PostWallet033xDefault) Code() int {
 func (o *PostWallet033xDefault) Error() string {
 	return fmt.Sprintf("[POST /wallet/033x][%d] PostWallet033x default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *PostWallet033xDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }

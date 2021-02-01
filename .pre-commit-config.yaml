@@ -1,5 +1,19 @@
-- repo: git://github.com/dnephin/pre-commit-golang
-  sha: HEAD
-  hooks:
-    - id: go-fmt
-    - id: go-unit-tests
+repos:
+  - repo: https://github.com/tekwizely/pre-commit-golang
+    rev: v0.8.0
+    hooks:
+      - id: go-test-mod
+      - id: go-imports
+        args:
+          - -w
+          - -local
+          - github.com/jkawamoto
+      - id: golangci-lint-mod
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.5.0
+    hooks:
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: end-of-file-fixer
+        exclude: ^\.bumpversion\.cfg$
+      - id: trailing-whitespace

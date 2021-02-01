@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // PostRenterBackupsCreateReader is a Reader for the PostRenterBackupsCreate structure.
@@ -47,7 +46,7 @@ func NewPostRenterBackupsCreateNoContent() *PostRenterBackupsCreateNoContent {
 	return &PostRenterBackupsCreateNoContent{}
 }
 
-/*PostRenterBackupsCreateNoContent handles this case with default header values.
+/* PostRenterBackupsCreateNoContent describes a response with status code 204, with default header values.
 
 Successful Response
 */
@@ -70,7 +69,7 @@ func NewPostRenterBackupsCreateDefault(code int) *PostRenterBackupsCreateDefault
 	}
 }
 
-/*PostRenterBackupsCreateDefault handles this case with default header values.
+/* PostRenterBackupsCreateDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -88,7 +87,6 @@ func (o *PostRenterBackupsCreateDefault) Code() int {
 func (o *PostRenterBackupsCreateDefault) Error() string {
 	return fmt.Sprintf("[POST /renter/backups/create][%d] PostRenterBackupsCreate default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *PostRenterBackupsCreateDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }

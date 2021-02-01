@@ -6,14 +6,14 @@ package host
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-
-	strfmt "github.com/go-openapi/strfmt"
 )
 
 // GetHostReader is a Reader for the GetHost structure.
@@ -30,9 +30,8 @@ func (o *GetHostReader) ReadResponse(response runtime.ClientResponse, consumer r
 			return nil, err
 		}
 		return result, nil
-
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -41,7 +40,7 @@ func NewGetHostOK() *GetHostOK {
 	return &GetHostOK{}
 }
 
-/*GetHostOK handles this case with default header values.
+/* GetHostOK describes a response with status code 200, with default header values.
 
 Successful Response
 */
@@ -52,7 +51,6 @@ type GetHostOK struct {
 func (o *GetHostOK) Error() string {
 	return fmt.Sprintf("[GET /host][%d] getHostOK  %+v", 200, o.Payload)
 }
-
 func (o *GetHostOK) GetPayload() *GetHostOKBody {
 	return o.Payload
 }
@@ -78,6 +76,7 @@ type GetHostOKBody struct {
 	// or "not connectable", and indicates if the host can connect to
 	// itself on its configured NetAddress.
 	//
+	// Example: checking
 	Connectabilitystatus string `json:"connectabilitystatus,omitempty"`
 
 	// externalsettings
@@ -95,6 +94,7 @@ type GetHostOKBody struct {
 	// workingstatus is one of "checking", "working", or "not working"
 	// and indicates if the host is being actively used by renters.
 	//
+	// Example: checking
 	Workingstatus string `json:"workingstatus,omitempty"`
 }
 
@@ -125,7 +125,6 @@ func (o *GetHostOKBody) Validate(formats strfmt.Registry) error {
 }
 
 func (o *GetHostOKBody) validateExternalsettings(formats strfmt.Registry) error {
-
 	if swag.IsZero(o.Externalsettings) { // not required
 		return nil
 	}
@@ -143,7 +142,6 @@ func (o *GetHostOKBody) validateExternalsettings(formats strfmt.Registry) error 
 }
 
 func (o *GetHostOKBody) validateFinancialmetrics(formats strfmt.Registry) error {
-
 	if swag.IsZero(o.Financialmetrics) { // not required
 		return nil
 	}
@@ -161,7 +159,6 @@ func (o *GetHostOKBody) validateFinancialmetrics(formats strfmt.Registry) error 
 }
 
 func (o *GetHostOKBody) validateInternalsettings(formats strfmt.Registry) error {
-
 	if swag.IsZero(o.Internalsettings) { // not required
 		return nil
 	}
@@ -179,13 +176,94 @@ func (o *GetHostOKBody) validateInternalsettings(formats strfmt.Registry) error 
 }
 
 func (o *GetHostOKBody) validateNetworkmetrics(formats strfmt.Registry) error {
-
 	if swag.IsZero(o.Networkmetrics) { // not required
 		return nil
 	}
 
 	if o.Networkmetrics != nil {
 		if err := o.Networkmetrics.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("getHostOK" + "." + "networkmetrics")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this get host o k body based on the context it is used
+func (o *GetHostOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.contextValidateExternalsettings(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.contextValidateFinancialmetrics(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.contextValidateInternalsettings(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.contextValidateNetworkmetrics(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *GetHostOKBody) contextValidateExternalsettings(ctx context.Context, formats strfmt.Registry) error {
+
+	if o.Externalsettings != nil {
+		if err := o.Externalsettings.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("getHostOK" + "." + "externalsettings")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (o *GetHostOKBody) contextValidateFinancialmetrics(ctx context.Context, formats strfmt.Registry) error {
+
+	if o.Financialmetrics != nil {
+		if err := o.Financialmetrics.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("getHostOK" + "." + "financialmetrics")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (o *GetHostOKBody) contextValidateInternalsettings(ctx context.Context, formats strfmt.Registry) error {
+
+	if o.Internalsettings != nil {
+		if err := o.Internalsettings.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("getHostOK" + "." + "internalsettings")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (o *GetHostOKBody) contextValidateNetworkmetrics(ctx context.Context, formats strfmt.Registry) error {
+
+	if o.Networkmetrics != nil {
+		if err := o.Networkmetrics.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("getHostOK" + "." + "networkmetrics")
 			}
@@ -223,6 +301,7 @@ type GetHostOKBodyExternalsettings struct {
 	Acceptingcontracts bool `json:"acceptingcontracts,omitempty"`
 
 	// The maximum amount of money that the host will put up as collateral for storage that is contracted by the renter.
+	// Example: 57870370370
 	Collateral string `json:"collateral,omitempty"`
 
 	// The price that a renter has to pay to create a contract with the
@@ -230,12 +309,15 @@ type GetHostOKBodyExternalsettings struct {
 	// for the file contract revision and the storage proof that the host
 	// will be submitting to the blockchain.
 	//
+	// Example: 3e+25
 	Contractprice string `json:"contractprice,omitempty"`
 
 	// The price that a renter has to pay when downloading data from the host.
+	// Example: 250000000000000
 	Downloadbandwidthprice string `json:"downloadbandwidthprice,omitempty"`
 
 	// The maximum amount of collateral that the host will put into a single file contract.
+	// Example: 1e+29
 	Maxcollateral string `json:"maxcollateral,omitempty"`
 
 	// The maximum size of a single download request from a renter. Each
@@ -244,6 +326,7 @@ type GetHostOKBodyExternalsettings struct {
 	// financial risk for the host - the renter can get a free batch when
 	// downloading by refusing to provide a signature.
 	//
+	// Example: 17825792
 	Maxdownloadbatchsize int64 `json:"maxdownloadbatchsize,omitempty"`
 
 	// The maximum duration that a host will allow for a file contract. The
@@ -252,6 +335,7 @@ type GetHostOKBodyExternalsettings struct {
 	// duration is complete. The storage proof window of an incoming file
 	// contract must end before the current height + maxduration.
 	//
+	// Example: 25920
 	Maxduration int64 `json:"maxduration,omitempty"`
 
 	// The maximum size of a single batch of file contract revisions. The
@@ -261,12 +345,15 @@ type GetHostOKBodyExternalsettings struct {
 	// batch sizes allow for higher throughput as there is significant
 	// communication overhead associated with performing a batch upload.
 	//
+	// Example: 17825792
 	Maxrevisebatchsize int64 `json:"maxrevisebatchsize,omitempty"`
 
 	// The IP address or hostname (including port) that the host should be contacted at.
+	// Example: 123.456.789.0:9982
 	Netaddress string `json:"netaddress,omitempty"`
 
 	// The amount of unused storage capacity on the host in bytes. It should be noted that the host can lie.
+	// Example: 35000000000
 	Remainingstorage int64 `json:"remainingstorage,omitempty"`
 
 	// The revision number indicates to the renter what iteration of
@@ -275,32 +362,44 @@ type GetHostOKBodyExternalsettings struct {
 	// host, the renter can expect the one with the higher revision number
 	// to be more recent.
 	//
+	// Example: 0
 	Revisionnumber int64 `json:"revisionnumber,omitempty"`
 
 	// The price that a renter has to pay to store files with the host.
+	// Example: 231481481481
 	Storageprice string `json:"storageprice,omitempty"`
 
 	// The total amount of storage capacity on the host. It should be noted that the host can lie.
+	// Example: 35000000000
 	Totalstorage int64 `json:"totalstorage,omitempty"`
 
 	// The unlock hash is the address at which the host can be paid when forming file contracts.
+	// Example: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789ab
 	Unlockhash string `json:"unlockhash,omitempty"`
 
 	// The price that a renter has to pay when uploading data to the host.
+	// Example: 100000000000000
 	Uploadbandwidthprice string `json:"uploadbandwidthprice,omitempty"`
 
 	// The version of external settings being used. This field helps coordinate updates while preserving compatibility with older nodes.
+	// Example: 1.0.0
 	Version string `json:"version,omitempty"`
 
 	// The storage proof window is the number of blocks that the host has
 	// to get a storage proof onto the blockchain. The window size is the
 	// minimum size of window that the host will accept in a file contract.
 	//
+	// Example: 144
 	Windowsize int64 `json:"windowsize,omitempty"`
 }
 
 // Validate validates this get host o k body externalsettings
 func (o *GetHostOKBodyExternalsettings) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this get host o k body externalsettings based on context it is used
+func (o *GetHostOKBodyExternalsettings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 
@@ -332,15 +431,18 @@ type GetHostOKBodyFinancialmetrics struct {
 	// revision and a storage proof for every file contract that gets created,
 	// and the renter pays for the miner fees on these objects.
 	//
+	// Example: 123
 	Contractcompensation string `json:"contractcompensation,omitempty"`
 
 	// Number of open file contracts.
+	// Example: 2
 	Contractcount int64 `json:"contractcount,omitempty"`
 
 	// The amount of money that the host has made from renters downloading
 	// their files. This money has been locked in by successsful storage
 	// proofs.
 	//
+	// Example: 123
 	Downloadbandwidthrevenue string `json:"downloadbandwidthrevenue,omitempty"`
 
 	// The amount of storage collateral which the host has tied up in file
@@ -350,15 +452,18 @@ type GetHostOKBodyFinancialmetrics struct {
 	// not at risk, it is merely set aside so that it can be put at risk
 	// later.
 	//
+	// Example: 123
 	Lockedstoragecollateral string `json:"lockedstoragecollateral,omitempty"`
 
 	// The amount of revenue, including storage revenue and bandwidth
 	// revenue, that has been lost due to failed file contracts and
 	// failed storage proofs.
 	//
+	// Example: 123
 	Lostrevenue string `json:"lostrevenue,omitempty"`
 
 	// The amount of collateral that was put up to protect data which has been lost due to failed file contracts and missed storage proofs.
+	// Example: 123
 	Loststoragecollateral string `json:"loststoragecollateral,omitempty"`
 
 	// The amount of money that renters have given to the host to pay for
@@ -366,6 +471,7 @@ type GetHostOKBodyFinancialmetrics struct {
 	// compensation becomes compensation after the storage proof is
 	// submitted.
 	//
+	// Example: 123
 	Potentialcontractcompensation string `json:"potentialcontractcompensation,omitempty"`
 
 	// The amount of money that the host stands to make from renters that
@@ -373,15 +479,18 @@ type GetHostOKBodyFinancialmetrics struct {
 	// the host successfully submits storage proofs for the related file
 	// contracts.
 	//
+	// Example: 123
 	Potentialdownloadbandwidthrevenue string `json:"potentialdownloadbandwidthrevenue,omitempty"`
 
 	// The amount of revenue that the host stands to earn if all storage proofs are submitted corectly and in time.
+	// Example: 123
 	Potentialstoragerevenue string `json:"potentialstoragerevenue,omitempty"`
 
 	// The amount of money that the host stands to make from renters that
 	// uploaded files. The host will only realize this revenue if the host
 	// successfully submits storage proofs for the related file contracts.
 	//
+	// Example: 123
 	Potentialuploadbandwidthrevenue string `json:"potentialuploadbandwidthrevenue,omitempty"`
 
 	// The amount of money that the host has risked on file contracts. If
@@ -390,26 +499,35 @@ type GetHostOKBodyFinancialmetrics struct {
 	// storage collateral gets returned, but risked storage collateral
 	// does not get returned.
 	//
+	// Example: 123
 	Riskedstoragecollateral string `json:"riskedstoragecollateral,omitempty"`
 
 	// The amount of money that the host has earned from storing data. This money has been locked down by successful storage proofs.
+	// Example: 123
 	Storagerevenue string `json:"storagerevenue,omitempty"`
 
 	// The amount of money that the host has spent on transaction fees when
 	// submitting host announcements, file contract revisions, and storage
 	// proofs.
 	//
+	// Example: 123
 	Transactionfeeexpenses string `json:"transactionfeeexpenses,omitempty"`
 
 	// The amount of money that the host has made from renters uploading
 	// their files. This money has been locked in by successful storage
 	// proofs.
 	//
+	// Example: 123
 	Uploadbandwidthrevenue string `json:"uploadbandwidthrevenue,omitempty"`
 }
 
 // Validate validates this get host o k body financialmetrics
 func (o *GetHostOKBodyFinancialmetrics) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this get host o k body financialmetrics based on context it is used
+func (o *GetHostOKBodyFinancialmetrics) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 
@@ -440,15 +558,19 @@ type GetHostOKBodyInternalsettings struct {
 	// terms are reasonable. When set to false, the host will not accept new
 	// file contracts at all.
 	//
+	// Example: true
 	Acceptingcontracts bool `json:"acceptingcontracts,omitempty"`
 
 	// The maximum amount of money that the host will put up as collateral per byte per block of storage that is contracted by the renter.
+	// Example: 57870370370
 	Collateral string `json:"collateral,omitempty"`
 
 	// The total amount of money that the host will allocate to collateral across all file contracts.
+	// Example: 2000000000000000000000000000000
 	Collateralbudget string `json:"collateralbudget,omitempty"`
 
 	// The maximum amount of collateral that the host will put into a single file contract.
+	// Example: 100000000000000000000000000000
 	Maxcollateral string `json:"maxcollateral,omitempty"`
 
 	// The maximum size of a single download request from a renter. Each
@@ -457,12 +579,14 @@ type GetHostOKBodyInternalsettings struct {
 	// financial risk for the host - the renter can get a free batch when
 	// downloading by refusing to provide a signature.
 	//
+	// Example: 17825792
 	Maxdownloadbatchsize int64 `json:"maxdownloadbatchsize,omitempty"`
 
 	// The maximum duration of a file contract that the host will accept.
 	// The storage proof window must end before the current height +
 	// maxduration.
 	//
+	// Example: 25920
 	Maxduration int64 `json:"maxduration,omitempty"`
 
 	// The maximum size of a single batch of file contract revisions. The
@@ -472,6 +596,7 @@ type GetHostOKBodyInternalsettings struct {
 	// batch sizes allow for higher throughput as there is significant
 	// communication overhead associated with performing a batch upload.
 	//
+	// Example: 17825792
 	Maxrevisebatchsize int64 `json:"maxrevisebatchsize,omitempty"`
 
 	// The minimum price that the host will demand from a renter when
@@ -481,24 +606,28 @@ type GetHostOKBodyInternalsettings struct {
 	// minimum because the host may automatically adjust the price upwards
 	// in times of high demand.
 	//
+	// Example: 30000000000000000000000000
 	Mincontractprice string `json:"mincontractprice,omitempty"`
 
 	// The minimum price that the host will demand from a renter when the
 	// renter is downloading data. If the host is saturated, the host may
 	// increase the price from the minimum.
 	//
+	// Example: 250000000000000
 	Mindownloadbandwidthprice string `json:"mindownloadbandwidthprice,omitempty"`
 
 	// The minimum price that the host will demand when storing data for
 	// extended periods of time. If the host is low on space, the price of
 	// storage may be set higher than the minimum.
 	//
+	// Example: 231481481481
 	Minstorageprice string `json:"minstorageprice,omitempty"`
 
 	// The minimum price that the host will demand from a renter when the
 	// renter is uploading data. If the host is saturated, the host may
 	// increase the price from the minimum.
 	//
+	// Example: 100000000000000
 	Minuploadbandwidthprice string `json:"minuploadbandwidthprice,omitempty"`
 
 	// The IP address or hostname (including port) that the host should be
@@ -506,17 +635,24 @@ type GetHostOKBodyInternalsettings struct {
 	// its ip address and use that. If given, the host will use the address
 	// given.
 	//
+	// Example: 123.456.789.0:9982
 	Netaddress string `json:"netaddress,omitempty"`
 
 	// The storage proof window is the number of blocks that the host has
 	// to get a storage proof onto the blockchain. The window size is the
 	// minimum size of window that the host will accept in a file contract.
 	//
+	// Example: 144
 	Windowsize int64 `json:"windowsize,omitempty"`
 }
 
 // Validate validates this get host o k body internalsettings
 func (o *GetHostOKBodyInternalsettings) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this get host o k body internalsettings based on context it is used
+func (o *GetHostOKBodyInternalsettings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 
@@ -544,6 +680,7 @@ swagger:model GetHostOKBodyNetworkmetrics
 type GetHostOKBodyNetworkmetrics struct {
 
 	// The number of times that a renter has attempted to download something from the host.
+	// Example: 0
 	Downloadcalls int64 `json:"downloadcalls,omitempty"`
 
 	// The number of calls that have resulted in errors. A small number of
@@ -551,15 +688,19 @@ type GetHostOKBodyNetworkmetrics struct {
 	// buggy software or malicious network activity. Usually buggy
 	// software.
 	//
+	// Example: 1
 	Errorcalls int64 `json:"errorcalls,omitempty"`
 
 	// The number of times that a renter has tried to form a contract with the host.
+	// Example: 2
 	Formcontractcalls int64 `json:"formcontractcalls,omitempty"`
 
 	// The number of times that a renter has tried to renew a contract with the host.
+	// Example: 3
 	Renewcalls int64 `json:"renewcalls,omitempty"`
 
 	// The number of times that the renter has tried to revise a contract with the host.
+	// Example: 4
 	Revisecalls int64 `json:"revisecalls,omitempty"`
 
 	// The number of times that a renter has queried the host for the
@@ -567,14 +708,21 @@ type GetHostOKBodyNetworkmetrics struct {
 	// is a price that can adjust every few minutes. This value is usually
 	// very high compared to the others.
 	//
+	// Example: 5
 	Settingscalls int64 `json:"settingscalls,omitempty"`
 
 	// The number of times that a renter has attempted to use an unrecognized call. Larger numbers typically indicate buggy software.
+	// Example: 6
 	Unrecognizedcalls int64 `json:"unrecognizedcalls,omitempty"`
 }
 
 // Validate validates this get host o k body networkmetrics
 func (o *GetHostOKBodyNetworkmetrics) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this get host o k body networkmetrics based on context it is used
+func (o *GetHostOKBodyNetworkmetrics) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // PostHostStorageFoldersAddReader is a Reader for the PostHostStorageFoldersAdd structure.
@@ -47,7 +46,7 @@ func NewPostHostStorageFoldersAddNoContent() *PostHostStorageFoldersAddNoContent
 	return &PostHostStorageFoldersAddNoContent{}
 }
 
-/*PostHostStorageFoldersAddNoContent handles this case with default header values.
+/* PostHostStorageFoldersAddNoContent describes a response with status code 204, with default header values.
 
 Successful Response
 */
@@ -70,7 +69,7 @@ func NewPostHostStorageFoldersAddDefault(code int) *PostHostStorageFoldersAddDef
 	}
 }
 
-/*PostHostStorageFoldersAddDefault handles this case with default header values.
+/* PostHostStorageFoldersAddDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -88,7 +87,6 @@ func (o *PostHostStorageFoldersAddDefault) Code() int {
 func (o *PostHostStorageFoldersAddDefault) Error() string {
 	return fmt.Sprintf("[POST /host/storage/folders/add][%d] PostHostStorageFoldersAdd default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *PostHostStorageFoldersAddDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }

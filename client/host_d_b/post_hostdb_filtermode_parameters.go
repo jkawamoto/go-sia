@@ -13,60 +13,73 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
-// NewPostHostdbFiltermodeParams creates a new PostHostdbFiltermodeParams object
-// with the default values initialized.
+// NewPostHostdbFiltermodeParams creates a new PostHostdbFiltermodeParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostHostdbFiltermodeParams() *PostHostdbFiltermodeParams {
-	var ()
 	return &PostHostdbFiltermodeParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostHostdbFiltermodeParamsWithTimeout creates a new PostHostdbFiltermodeParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostHostdbFiltermodeParamsWithTimeout(timeout time.Duration) *PostHostdbFiltermodeParams {
-	var ()
 	return &PostHostdbFiltermodeParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostHostdbFiltermodeParamsWithContext creates a new PostHostdbFiltermodeParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostHostdbFiltermodeParamsWithContext(ctx context.Context) *PostHostdbFiltermodeParams {
-	var ()
 	return &PostHostdbFiltermodeParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostHostdbFiltermodeParamsWithHTTPClient creates a new PostHostdbFiltermodeParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostHostdbFiltermodeParamsWithHTTPClient(client *http.Client) *PostHostdbFiltermodeParams {
-	var ()
 	return &PostHostdbFiltermodeParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostHostdbFiltermodeParams contains all the parameters to send to the API endpoint
-for the post hostdb filtermode operation typically these are written to a http.Request
+/* PostHostdbFiltermodeParams contains all the parameters to send to the API endpoint
+   for the post hostdb filtermode operation.
+
+   Typically these are written to a http.Request.
 */
 type PostHostdbFiltermodeParams struct {
 
-	/*Mode*/
+	// Mode.
 	Mode PostHostdbFiltermodeBody
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post hostdb filtermode params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostHostdbFiltermodeParams) WithDefaults() *PostHostdbFiltermodeParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post hostdb filtermode params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostHostdbFiltermodeParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post hostdb filtermode params
@@ -120,7 +133,6 @@ func (o *PostHostdbFiltermodeParams) WriteToRequest(r runtime.ClientRequest, reg
 		return err
 	}
 	var res []error
-
 	if err := r.SetBodyParam(o.Mode); err != nil {
 		return err
 	}

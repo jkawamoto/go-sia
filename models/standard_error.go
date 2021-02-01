@@ -6,12 +6,14 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
+	"context"
 
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // StandardError standard error
+//
 // swagger:model StandardError
 type StandardError struct {
 
@@ -21,6 +23,11 @@ type StandardError struct {
 
 // Validate validates this standard error
 func (m *StandardError) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this standard error based on context it is used
+func (m *StandardError) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

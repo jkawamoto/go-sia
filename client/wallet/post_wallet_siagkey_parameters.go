@@ -13,68 +13,82 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
-// NewPostWalletSiagkeyParams creates a new PostWalletSiagkeyParams object
-// with the default values initialized.
+// NewPostWalletSiagkeyParams creates a new PostWalletSiagkeyParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostWalletSiagkeyParams() *PostWalletSiagkeyParams {
-	var ()
 	return &PostWalletSiagkeyParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostWalletSiagkeyParamsWithTimeout creates a new PostWalletSiagkeyParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostWalletSiagkeyParamsWithTimeout(timeout time.Duration) *PostWalletSiagkeyParams {
-	var ()
 	return &PostWalletSiagkeyParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostWalletSiagkeyParamsWithContext creates a new PostWalletSiagkeyParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostWalletSiagkeyParamsWithContext(ctx context.Context) *PostWalletSiagkeyParams {
-	var ()
 	return &PostWalletSiagkeyParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostWalletSiagkeyParamsWithHTTPClient creates a new PostWalletSiagkeyParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostWalletSiagkeyParamsWithHTTPClient(client *http.Client) *PostWalletSiagkeyParams {
-	var ()
 	return &PostWalletSiagkeyParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostWalletSiagkeyParams contains all the parameters to send to the API endpoint
-for the post wallet siagkey operation typically these are written to a http.Request
+/* PostWalletSiagkeyParams contains all the parameters to send to the API endpoint
+   for the post wallet siagkey operation.
+
+   Typically these are written to a http.Request.
 */
 type PostWalletSiagkeyParams struct {
 
-	/*Encryptionpassword
-	  Key that is used to encrypt the siag key when it is imported to the wallet.
+	/* Encryptionpassword.
 
+	   Key that is used to encrypt the siag key when it is imported to the wallet.
 	*/
 	Encryptionpassword string
-	/*Keyfiles
-	  List of filepaths that point to the keyfiles that make up the siag key. There should be at least one keyfile per required signature. The filenames need to be commna separated (no spaces), which means filepaths that contain a comma are not allowed.
 
+	/* Keyfiles.
+
+	   List of filepaths that point to the keyfiles that make up the siag key. There should be at least one keyfile per required signature. The filenames need to be commna separated (no spaces), which means filepaths that contain a comma are not allowed.
 	*/
 	Keyfiles string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post wallet siagkey params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostWalletSiagkeyParams) WithDefaults() *PostWalletSiagkeyParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post wallet siagkey params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostWalletSiagkeyParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post wallet siagkey params
@@ -144,6 +158,7 @@ func (o *PostWalletSiagkeyParams) WriteToRequest(r runtime.ClientRequest, reg st
 	qrEncryptionpassword := o.Encryptionpassword
 	qEncryptionpassword := qrEncryptionpassword
 	if qEncryptionpassword != "" {
+
 		if err := r.SetQueryParam("encryptionpassword", qEncryptionpassword); err != nil {
 			return err
 		}
@@ -153,6 +168,7 @@ func (o *PostWalletSiagkeyParams) WriteToRequest(r runtime.ClientRequest, reg st
 	qrKeyfiles := o.Keyfiles
 	qKeyfiles := qrKeyfiles
 	if qKeyfiles != "" {
+
 		if err := r.SetQueryParam("keyfiles", qKeyfiles); err != nil {
 			return err
 		}

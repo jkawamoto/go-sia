@@ -13,68 +13,82 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
-// NewGetWalletTransactionsParams creates a new GetWalletTransactionsParams object
-// with the default values initialized.
+// NewGetWalletTransactionsParams creates a new GetWalletTransactionsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetWalletTransactionsParams() *GetWalletTransactionsParams {
-	var ()
 	return &GetWalletTransactionsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetWalletTransactionsParamsWithTimeout creates a new GetWalletTransactionsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetWalletTransactionsParamsWithTimeout(timeout time.Duration) *GetWalletTransactionsParams {
-	var ()
 	return &GetWalletTransactionsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetWalletTransactionsParamsWithContext creates a new GetWalletTransactionsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetWalletTransactionsParamsWithContext(ctx context.Context) *GetWalletTransactionsParams {
-	var ()
 	return &GetWalletTransactionsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetWalletTransactionsParamsWithHTTPClient creates a new GetWalletTransactionsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetWalletTransactionsParamsWithHTTPClient(client *http.Client) *GetWalletTransactionsParams {
-	var ()
 	return &GetWalletTransactionsParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetWalletTransactionsParams contains all the parameters to send to the API endpoint
-for the get wallet transactions operation typically these are written to a http.Request
+/* GetWalletTransactionsParams contains all the parameters to send to the API endpoint
+   for the get wallet transactions operation.
+
+   Typically these are written to a http.Request.
 */
 type GetWalletTransactionsParams struct {
 
-	/*Endheight
-	  Height of of the block where the transaction history should end. If 'endheight' is greater than the current height, all transactions up to and including the most recent block will be provided.
+	/* Endheight.
 
+	   Height of of the block where the transaction history should end. If 'endheight' is greater than the current height, all transactions up to and including the most recent block will be provided.
 	*/
 	Endheight *string
-	/*Startheight
-	  Height of the block where transaction history should begin.
 
+	/* Startheight.
+
+	   Height of the block where transaction history should begin.
 	*/
 	Startheight *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get wallet transactions params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetWalletTransactionsParams) WithDefaults() *GetWalletTransactionsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get wallet transactions params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetWalletTransactionsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get wallet transactions params
@@ -144,32 +158,34 @@ func (o *GetWalletTransactionsParams) WriteToRequest(r runtime.ClientRequest, re
 
 		// query param endheight
 		var qrEndheight string
+
 		if o.Endheight != nil {
 			qrEndheight = *o.Endheight
 		}
 		qEndheight := qrEndheight
 		if qEndheight != "" {
+
 			if err := r.SetQueryParam("endheight", qEndheight); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Startheight != nil {
 
 		// query param startheight
 		var qrStartheight string
+
 		if o.Startheight != nil {
 			qrStartheight = *o.Startheight
 		}
 		qStartheight := qrStartheight
 		if qStartheight != "" {
+
 			if err := r.SetQueryParam("startheight", qStartheight); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

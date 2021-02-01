@@ -13,69 +13,87 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-
-	strfmt "github.com/go-openapi/strfmt"
 )
 
-// NewPostRenterDownloadsClearParams creates a new PostRenterDownloadsClearParams object
-// with the default values initialized.
+// NewPostRenterDownloadsClearParams creates a new PostRenterDownloadsClearParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostRenterDownloadsClearParams() *PostRenterDownloadsClearParams {
-	var ()
 	return &PostRenterDownloadsClearParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostRenterDownloadsClearParamsWithTimeout creates a new PostRenterDownloadsClearParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostRenterDownloadsClearParamsWithTimeout(timeout time.Duration) *PostRenterDownloadsClearParams {
-	var ()
 	return &PostRenterDownloadsClearParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostRenterDownloadsClearParamsWithContext creates a new PostRenterDownloadsClearParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostRenterDownloadsClearParamsWithContext(ctx context.Context) *PostRenterDownloadsClearParams {
-	var ()
 	return &PostRenterDownloadsClearParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostRenterDownloadsClearParamsWithHTTPClient creates a new PostRenterDownloadsClearParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostRenterDownloadsClearParamsWithHTTPClient(client *http.Client) *PostRenterDownloadsClearParams {
-	var ()
 	return &PostRenterDownloadsClearParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostRenterDownloadsClearParams contains all the parameters to send to the API endpoint
-for the post renter downloads clear operation typically these are written to a http.Request
+/* PostRenterDownloadsClearParams contains all the parameters to send to the API endpoint
+   for the post renter downloads clear operation.
+
+   Typically these are written to a http.Request.
 */
 type PostRenterDownloadsClearParams struct {
 
-	/*After
-	  unix timestamp found in the download history
+	/* After.
 
+	   unix timestamp found in the download history
+
+	   Format: int64
 	*/
 	After *int64
-	/*Before
-	  unix timestamp found in the download history
 
+	/* Before.
+
+	   unix timestamp found in the download history
+
+	   Format: int64
 	*/
 	Before *int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post renter downloads clear params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostRenterDownloadsClearParams) WithDefaults() *PostRenterDownloadsClearParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post renter downloads clear params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostRenterDownloadsClearParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post renter downloads clear params
@@ -145,32 +163,34 @@ func (o *PostRenterDownloadsClearParams) WriteToRequest(r runtime.ClientRequest,
 
 		// query param after
 		var qrAfter int64
+
 		if o.After != nil {
 			qrAfter = *o.After
 		}
 		qAfter := swag.FormatInt64(qrAfter)
 		if qAfter != "" {
+
 			if err := r.SetQueryParam("after", qAfter); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Before != nil {
 
 		// query param before
 		var qrBefore int64
+
 		if o.Before != nil {
 			qrBefore = *o.Before
 		}
 		qBefore := swag.FormatInt64(qrBefore)
 		if qBefore != "" {
+
 			if err := r.SetQueryParam("before", qBefore); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // PostMinerHeaderReader is a Reader for the PostMinerHeader structure.
@@ -47,7 +46,7 @@ func NewPostMinerHeaderOK() *PostMinerHeaderOK {
 	return &PostMinerHeaderOK{}
 }
 
-/*PostMinerHeaderOK handles this case with default header values.
+/* PostMinerHeaderOK describes a response with status code 200, with default header values.
 
 Successful Response
 */
@@ -70,7 +69,7 @@ func NewPostMinerHeaderDefault(code int) *PostMinerHeaderDefault {
 	}
 }
 
-/*PostMinerHeaderDefault handles this case with default header values.
+/* PostMinerHeaderDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -88,7 +87,6 @@ func (o *PostMinerHeaderDefault) Code() int {
 func (o *PostMinerHeaderDefault) Error() string {
 	return fmt.Sprintf("[POST /miner/header][%d] PostMinerHeader default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *PostMinerHeaderDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }

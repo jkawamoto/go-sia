@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // PostConsensusValidateTransactionsetReader is a Reader for the PostConsensusValidateTransactionset structure.
@@ -47,7 +46,7 @@ func NewPostConsensusValidateTransactionsetNoContent() *PostConsensusValidateTra
 	return &PostConsensusValidateTransactionsetNoContent{}
 }
 
-/*PostConsensusValidateTransactionsetNoContent handles this case with default header values.
+/* PostConsensusValidateTransactionsetNoContent describes a response with status code 204, with default header values.
 
 Successful Response
 */
@@ -70,7 +69,7 @@ func NewPostConsensusValidateTransactionsetDefault(code int) *PostConsensusValid
 	}
 }
 
-/*PostConsensusValidateTransactionsetDefault handles this case with default header values.
+/* PostConsensusValidateTransactionsetDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -88,7 +87,6 @@ func (o *PostConsensusValidateTransactionsetDefault) Code() int {
 func (o *PostConsensusValidateTransactionsetDefault) Error() string {
 	return fmt.Sprintf("[POST /consensus/validate/transactionset][%d] PostConsensusValidateTransactionset default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *PostConsensusValidateTransactionsetDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }

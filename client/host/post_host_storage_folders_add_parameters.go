@@ -13,63 +13,62 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-
-	strfmt "github.com/go-openapi/strfmt"
 )
 
-// NewPostHostStorageFoldersAddParams creates a new PostHostStorageFoldersAddParams object
-// with the default values initialized.
+// NewPostHostStorageFoldersAddParams creates a new PostHostStorageFoldersAddParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostHostStorageFoldersAddParams() *PostHostStorageFoldersAddParams {
-	var ()
 	return &PostHostStorageFoldersAddParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostHostStorageFoldersAddParamsWithTimeout creates a new PostHostStorageFoldersAddParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostHostStorageFoldersAddParamsWithTimeout(timeout time.Duration) *PostHostStorageFoldersAddParams {
-	var ()
 	return &PostHostStorageFoldersAddParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostHostStorageFoldersAddParamsWithContext creates a new PostHostStorageFoldersAddParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostHostStorageFoldersAddParamsWithContext(ctx context.Context) *PostHostStorageFoldersAddParams {
-	var ()
 	return &PostHostStorageFoldersAddParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostHostStorageFoldersAddParamsWithHTTPClient creates a new PostHostStorageFoldersAddParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostHostStorageFoldersAddParamsWithHTTPClient(client *http.Client) *PostHostStorageFoldersAddParams {
-	var ()
 	return &PostHostStorageFoldersAddParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostHostStorageFoldersAddParams contains all the parameters to send to the API endpoint
-for the post host storage folders add operation typically these are written to a http.Request
+/* PostHostStorageFoldersAddParams contains all the parameters to send to the API endpoint
+   for the post host storage folders add operation.
+
+   Typically these are written to a http.Request.
 */
 type PostHostStorageFoldersAddParams struct {
 
-	/*Path
-	  Local path on disk to the storage folder to add.
+	/* Path.
 
+	   Local path on disk to the storage folder to add.
 	*/
 	Path string
-	/*Size
-	  Initial capacity of the storage folder. This value isn't validated so it is possible to set the capacity of the storage folder greater than the capacity of the disk. Do not do this. in: query
 
+	/* Size.
+
+	   Initial capacity of the storage folder. This value isn't validated so it is possible to set the capacity of the storage folder greater than the capacity of the disk. Do not do this. in: query
 
 	*/
 	Size int64
@@ -77,6 +76,21 @@ type PostHostStorageFoldersAddParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post host storage folders add params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostHostStorageFoldersAddParams) WithDefaults() *PostHostStorageFoldersAddParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post host storage folders add params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostHostStorageFoldersAddParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post host storage folders add params
@@ -146,6 +160,7 @@ func (o *PostHostStorageFoldersAddParams) WriteToRequest(r runtime.ClientRequest
 	qrPath := o.Path
 	qPath := qrPath
 	if qPath != "" {
+
 		if err := r.SetQueryParam("path", qPath); err != nil {
 			return err
 		}
@@ -155,6 +170,7 @@ func (o *PostHostStorageFoldersAddParams) WriteToRequest(r runtime.ClientRequest
 	qrSize := o.Size
 	qSize := swag.FormatInt64(qrSize)
 	if qSize != "" {
+
 		if err := r.SetQueryParam("size", qSize); err != nil {
 			return err
 		}

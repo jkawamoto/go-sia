@@ -6,22 +6,25 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // Transaction transaction
+//
 // swagger:model Transaction
 type Transaction struct {
 
 	// Block height at which the transaction was confirmed. If the transaction is unconfirmed the height will be the max value of an unsigned 64-bit integer.
+	// Example: 50000
 	Confirmationheight int64 `json:"confirmationheight,omitempty"`
 
 	// Time, in unix time, at which a transaction was confirmed. If the transaction is unconfirmed the timestamp will be the max value of an unsigned 64-bit integer.
+	// Example: 1257894000
 	Confirmationtimestamp int64 `json:"confirmationtimestamp,omitempty"`
 
 	// Array of processed inputs detailing the inputs to the transaction.
@@ -34,6 +37,7 @@ type Transaction struct {
 	Transaction interface{} `json:"transaction,omitempty"`
 
 	// ID of the transaction from which the wallet transaction was derived.
+	// Example: 1234567890abcdef0123456789abcdef0123456789abcdef0123456789abcdef
 	Transactionid string `json:"transactionid,omitempty"`
 }
 
@@ -56,7 +60,6 @@ func (m *Transaction) Validate(formats strfmt.Registry) error {
 }
 
 func (m *Transaction) validateInputs(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Inputs) { // not required
 		return nil
 	}
@@ -81,7 +84,6 @@ func (m *Transaction) validateInputs(formats strfmt.Registry) error {
 }
 
 func (m *Transaction) validateOutputs(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Outputs) { // not required
 		return nil
 	}
@@ -93,6 +95,60 @@ func (m *Transaction) validateOutputs(formats strfmt.Registry) error {
 
 		if m.Outputs[i] != nil {
 			if err := m.Outputs[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("outputs" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this transaction based on the context it is used
+func (m *Transaction) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateInputs(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateOutputs(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *Transaction) contextValidateInputs(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Inputs); i++ {
+
+		if m.Inputs[i] != nil {
+			if err := m.Inputs[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("inputs" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *Transaction) contextValidateOutputs(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Outputs); i++ {
+
+		if m.Outputs[i] != nil {
+			if err := m.Outputs[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("outputs" + "." + strconv.Itoa(i))
 				}
@@ -124,27 +180,38 @@ func (m *Transaction) UnmarshalBinary(b []byte) error {
 }
 
 // TransactionInputsItems0 transaction inputs items0
+//
 // swagger:model TransactionInputsItems0
 type TransactionInputsItems0 struct {
 
 	// Type of fund represented by the input. Possible values are 'siacoin input' and 'siafund input'.
+	// Example: siacoin input
 	Fundtype string `json:"fundtype,omitempty"`
 
 	// The id of the output being spent.
+	// Example: 1234567890abcdef0123456789abcdef0123456789abcdef0123456789abcdef
 	Parentid string `json:"parentid,omitempty"`
 
 	// Address that is affected. For inputs (outgoing money), the related address is usually not important because the wallet arbitrarily selects which addresses will fund a transaction.
+	// Example: 1234567890abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789ab
 	Relatedaddress string `json:"relatedaddress,omitempty"`
 
 	// Amount of funds that have been moved in the input.
+	// Example: 1234
 	Value string `json:"value,omitempty"`
 
 	// true if the address is owned by the wallet.
+	// Example: false
 	Walletaddress bool `json:"walletaddress,omitempty"`
 }
 
 // Validate validates this transaction inputs items0
 func (m *TransactionInputsItems0) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this transaction inputs items0 based on context it is used
+func (m *TransactionInputsItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 
@@ -167,30 +234,42 @@ func (m *TransactionInputsItems0) UnmarshalBinary(b []byte) error {
 }
 
 // TransactionOutputsItems0 transaction outputs items0
+//
 // swagger:model TransactionOutputsItems0
 type TransactionOutputsItems0 struct {
 
 	// Type of fund is represented by the output. Possible values are 'siacoin output', 'siafund output', 'claim output', and 'miner payout'. Siacoin outputs and claim outputs both relate to siacoins. Siafund outputs relate to siafunds. Miner payouts point to siacoins that have been spent on a miner payout. Because the destination of the miner payout is determined by the block and not the transaction, the data 'maturityheight', 'walletaddress', and 'relatedaddress' are left blank.
+	// Example: siacoin output
 	Fundtype string `json:"fundtype,omitempty"`
 
 	// The id of the output that was created.
+	// Example: 1234567890abcdef0123456789abcdef0123456789abcdef0123456789abcdef
 	ID string `json:"id,omitempty"`
 
 	// Block height the output becomes available to be spent. Siacoin outputs and siafund outputs mature immediately - their maturity height will always be the confirmation height of the transaction. Claim outputs cannot be spent until they have had 144 confirmations, thus the maturity height of a claim output will always be 144 larger than the confirmation height of the transaction.
+	// Example: 50000
 	Maturityheight int64 `json:"maturityheight,omitempty"`
 
 	// Address that is affected. For outputs (incoming money), the related address field can be used to determine who has sent money to the wallet.
+	// Example: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 	Relatedaddress string `json:"relatedaddress,omitempty"`
 
 	// Amount of funds that have been moved in the output.
+	// Example: 1234
 	Value string `json:"value,omitempty"`
 
 	// true if the address is owned by the wallet.
+	// Example: false
 	Walletaddress bool `json:"walletaddress,omitempty"`
 }
 
 // Validate validates this transaction outputs items0
 func (m *TransactionOutputsItems0) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this transaction outputs items0 based on context it is used
+func (m *TransactionOutputsItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 
