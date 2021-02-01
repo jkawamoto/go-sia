@@ -6,85 +6,109 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
+	"context"
 
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // FileInfo file info
+//
 // swagger:model FileInfo
 type FileInfo struct {
 
 	// indicates the last time the siafile was accessed
+	// Example: 2019-03-09T00:53:31.122129328Z
 	// Format: date-time
 	Accesstime strfmt.DateTime `json:"accesstime,omitempty"`
 
 	// true if the file is available for download. Files may be available before they are completely uploaded.
+	// Example: true
 	Available bool `json:"available,omitempty"`
 
 	// indicates the last time the siafile metadata was updated
+	// Example: 2019-03-09T00:53:31.122129328Z
 	// Format: date-time
 	Changetime strfmt.DateTime `json:"changetime,omitempty"`
 
 	// indicates the encryption used for the siafile
+	// Example: threefish512
 	Ciphertype string `json:"ciphertype,omitempty"`
 
 	// indicates when the siafile was created
+	// Example: 2019-03-08T13:18:49.47866608Z
 	// Format: date-time
 	Createtime strfmt.DateTime `json:"createtime,omitempty"`
 
 	// Block height at which the file ceases availability.
+	// Example: 60000
 	Expiration int64 `json:"expiration,omitempty"`
 
 	// Size of the file in bytes.
+	// Example: 8192
 	Filesize int64 `json:"filesize,omitempty"`
 
 	// health is an indication of the amount of redundancy missing where 0 is full redundancy and >1 means the file is not available. The health of the siafile is the health of the worst unstuck chunk.
+	// Example: 0.19
 	Health float64 `json:"health,omitempty"`
 
 	// Path to the local file on disk.
+	// Example: /home/foo/bar.txt
 	Localpath string `json:"localpath,omitempty"`
 
 	// the maxhealth is either the health or the stuckhealth of the siafile, whichever is worst
+	// Example: 0.25
 	Maxhealth float64 `json:"maxhealth,omitempty"`
 
 	// maxhealthpercent is the maxhealth converted to be out of 100% to be more easily understood
+	// Example: 83.3334
 	Maxhealthpercent float64 `json:"maxhealthpercent,omitempty"`
 
 	// indicates the last time the siafile contents where modified
+	// Example: 2019-03-09T00:53:31.122129328Z
 	// Format: date-time
 	Modtime strfmt.DateTime `json:"modtime,omitempty"`
 
 	// indicates the number of stuck chunks in a file. A chunk is stuck if it cannot reach full redundancy
+	// Example: 2
 	Numstuckchunks int64 `json:"numstuckchunks,omitempty"`
 
 	// indicates if the source file is found on disk
+	// Example: true
 	Ondisk bool `json:"ondisk,omitempty"`
 
 	// indicates if the siafile is recoverable
+	// Example: true
 	Recoverable bool `json:"recoverable,omitempty"`
 
 	// Average redundancy of the file on the network. Redundancy is calculated by dividing the amount of data uploaded in the file's open contracts by the size of the file. Redundancy does not necessarily correspond to availability. Specifically, a redundancy >= 1 does not indicate the file is available as there could be a chunk of the file with 0 redundancy.
+	// Example: 5
 	Redundancy float64 `json:"redundancy,omitempty"`
 
 	// true if the file's contracts will be automatically renewed by the renter.
+	// Example: true
 	Renewing bool `json:"renewing,omitempty"`
 
 	// Path to the file in the renter on the network.
+	// Example: foo/bar.txt
 	Siapath string `json:"siapath,omitempty"`
 
 	// a file is stuck if there are any stuck chunks in the file, which means the file cannot reach full redundancy
+	// Example: true
 	Stuck bool `json:"stuck,omitempty"`
 
 	// stuckhealth is the worst health of any of the stuck chunks.
+	// Example: 0.25
 	Stuckhealth float64 `json:"stuckhealth,omitempty"`
 
 	// Total number of bytes successfully uploaded via current file contracts. This number includes padding and rendundancy, so a file with a size of 8192 bytes might be padded to 40 MiB and, with a redundancy of 5, encoded to 200 MiB for upload.
+	// Example: 209715200
 	Uploadedbytes int64 `json:"uploadedbytes,omitempty"`
 
 	// Percentage of the file uploaded, including redundancy. Uploading has completed when uploadprogress is 100. Files may be available for download before upload progress is 100.
+	// Example: 100
 	Uploadprogress float64 `json:"uploadprogress,omitempty"`
 }
 
@@ -115,7 +139,6 @@ func (m *FileInfo) Validate(formats strfmt.Registry) error {
 }
 
 func (m *FileInfo) validateAccesstime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Accesstime) { // not required
 		return nil
 	}
@@ -128,7 +151,6 @@ func (m *FileInfo) validateAccesstime(formats strfmt.Registry) error {
 }
 
 func (m *FileInfo) validateChangetime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Changetime) { // not required
 		return nil
 	}
@@ -141,7 +163,6 @@ func (m *FileInfo) validateChangetime(formats strfmt.Registry) error {
 }
 
 func (m *FileInfo) validateCreatetime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Createtime) { // not required
 		return nil
 	}
@@ -154,7 +175,6 @@ func (m *FileInfo) validateCreatetime(formats strfmt.Registry) error {
 }
 
 func (m *FileInfo) validateModtime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Modtime) { // not required
 		return nil
 	}
@@ -163,6 +183,11 @@ func (m *FileInfo) validateModtime(formats strfmt.Registry) error {
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this file info based on context it is used
+func (m *FileInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

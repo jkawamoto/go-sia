@@ -6,16 +6,16 @@ package renter
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // GetRenterReader is a Reader for the GetRenter structure.
@@ -49,7 +49,7 @@ func NewGetRenterOK() *GetRenterOK {
 	return &GetRenterOK{}
 }
 
-/*GetRenterOK handles this case with default header values.
+/* GetRenterOK describes a response with status code 200, with default header values.
 
 Successful Response
 */
@@ -60,7 +60,6 @@ type GetRenterOK struct {
 func (o *GetRenterOK) Error() string {
 	return fmt.Sprintf("[GET /renter][%d] getRenterOK  %+v", 200, o.Payload)
 }
-
 func (o *GetRenterOK) GetPayload() *GetRenterOKBody {
 	return o.Payload
 }
@@ -84,7 +83,7 @@ func NewGetRenterDefault(code int) *GetRenterDefault {
 	}
 }
 
-/*GetRenterDefault handles this case with default header values.
+/* GetRenterDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -102,7 +101,6 @@ func (o *GetRenterDefault) Code() int {
 func (o *GetRenterDefault) Error() string {
 	return fmt.Sprintf("[GET /renter][%d] GetRenter default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *GetRenterDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }
@@ -125,6 +123,7 @@ swagger:model GetRenterOKBody
 type GetRenterOKBody struct {
 
 	// Height at which the current allowance period began.
+	// Example: 200
 	Currentperiod int64 `json:"currentperiod,omitempty"`
 
 	// financialmetrics
@@ -153,7 +152,6 @@ func (o *GetRenterOKBody) Validate(formats strfmt.Registry) error {
 }
 
 func (o *GetRenterOKBody) validateFinancialmetrics(formats strfmt.Registry) error {
-
 	if swag.IsZero(o.Financialmetrics) { // not required
 		return nil
 	}
@@ -171,13 +169,58 @@ func (o *GetRenterOKBody) validateFinancialmetrics(formats strfmt.Registry) erro
 }
 
 func (o *GetRenterOKBody) validateSettings(formats strfmt.Registry) error {
-
 	if swag.IsZero(o.Settings) { // not required
 		return nil
 	}
 
 	if o.Settings != nil {
 		if err := o.Settings.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("getRenterOK" + "." + "settings")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this get renter o k body based on the context it is used
+func (o *GetRenterOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.contextValidateFinancialmetrics(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.contextValidateSettings(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *GetRenterOKBody) contextValidateFinancialmetrics(ctx context.Context, formats strfmt.Registry) error {
+
+	if o.Financialmetrics != nil {
+		if err := o.Financialmetrics.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("getRenterOK" + "." + "financialmetrics")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (o *GetRenterOKBody) contextValidateSettings(ctx context.Context, formats strfmt.Registry) error {
+
+	if o.Settings != nil {
+		if err := o.Settings.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("getRenterOK" + "." + "settings")
 			}
@@ -212,29 +255,41 @@ swagger:model GetRenterOKBodyFinancialmetrics
 type GetRenterOKBodyFinancialmetrics struct {
 
 	// Amount of money spent on contract fees, transaction fees and siafund fees. In hastings.
+	// Example: 1234
 	Contractfees string `json:"contractfees,omitempty"`
 
 	// How much money, in hastings, the Renter has spent on file contracts, including fees. (deprecated, now totalallocated)
+	// Example: 1234
 	Contractspending string `json:"contractspending,omitempty"`
 
 	// Amount of money spent on downloads.
+	// Example: 5678
 	Downloadspending string `json:"downloadspending,omitempty"`
 
 	// Amount of money spend on storage.
+	// Example: 1234
 	Storagespending string `json:"storagespending,omitempty"`
 
 	// Total amount of money that the renter has put into contracts. Includes spent money and also money that will be returned to the renter. In hastings.
+	// Example: 1234
 	Totalallocated string `json:"totalallocated,omitempty"`
 
 	// Amount of money in the allowance that has not been spent.
+	// Example: 1234
 	Unspent string `json:"unspent,omitempty"`
 
 	// Amount of money spent on uploads.
+	// Example: 5678
 	Uploadspending string `json:"uploadspending,omitempty"`
 }
 
 // Validate validates this get renter o k body financialmetrics
 func (o *GetRenterOKBodyFinancialmetrics) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this get renter o k body financialmetrics based on context it is used
+func (o *GetRenterOKBodyFinancialmetrics) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 
@@ -265,12 +320,15 @@ type GetRenterOKBodySettings struct {
 	Allowance *GetRenterOKBodySettingsAllowance `json:"allowance,omitempty"`
 
 	// bytes per second. MaxDownloadSpeed by defaul is unlimited but can be set by the user to manage bandwidth
+	// Example: 1234
 	Maxdownloadspeed int64 `json:"maxdownloadspeed,omitempty"`
 
 	// bytes per second. MaxUploadSpeed by defaul is unlimited but can be set by the user to manage bandwidth
+	// Example: 1234
 	Maxuploadspeed int64 `json:"maxuploadspeed,omitempty"`
 
 	// The StreamCacheSize is the number of data chunks that will be cached during streaming
+	// Example: 4
 	Streamcachesize int64 `json:"streamcachesize,omitempty"`
 }
 
@@ -289,13 +347,40 @@ func (o *GetRenterOKBodySettings) Validate(formats strfmt.Registry) error {
 }
 
 func (o *GetRenterOKBodySettings) validateAllowance(formats strfmt.Registry) error {
-
 	if swag.IsZero(o.Allowance) { // not required
 		return nil
 	}
 
 	if o.Allowance != nil {
 		if err := o.Allowance.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("getRenterOK" + "." + "settings" + "." + "allowance")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this get renter o k body settings based on the context it is used
+func (o *GetRenterOKBodySettings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.contextValidateAllowance(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *GetRenterOKBodySettings) contextValidateAllowance(ctx context.Context, formats strfmt.Registry) error {
+
+	if o.Allowance != nil {
+		if err := o.Allowance.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("getRenterOK" + "." + "settings" + "." + "allowance")
 			}
@@ -330,20 +415,29 @@ swagger:model GetRenterOKBodySettingsAllowance
 type GetRenterOKBodySettingsAllowance struct {
 
 	// Amount of money allocated for contracts. Funds are spent on both storage and bandwidth.
+	// Example: 1234
 	Funds string `json:"funds,omitempty"`
 
 	// Number of hosts that contracts will be formed with.
+	// Example: 24
 	Hosts int64 `json:"hosts,omitempty"`
 
 	// Duration of contracts formed, in number of blocks.
+	// Example: 6048
 	Period int64 `json:"period,omitempty"`
 
 	// If the current blockheight + the renew window >= the height the contract is scheduled to end, the contract is renewed automatically. Is always nonzero.
+	// Example: 3024
 	Renewwindow int64 `json:"renewwindow,omitempty"`
 }
 
 // Validate validates this get renter o k body settings allowance
 func (o *GetRenterOKBodySettingsAllowance) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this get renter o k body settings allowance based on context it is used
+func (o *GetRenterOKBodySettingsAllowance) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // PostRenterDirSiapathReader is a Reader for the PostRenterDirSiapath structure.
@@ -47,7 +46,7 @@ func NewPostRenterDirSiapathNoContent() *PostRenterDirSiapathNoContent {
 	return &PostRenterDirSiapathNoContent{}
 }
 
-/*PostRenterDirSiapathNoContent handles this case with default header values.
+/* PostRenterDirSiapathNoContent describes a response with status code 204, with default header values.
 
 Successful Response
 */
@@ -70,7 +69,7 @@ func NewPostRenterDirSiapathDefault(code int) *PostRenterDirSiapathDefault {
 	}
 }
 
-/*PostRenterDirSiapathDefault handles this case with default header values.
+/* PostRenterDirSiapathDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -88,7 +87,6 @@ func (o *PostRenterDirSiapathDefault) Code() int {
 func (o *PostRenterDirSiapathDefault) Error() string {
 	return fmt.Sprintf("[POST /renter/dir/{siapath}][%d] PostRenterDirSiapath default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *PostRenterDirSiapathDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }

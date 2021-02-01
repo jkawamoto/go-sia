@@ -6,15 +6,15 @@ package wallet
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // PostWalletSiacoinsReader is a Reader for the PostWalletSiacoins structure.
@@ -48,7 +48,7 @@ func NewPostWalletSiacoinsOK() *PostWalletSiacoinsOK {
 	return &PostWalletSiacoinsOK{}
 }
 
-/*PostWalletSiacoinsOK handles this case with default header values.
+/* PostWalletSiacoinsOK describes a response with status code 200, with default header values.
 
 Successful Response
 */
@@ -59,7 +59,6 @@ type PostWalletSiacoinsOK struct {
 func (o *PostWalletSiacoinsOK) Error() string {
 	return fmt.Sprintf("[POST /wallet/siacoins][%d] postWalletSiacoinsOK  %+v", 200, o.Payload)
 }
-
 func (o *PostWalletSiacoinsOK) GetPayload() *PostWalletSiacoinsOKBody {
 	return o.Payload
 }
@@ -83,7 +82,7 @@ func NewPostWalletSiacoinsDefault(code int) *PostWalletSiacoinsDefault {
 	}
 }
 
-/*PostWalletSiacoinsDefault handles this case with default header values.
+/* PostWalletSiacoinsDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -101,7 +100,6 @@ func (o *PostWalletSiacoinsDefault) Code() int {
 func (o *PostWalletSiacoinsDefault) Error() string {
 	return fmt.Sprintf("[POST /wallet/siacoins][%d] PostWalletSiacoins default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *PostWalletSiacoinsDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }
@@ -124,11 +122,17 @@ swagger:model PostWalletSiacoinsOKBody
 type PostWalletSiacoinsOKBody struct {
 
 	// Array of IDs of the transactions that were created when sending the coins. The last transaction contains the output headed to the 'destination'. Transaction IDs are 64 character long hex strings.
+	// Example: ["1234567890abcdef0123456789abcdef0123456789abcdef0123456789abcdef","aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"]
 	Transactionids []string `json:"transactionids"`
 }
 
 // Validate validates this post wallet siacoins o k body
 func (o *PostWalletSiacoinsOKBody) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this post wallet siacoins o k body based on context it is used
+func (o *PostWalletSiacoinsOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

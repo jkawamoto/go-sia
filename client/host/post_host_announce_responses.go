@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // PostHostAnnounceReader is a Reader for the PostHostAnnounce structure.
@@ -47,7 +46,7 @@ func NewPostHostAnnounceNoContent() *PostHostAnnounceNoContent {
 	return &PostHostAnnounceNoContent{}
 }
 
-/*PostHostAnnounceNoContent handles this case with default header values.
+/* PostHostAnnounceNoContent describes a response with status code 204, with default header values.
 
 Successful Response
 */
@@ -70,7 +69,7 @@ func NewPostHostAnnounceDefault(code int) *PostHostAnnounceDefault {
 	}
 }
 
-/*PostHostAnnounceDefault handles this case with default header values.
+/* PostHostAnnounceDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -88,7 +87,6 @@ func (o *PostHostAnnounceDefault) Code() int {
 func (o *PostHostAnnounceDefault) Error() string {
 	return fmt.Sprintf("[POST /host/announce][%d] PostHostAnnounce default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *PostHostAnnounceDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }

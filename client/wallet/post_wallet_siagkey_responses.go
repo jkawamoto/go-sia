@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // PostWalletSiagkeyReader is a Reader for the PostWalletSiagkey structure.
@@ -47,7 +46,7 @@ func NewPostWalletSiagkeyNoContent() *PostWalletSiagkeyNoContent {
 	return &PostWalletSiagkeyNoContent{}
 }
 
-/*PostWalletSiagkeyNoContent handles this case with default header values.
+/* PostWalletSiagkeyNoContent describes a response with status code 204, with default header values.
 
 Successful Response
 */
@@ -70,7 +69,7 @@ func NewPostWalletSiagkeyDefault(code int) *PostWalletSiagkeyDefault {
 	}
 }
 
-/*PostWalletSiagkeyDefault handles this case with default header values.
+/* PostWalletSiagkeyDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -88,7 +87,6 @@ func (o *PostWalletSiagkeyDefault) Code() int {
 func (o *PostWalletSiagkeyDefault) Error() string {
 	return fmt.Sprintf("[POST /wallet/siagkey][%d] PostWalletSiagkey default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *PostWalletSiagkeyDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }

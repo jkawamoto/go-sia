@@ -13,63 +13,76 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
-// NewGetWalletTransactionsAddrParams creates a new GetWalletTransactionsAddrParams object
-// with the default values initialized.
+// NewGetWalletTransactionsAddrParams creates a new GetWalletTransactionsAddrParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetWalletTransactionsAddrParams() *GetWalletTransactionsAddrParams {
-	var ()
 	return &GetWalletTransactionsAddrParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetWalletTransactionsAddrParamsWithTimeout creates a new GetWalletTransactionsAddrParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetWalletTransactionsAddrParamsWithTimeout(timeout time.Duration) *GetWalletTransactionsAddrParams {
-	var ()
 	return &GetWalletTransactionsAddrParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetWalletTransactionsAddrParamsWithContext creates a new GetWalletTransactionsAddrParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetWalletTransactionsAddrParamsWithContext(ctx context.Context) *GetWalletTransactionsAddrParams {
-	var ()
 	return &GetWalletTransactionsAddrParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetWalletTransactionsAddrParamsWithHTTPClient creates a new GetWalletTransactionsAddrParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetWalletTransactionsAddrParamsWithHTTPClient(client *http.Client) *GetWalletTransactionsAddrParams {
-	var ()
 	return &GetWalletTransactionsAddrParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetWalletTransactionsAddrParams contains all the parameters to send to the API endpoint
-for the get wallet transactions addr operation typically these are written to a http.Request
+/* GetWalletTransactionsAddrParams contains all the parameters to send to the API endpoint
+   for the get wallet transactions addr operation.
+
+   Typically these are written to a http.Request.
 */
 type GetWalletTransactionsAddrParams struct {
 
-	/*Addr
-	  Unlock hash (i.e. wallet address) whose transactions are being requested.
+	/* Addr.
 
+	   Unlock hash (i.e. wallet address) whose transactions are being requested.
 	*/
 	Addr string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get wallet transactions addr params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetWalletTransactionsAddrParams) WithDefaults() *GetWalletTransactionsAddrParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get wallet transactions addr params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetWalletTransactionsAddrParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get wallet transactions addr params

@@ -13,73 +13,88 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
-// NewPostWalletSeedParams creates a new PostWalletSeedParams object
-// with the default values initialized.
+// NewPostWalletSeedParams creates a new PostWalletSeedParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostWalletSeedParams() *PostWalletSeedParams {
-	var ()
 	return &PostWalletSeedParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostWalletSeedParamsWithTimeout creates a new PostWalletSeedParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostWalletSeedParamsWithTimeout(timeout time.Duration) *PostWalletSeedParams {
-	var ()
 	return &PostWalletSeedParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostWalletSeedParamsWithContext creates a new PostWalletSeedParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostWalletSeedParamsWithContext(ctx context.Context) *PostWalletSeedParams {
-	var ()
 	return &PostWalletSeedParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostWalletSeedParamsWithHTTPClient creates a new PostWalletSeedParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostWalletSeedParamsWithHTTPClient(client *http.Client) *PostWalletSeedParams {
-	var ()
 	return &PostWalletSeedParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostWalletSeedParams contains all the parameters to send to the API endpoint
-for the post wallet seed operation typically these are written to a http.Request
+/* PostWalletSeedParams contains all the parameters to send to the API endpoint
+   for the post wallet seed operation.
+
+   Typically these are written to a http.Request.
 */
 type PostWalletSeedParams struct {
 
-	/*Dictionary
-	  Name of the dictionary that should be used when encoding the seed. 'english' is the most common choice when picking a dictionary.
+	/* Dictionary.
 
+	   Name of the dictionary that should be used when encoding the seed. 'english' is the most common choice when picking a dictionary.
 	*/
 	Dictionary *string
-	/*Encryptionpassword
-	  Key used to encrypt the new seed when it is saved to disk.
 
+	/* Encryptionpassword.
+
+	   Key used to encrypt the new seed when it is saved to disk.
 	*/
 	Encryptionpassword string
-	/*Seed
-	  Dictionary-encoded phrase that corresponds to the seed being added to the wallet.
 
+	/* Seed.
+
+	   Dictionary-encoded phrase that corresponds to the seed being added to the wallet.
 	*/
 	Seed *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post wallet seed params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostWalletSeedParams) WithDefaults() *PostWalletSeedParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post wallet seed params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostWalletSeedParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post wallet seed params
@@ -160,22 +175,24 @@ func (o *PostWalletSeedParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 
 		// query param dictionary
 		var qrDictionary string
+
 		if o.Dictionary != nil {
 			qrDictionary = *o.Dictionary
 		}
 		qDictionary := qrDictionary
 		if qDictionary != "" {
+
 			if err := r.SetQueryParam("dictionary", qDictionary); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// query param encryptionpassword
 	qrEncryptionpassword := o.Encryptionpassword
 	qEncryptionpassword := qrEncryptionpassword
 	if qEncryptionpassword != "" {
+
 		if err := r.SetQueryParam("encryptionpassword", qEncryptionpassword); err != nil {
 			return err
 		}
@@ -185,16 +202,17 @@ func (o *PostWalletSeedParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 
 		// query param seed
 		var qrSeed string
+
 		if o.Seed != nil {
 			qrSeed = *o.Seed
 		}
 		qSeed := qrSeed
 		if qSeed != "" {
+
 			if err := r.SetQueryParam("seed", qSeed); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

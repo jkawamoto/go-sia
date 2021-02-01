@@ -6,15 +6,15 @@ package wallet
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // GetWalletVerifyAddressAddrReader is a Reader for the GetWalletVerifyAddressAddr structure.
@@ -48,7 +48,7 @@ func NewGetWalletVerifyAddressAddrOK() *GetWalletVerifyAddressAddrOK {
 	return &GetWalletVerifyAddressAddrOK{}
 }
 
-/*GetWalletVerifyAddressAddrOK handles this case with default header values.
+/* GetWalletVerifyAddressAddrOK describes a response with status code 200, with default header values.
 
 Successful Response
 */
@@ -59,7 +59,6 @@ type GetWalletVerifyAddressAddrOK struct {
 func (o *GetWalletVerifyAddressAddrOK) Error() string {
 	return fmt.Sprintf("[GET /wallet/verify/address/{addr}][%d] getWalletVerifyAddressAddrOK  %+v", 200, o.Payload)
 }
-
 func (o *GetWalletVerifyAddressAddrOK) GetPayload() *GetWalletVerifyAddressAddrOKBody {
 	return o.Payload
 }
@@ -83,7 +82,7 @@ func NewGetWalletVerifyAddressAddrDefault(code int) *GetWalletVerifyAddressAddrD
 	}
 }
 
-/*GetWalletVerifyAddressAddrDefault handles this case with default header values.
+/* GetWalletVerifyAddressAddrDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -101,7 +100,6 @@ func (o *GetWalletVerifyAddressAddrDefault) Code() int {
 func (o *GetWalletVerifyAddressAddrDefault) Error() string {
 	return fmt.Sprintf("[GET /wallet/verify/address/{addr}][%d] GetWalletVerifyAddressAddr default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *GetWalletVerifyAddressAddrDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }
@@ -124,11 +122,17 @@ swagger:model GetWalletVerifyAddressAddrOKBody
 type GetWalletVerifyAddressAddrOKBody struct {
 
 	// valid indicates if the address supplied to addr is a valid UnlockHash.
+	// Example: true
 	Valid bool `json:"valid,omitempty"`
 }
 
 // Validate validates this get wallet verify address addr o k body
 func (o *GetWalletVerifyAddressAddrOKBody) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this get wallet verify address addr o k body based on context it is used
+func (o *GetWalletVerifyAddressAddrOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

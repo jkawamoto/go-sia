@@ -7,12 +7,11 @@ package renter
 
 import (
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new renter API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,8 +23,51 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	GetRenter(params *GetRenterParams, authInfo runtime.ClientAuthInfoWriter) (*GetRenterOK, error)
+
+	GetRenterBackup(params *GetRenterBackupParams, authInfo runtime.ClientAuthInfoWriter) (*GetRenterBackupOK, error)
+
+	GetRenterContracts(params *GetRenterContractsParams, authInfo runtime.ClientAuthInfoWriter) (*GetRenterContractsOK, error)
+
+	GetRenterDirSiapath(params *GetRenterDirSiapathParams, authInfo runtime.ClientAuthInfoWriter) (*GetRenterDirSiapathOK, error)
+
+	GetRenterDownloadSiapath(params *GetRenterDownloadSiapathParams, authInfo runtime.ClientAuthInfoWriter) (*GetRenterDownloadSiapathNoContent, error)
+
+	GetRenterDownloadasyncSiapath(params *GetRenterDownloadasyncSiapathParams, authInfo runtime.ClientAuthInfoWriter) (*GetRenterDownloadasyncSiapathNoContent, error)
+
+	GetRenterDownloads(params *GetRenterDownloadsParams, authInfo runtime.ClientAuthInfoWriter) (*GetRenterDownloadsOK, error)
+
+	GetRenterFileSiapath(params *GetRenterFileSiapathParams, authInfo runtime.ClientAuthInfoWriter) (*GetRenterFileSiapathOK, error)
+
+	GetRenterFiles(params *GetRenterFilesParams, authInfo runtime.ClientAuthInfoWriter) (*GetRenterFilesOK, error)
+
+	GetRenterPrices(params *GetRenterPricesParams, authInfo runtime.ClientAuthInfoWriter) (*GetRenterPricesOK, error)
+
+	GetRenterStreamSiapath(params *GetRenterStreamSiapathParams, authInfo runtime.ClientAuthInfoWriter) (*GetRenterStreamSiapathOK, error)
+
+	PostRenter(params *PostRenterParams, authInfo runtime.ClientAuthInfoWriter) (*PostRenterNoContent, error)
+
+	PostRenterBackupsCreate(params *PostRenterBackupsCreateParams, authInfo runtime.ClientAuthInfoWriter) (*PostRenterBackupsCreateNoContent, error)
+
+	PostRenterBackupsRestore(params *PostRenterBackupsRestoreParams, authInfo runtime.ClientAuthInfoWriter) (*PostRenterBackupsRestoreNoContent, error)
+
+	PostRenterDeleteSiapath(params *PostRenterDeleteSiapathParams, authInfo runtime.ClientAuthInfoWriter) (*PostRenterDeleteSiapathNoContent, error)
+
+	PostRenterDirSiapath(params *PostRenterDirSiapathParams, authInfo runtime.ClientAuthInfoWriter) (*PostRenterDirSiapathNoContent, error)
+
+	PostRenterDownloadsClear(params *PostRenterDownloadsClearParams, authInfo runtime.ClientAuthInfoWriter) (*PostRenterDownloadsClearNoContent, error)
+
+	PostRenterRenameSiapath(params *PostRenterRenameSiapathParams, authInfo runtime.ClientAuthInfoWriter) (*PostRenterRenameSiapathNoContent, error)
+
+	PostRenterUploadSiapath(params *PostRenterUploadSiapathParams, authInfo runtime.ClientAuthInfoWriter) (*PostRenterUploadSiapathNoContent, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-GetRenter returns the current settings along with metrics on the renter's spending.
+  GetRenter returns the current settings along with metrics on the renter's spending.
 */
 func (a *Client) GetRenter(params *GetRenterParams, authInfo runtime.ClientAuthInfoWriter) (*GetRenterOK, error) {
 	// TODO: Validate the params before sending
@@ -38,7 +80,7 @@ func (a *Client) GetRenter(params *GetRenterParams, authInfo runtime.ClientAuthI
 		Method:             "GET",
 		PathPattern:        "/renter",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &GetRenterReader{formats: a.formats},
@@ -59,7 +101,7 @@ func (a *Client) GetRenter(params *GetRenterParams, authInfo runtime.ClientAuthI
 }
 
 /*
-GetRenterBackup Lists backups.
+  GetRenterBackup Lists backups.
 */
 func (a *Client) GetRenterBackup(params *GetRenterBackupParams, authInfo runtime.ClientAuthInfoWriter) (*GetRenterBackupOK, error) {
 	// TODO: Validate the params before sending
@@ -72,7 +114,7 @@ func (a *Client) GetRenterBackup(params *GetRenterBackupParams, authInfo runtime
 		Method:             "GET",
 		PathPattern:        "/renter/backup",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &GetRenterBackupReader{formats: a.formats},
@@ -93,7 +135,7 @@ func (a *Client) GetRenterBackup(params *GetRenterBackupParams, authInfo runtime
 }
 
 /*
-GetRenterContracts returns active contracts. Expired contracts are not included.
+  GetRenterContracts returns active contracts. Expired contracts are not included.
 */
 func (a *Client) GetRenterContracts(params *GetRenterContractsParams, authInfo runtime.ClientAuthInfoWriter) (*GetRenterContractsOK, error) {
 	// TODO: Validate the params before sending
@@ -106,7 +148,7 @@ func (a *Client) GetRenterContracts(params *GetRenterContractsParams, authInfo r
 		Method:             "GET",
 		PathPattern:        "/renter/contracts",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &GetRenterContractsReader{formats: a.formats},
@@ -127,7 +169,7 @@ func (a *Client) GetRenterContracts(params *GetRenterContractsParams, authInfo r
 }
 
 /*
-GetRenterDirSiapath retrieves the contents of a directory on the sia network
+  GetRenterDirSiapath retrieves the contents of a directory on the sia network
 */
 func (a *Client) GetRenterDirSiapath(params *GetRenterDirSiapathParams, authInfo runtime.ClientAuthInfoWriter) (*GetRenterDirSiapathOK, error) {
 	// TODO: Validate the params before sending
@@ -140,7 +182,7 @@ func (a *Client) GetRenterDirSiapath(params *GetRenterDirSiapathParams, authInfo
 		Method:             "GET",
 		PathPattern:        "/renter/dir/{siapath}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &GetRenterDirSiapathReader{formats: a.formats},
@@ -161,7 +203,7 @@ func (a *Client) GetRenterDirSiapath(params *GetRenterDirSiapathParams, authInfo
 }
 
 /*
-GetRenterDownloadSiapath downloads a file to the local filesystem. The call will block until the file has been downloaded.
+  GetRenterDownloadSiapath downloads a file to the local filesystem. The call will block until the file has been downloaded.
 */
 func (a *Client) GetRenterDownloadSiapath(params *GetRenterDownloadSiapathParams, authInfo runtime.ClientAuthInfoWriter) (*GetRenterDownloadSiapathNoContent, error) {
 	// TODO: Validate the params before sending
@@ -174,7 +216,7 @@ func (a *Client) GetRenterDownloadSiapath(params *GetRenterDownloadSiapathParams
 		Method:             "GET",
 		PathPattern:        "/renter/download/{siapath}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &GetRenterDownloadSiapathReader{formats: a.formats},
@@ -195,7 +237,7 @@ func (a *Client) GetRenterDownloadSiapath(params *GetRenterDownloadSiapathParams
 }
 
 /*
-GetRenterDownloadasyncSiapath downloads a file to the local filesystem. The call will return immediately.
+  GetRenterDownloadasyncSiapath downloads a file to the local filesystem. The call will return immediately.
 */
 func (a *Client) GetRenterDownloadasyncSiapath(params *GetRenterDownloadasyncSiapathParams, authInfo runtime.ClientAuthInfoWriter) (*GetRenterDownloadasyncSiapathNoContent, error) {
 	// TODO: Validate the params before sending
@@ -208,7 +250,7 @@ func (a *Client) GetRenterDownloadasyncSiapath(params *GetRenterDownloadasyncSia
 		Method:             "GET",
 		PathPattern:        "/renter/downloadasync/{siapath}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &GetRenterDownloadasyncSiapathReader{formats: a.formats},
@@ -229,7 +271,7 @@ func (a *Client) GetRenterDownloadasyncSiapath(params *GetRenterDownloadasyncSia
 }
 
 /*
-GetRenterDownloads lists all files in the download queue.
+  GetRenterDownloads lists all files in the download queue.
 */
 func (a *Client) GetRenterDownloads(params *GetRenterDownloadsParams, authInfo runtime.ClientAuthInfoWriter) (*GetRenterDownloadsOK, error) {
 	// TODO: Validate the params before sending
@@ -242,7 +284,7 @@ func (a *Client) GetRenterDownloads(params *GetRenterDownloadsParams, authInfo r
 		Method:             "GET",
 		PathPattern:        "/renter/downloads",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &GetRenterDownloadsReader{formats: a.formats},
@@ -263,7 +305,7 @@ func (a *Client) GetRenterDownloads(params *GetRenterDownloadsParams, authInfo r
 }
 
 /*
-GetRenterFileSiapath lists the status of specified file.
+  GetRenterFileSiapath lists the status of specified file.
 */
 func (a *Client) GetRenterFileSiapath(params *GetRenterFileSiapathParams, authInfo runtime.ClientAuthInfoWriter) (*GetRenterFileSiapathOK, error) {
 	// TODO: Validate the params before sending
@@ -276,7 +318,7 @@ func (a *Client) GetRenterFileSiapath(params *GetRenterFileSiapathParams, authIn
 		Method:             "GET",
 		PathPattern:        "/renter/file/{siapath}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &GetRenterFileSiapathReader{formats: a.formats},
@@ -297,7 +339,7 @@ func (a *Client) GetRenterFileSiapath(params *GetRenterFileSiapathParams, authIn
 }
 
 /*
-GetRenterFiles lists the status of all files.
+  GetRenterFiles lists the status of all files.
 */
 func (a *Client) GetRenterFiles(params *GetRenterFilesParams, authInfo runtime.ClientAuthInfoWriter) (*GetRenterFilesOK, error) {
 	// TODO: Validate the params before sending
@@ -310,7 +352,7 @@ func (a *Client) GetRenterFiles(params *GetRenterFilesParams, authInfo runtime.C
 		Method:             "GET",
 		PathPattern:        "/renter/files",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &GetRenterFilesReader{formats: a.formats},
@@ -331,7 +373,7 @@ func (a *Client) GetRenterFiles(params *GetRenterFilesParams, authInfo runtime.C
 }
 
 /*
-GetRenterPrices lists the estimated prices of performing various storage and data operations.
+  GetRenterPrices lists the estimated prices of performing various storage and data operations.
 */
 func (a *Client) GetRenterPrices(params *GetRenterPricesParams, authInfo runtime.ClientAuthInfoWriter) (*GetRenterPricesOK, error) {
 	// TODO: Validate the params before sending
@@ -344,7 +386,7 @@ func (a *Client) GetRenterPrices(params *GetRenterPricesParams, authInfo runtime
 		Method:             "GET",
 		PathPattern:        "/renter/prices",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &GetRenterPricesReader{formats: a.formats},
@@ -365,7 +407,7 @@ func (a *Client) GetRenterPrices(params *GetRenterPricesParams, authInfo runtime
 }
 
 /*
-GetRenterStreamSiapath downloads a file using http streaming. This call blocks until the data is received. The streaming endpoint also uses caching internally to prevent siad from redownloading the same chunk multiple times when only parts of a file are requested at once. This might lead to a substantial increase in ram usage and therefore it is not recommended to stream multiple files in parallel at the moment. This restriction will be removed together with the caching once partial downloads are supported in the future.
+  GetRenterStreamSiapath downloads a file using http streaming. This call blocks until the data is received. The streaming endpoint also uses caching internally to prevent siad from redownloading the same chunk multiple times when only parts of a file are requested at once. This might lead to a substantial increase in ram usage and therefore it is not recommended to stream multiple files in parallel at the moment. This restriction will be removed together with the caching once partial downloads are supported in the future.
 */
 func (a *Client) GetRenterStreamSiapath(params *GetRenterStreamSiapathParams, authInfo runtime.ClientAuthInfoWriter) (*GetRenterStreamSiapathOK, error) {
 	// TODO: Validate the params before sending
@@ -378,7 +420,7 @@ func (a *Client) GetRenterStreamSiapath(params *GetRenterStreamSiapathParams, au
 		Method:             "GET",
 		PathPattern:        "/renter/stream/{siapath}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &GetRenterStreamSiapathReader{formats: a.formats},
@@ -399,7 +441,7 @@ func (a *Client) GetRenterStreamSiapath(params *GetRenterStreamSiapathParams, au
 }
 
 /*
-PostRenter modify settings that control the renter's behavior.
+  PostRenter modify settings that control the renter's behavior.
 */
 func (a *Client) PostRenter(params *PostRenterParams, authInfo runtime.ClientAuthInfoWriter) (*PostRenterNoContent, error) {
 	// TODO: Validate the params before sending
@@ -412,7 +454,7 @@ func (a *Client) PostRenter(params *PostRenterParams, authInfo runtime.ClientAut
 		Method:             "POST",
 		PathPattern:        "/renter",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &PostRenterReader{formats: a.formats},
@@ -433,7 +475,7 @@ func (a *Client) PostRenter(params *PostRenterParams, authInfo runtime.ClientAut
 }
 
 /*
-PostRenterBackupsCreate Creates a backup of all siafiles.
+  PostRenterBackupsCreate Creates a backup of all siafiles.
 */
 func (a *Client) PostRenterBackupsCreate(params *PostRenterBackupsCreateParams, authInfo runtime.ClientAuthInfoWriter) (*PostRenterBackupsCreateNoContent, error) {
 	// TODO: Validate the params before sending
@@ -446,7 +488,7 @@ func (a *Client) PostRenterBackupsCreate(params *PostRenterBackupsCreateParams, 
 		Method:             "POST",
 		PathPattern:        "/renter/backups/create",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &PostRenterBackupsCreateReader{formats: a.formats},
@@ -467,7 +509,7 @@ func (a *Client) PostRenterBackupsCreate(params *PostRenterBackupsCreateParams, 
 }
 
 /*
-PostRenterBackupsRestore Restores siafiles from a backup.
+  PostRenterBackupsRestore Restores siafiles from a backup.
 */
 func (a *Client) PostRenterBackupsRestore(params *PostRenterBackupsRestoreParams, authInfo runtime.ClientAuthInfoWriter) (*PostRenterBackupsRestoreNoContent, error) {
 	// TODO: Validate the params before sending
@@ -480,7 +522,7 @@ func (a *Client) PostRenterBackupsRestore(params *PostRenterBackupsRestoreParams
 		Method:             "POST",
 		PathPattern:        "/renter/backups/restore",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &PostRenterBackupsRestoreReader{formats: a.formats},
@@ -501,7 +543,7 @@ func (a *Client) PostRenterBackupsRestore(params *PostRenterBackupsRestoreParams
 }
 
 /*
-PostRenterDeleteSiapath deletes a renter file entry. Does not delete any downloads or original files, only the entry in the renter.
+  PostRenterDeleteSiapath deletes a renter file entry. Does not delete any downloads or original files, only the entry in the renter.
 */
 func (a *Client) PostRenterDeleteSiapath(params *PostRenterDeleteSiapathParams, authInfo runtime.ClientAuthInfoWriter) (*PostRenterDeleteSiapathNoContent, error) {
 	// TODO: Validate the params before sending
@@ -514,7 +556,7 @@ func (a *Client) PostRenterDeleteSiapath(params *PostRenterDeleteSiapathParams, 
 		Method:             "POST",
 		PathPattern:        "/renter/delete/{siapath}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &PostRenterDeleteSiapathReader{formats: a.formats},
@@ -535,7 +577,7 @@ func (a *Client) PostRenterDeleteSiapath(params *PostRenterDeleteSiapathParams, 
 }
 
 /*
-PostRenterDirSiapath performs various functions on the renter's directories
+  PostRenterDirSiapath performs various functions on the renter's directories
 */
 func (a *Client) PostRenterDirSiapath(params *PostRenterDirSiapathParams, authInfo runtime.ClientAuthInfoWriter) (*PostRenterDirSiapathNoContent, error) {
 	// TODO: Validate the params before sending
@@ -548,7 +590,7 @@ func (a *Client) PostRenterDirSiapath(params *PostRenterDirSiapathParams, authIn
 		Method:             "POST",
 		PathPattern:        "/renter/dir/{siapath}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &PostRenterDirSiapathReader{formats: a.formats},
@@ -569,7 +611,7 @@ func (a *Client) PostRenterDirSiapath(params *PostRenterDirSiapathParams, authIn
 }
 
 /*
-PostRenterDownloadsClear Clears the download history of the renter for a range of unix time stamps. Both parameters are optional, if no parameters are provided, the entire download history will be cleared. To clear a single download, provide the timestamp for the download as both parameters. Providing only the before parameter will clear all downloads older than the timestamp. Conversely, providing only the after parameter will clear all downloads newer than the timestamp.
+  PostRenterDownloadsClear Clears the download history of the renter for a range of unix time stamps. Both parameters are optional, if no parameters are provided, the entire download history will be cleared. To clear a single download, provide the timestamp for the download as both parameters. Providing only the before parameter will clear all downloads older than the timestamp. Conversely, providing only the after parameter will clear all downloads newer than the timestamp.
 */
 func (a *Client) PostRenterDownloadsClear(params *PostRenterDownloadsClearParams, authInfo runtime.ClientAuthInfoWriter) (*PostRenterDownloadsClearNoContent, error) {
 	// TODO: Validate the params before sending
@@ -582,7 +624,7 @@ func (a *Client) PostRenterDownloadsClear(params *PostRenterDownloadsClearParams
 		Method:             "POST",
 		PathPattern:        "/renter/downloads/clear",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &PostRenterDownloadsClearReader{formats: a.formats},
@@ -603,7 +645,7 @@ func (a *Client) PostRenterDownloadsClear(params *PostRenterDownloadsClearParams
 }
 
 /*
-PostRenterRenameSiapath renames a file. Does not rename any downloads or source files, only renames the entry in the renter. An error is returned if siapath does not exist or newsiapath already exists.
+  PostRenterRenameSiapath renames a file. Does not rename any downloads or source files, only renames the entry in the renter. An error is returned if siapath does not exist or newsiapath already exists.
 */
 func (a *Client) PostRenterRenameSiapath(params *PostRenterRenameSiapathParams, authInfo runtime.ClientAuthInfoWriter) (*PostRenterRenameSiapathNoContent, error) {
 	// TODO: Validate the params before sending
@@ -616,7 +658,7 @@ func (a *Client) PostRenterRenameSiapath(params *PostRenterRenameSiapathParams, 
 		Method:             "POST",
 		PathPattern:        "/renter/rename/{siapath}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &PostRenterRenameSiapathReader{formats: a.formats},
@@ -637,7 +679,7 @@ func (a *Client) PostRenterRenameSiapath(params *PostRenterRenameSiapathParams, 
 }
 
 /*
-PostRenterUploadSiapath uploads a file to the network from the local filesystem.
+  PostRenterUploadSiapath uploads a file to the network from the local filesystem.
 */
 func (a *Client) PostRenterUploadSiapath(params *PostRenterUploadSiapathParams, authInfo runtime.ClientAuthInfoWriter) (*PostRenterUploadSiapathNoContent, error) {
 	// TODO: Validate the params before sending
@@ -650,7 +692,7 @@ func (a *Client) PostRenterUploadSiapath(params *PostRenterUploadSiapathParams, 
 		Method:             "POST",
 		PathPattern:        "/renter/upload/{siapath}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &PostRenterUploadSiapathReader{formats: a.formats},

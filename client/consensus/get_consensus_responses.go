@@ -6,15 +6,15 @@ package consensus
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // GetConsensusReader is a Reader for the GetConsensus structure.
@@ -48,7 +48,7 @@ func NewGetConsensusOK() *GetConsensusOK {
 	return &GetConsensusOK{}
 }
 
-/*GetConsensusOK handles this case with default header values.
+/* GetConsensusOK describes a response with status code 200, with default header values.
 
 Successful Response
 */
@@ -59,7 +59,6 @@ type GetConsensusOK struct {
 func (o *GetConsensusOK) Error() string {
 	return fmt.Sprintf("[GET /consensus][%d] getConsensusOK  %+v", 200, o.Payload)
 }
-
 func (o *GetConsensusOK) GetPayload() *GetConsensusOKBody {
 	return o.Payload
 }
@@ -83,7 +82,7 @@ func NewGetConsensusDefault(code int) *GetConsensusDefault {
 	}
 }
 
-/*GetConsensusDefault handles this case with default header values.
+/* GetConsensusDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -101,7 +100,6 @@ func (o *GetConsensusDefault) Code() int {
 func (o *GetConsensusDefault) Error() string {
 	return fmt.Sprintf("[GET /consensus][%d] GetConsensus default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *GetConsensusDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }
@@ -127,6 +125,7 @@ type GetConsensusOKBody struct {
 	Currentblock string `json:"currentblock,omitempty"`
 
 	// Number of blocks preceding the current block.
+	// Example: 62248
 	Height int64 `json:"height,omitempty"`
 
 	// True if the consensus set is synced with the network, i.e. it has downloaded the entire blockchain.
@@ -135,6 +134,11 @@ type GetConsensusOKBody struct {
 
 // Validate validates this get consensus o k body
 func (o *GetConsensusOKBody) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this get consensus o k body based on context it is used
+func (o *GetConsensusOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

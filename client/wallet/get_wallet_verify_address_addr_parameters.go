@@ -13,60 +13,73 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
-// NewGetWalletVerifyAddressAddrParams creates a new GetWalletVerifyAddressAddrParams object
-// with the default values initialized.
+// NewGetWalletVerifyAddressAddrParams creates a new GetWalletVerifyAddressAddrParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetWalletVerifyAddressAddrParams() *GetWalletVerifyAddressAddrParams {
-	var ()
 	return &GetWalletVerifyAddressAddrParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetWalletVerifyAddressAddrParamsWithTimeout creates a new GetWalletVerifyAddressAddrParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetWalletVerifyAddressAddrParamsWithTimeout(timeout time.Duration) *GetWalletVerifyAddressAddrParams {
-	var ()
 	return &GetWalletVerifyAddressAddrParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetWalletVerifyAddressAddrParamsWithContext creates a new GetWalletVerifyAddressAddrParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetWalletVerifyAddressAddrParamsWithContext(ctx context.Context) *GetWalletVerifyAddressAddrParams {
-	var ()
 	return &GetWalletVerifyAddressAddrParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetWalletVerifyAddressAddrParamsWithHTTPClient creates a new GetWalletVerifyAddressAddrParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetWalletVerifyAddressAddrParamsWithHTTPClient(client *http.Client) *GetWalletVerifyAddressAddrParams {
-	var ()
 	return &GetWalletVerifyAddressAddrParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetWalletVerifyAddressAddrParams contains all the parameters to send to the API endpoint
-for the get wallet verify address addr operation typically these are written to a http.Request
+/* GetWalletVerifyAddressAddrParams contains all the parameters to send to the API endpoint
+   for the get wallet verify address addr operation.
+
+   Typically these are written to a http.Request.
 */
 type GetWalletVerifyAddressAddrParams struct {
 
-	/*Addr*/
+	// Addr.
 	Addr string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get wallet verify address addr params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetWalletVerifyAddressAddrParams) WithDefaults() *GetWalletVerifyAddressAddrParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get wallet verify address addr params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetWalletVerifyAddressAddrParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get wallet verify address addr params

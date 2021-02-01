@@ -1,7 +1,7 @@
 /*
  * client_test.go
  *
- * Copyright (c) 2019 Junpei Kawamoto
+ * Copyright (c) 2019-2021 Junpei Kawamoto
  *
  * This software is released under the MIT License.
  *
@@ -14,13 +14,12 @@ package sia
 import (
 	"testing"
 
-	"github.com/jkawamoto/go-sia/client"
-
 	httptransport "github.com/go-openapi/runtime/client"
+
+	"github.com/jkawamoto/go-sia/client"
 )
 
 func TestNewClient(t *testing.T) {
-
 	cli := NewClient("")
 
 	runtime, ok := cli.Transport.(*httptransport.Runtime)
@@ -35,11 +34,9 @@ func TestNewClient(t *testing.T) {
 	if runtime.Host != client.DefaultHost {
 		t.Errorf("%v was set to the host but %v is expected", runtime.Host, client.DefaultHost)
 	}
-
 }
 
 func TestNewClientWithHost(t *testing.T) {
-
 	// Set the environment variable
 	host := "192.168.100.1:8080"
 
@@ -53,5 +50,4 @@ func TestNewClientWithHost(t *testing.T) {
 	if runtime.Host != host {
 		t.Errorf("%v was set to the host but %v is expected", runtime.Host, host)
 	}
-
 }

@@ -13,89 +13,111 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-
-	strfmt "github.com/go-openapi/strfmt"
 )
 
-// NewGetRenterDownloadSiapathParams creates a new GetRenterDownloadSiapathParams object
-// with the default values initialized.
+// NewGetRenterDownloadSiapathParams creates a new GetRenterDownloadSiapathParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetRenterDownloadSiapathParams() *GetRenterDownloadSiapathParams {
-	var ()
 	return &GetRenterDownloadSiapathParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetRenterDownloadSiapathParamsWithTimeout creates a new GetRenterDownloadSiapathParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetRenterDownloadSiapathParamsWithTimeout(timeout time.Duration) *GetRenterDownloadSiapathParams {
-	var ()
 	return &GetRenterDownloadSiapathParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetRenterDownloadSiapathParamsWithContext creates a new GetRenterDownloadSiapathParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetRenterDownloadSiapathParamsWithContext(ctx context.Context) *GetRenterDownloadSiapathParams {
-	var ()
 	return &GetRenterDownloadSiapathParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetRenterDownloadSiapathParamsWithHTTPClient creates a new GetRenterDownloadSiapathParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetRenterDownloadSiapathParamsWithHTTPClient(client *http.Client) *GetRenterDownloadSiapathParams {
-	var ()
 	return &GetRenterDownloadSiapathParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetRenterDownloadSiapathParams contains all the parameters to send to the API endpoint
-for the get renter download siapath operation typically these are written to a http.Request
+/* GetRenterDownloadSiapathParams contains all the parameters to send to the API endpoint
+   for the get renter download siapath operation.
+
+   Typically these are written to a http.Request.
 */
 type GetRenterDownloadSiapathParams struct {
 
-	/*Async
-	  If async is true, the http request will be non blocking. Can't be used with
+	/* Async.
 
+	   If async is true, the http request will be non blocking. Can't be used with
 	*/
 	Async *bool
-	/*Destination
-	  Location on disk that the file will be downloaded to.
 
+	/* Destination.
+
+	   Location on disk that the file will be downloaded to.
 	*/
 	Destination string
-	/*Httpresp
-	  If httresp is true, the data will be written to the http response.
 
+	/* Httpresp.
+
+	   If httresp is true, the data will be written to the http response.
 	*/
 	Httpresp *bool
-	/*Length
-	  Length of the requested data. Has to be <= filesize-offset.
 
+	/* Length.
+
+	   Length of the requested data. Has to be <= filesize-offset.
+
+	   Format: int64
 	*/
 	Length *int64
-	/*Offset
-	  Offset relative to the file start from where the download starts.
 
+	/* Offset.
+
+	   Offset relative to the file start from where the download starts.
+
+	   Format: int64
 	*/
 	Offset *int64
-	/*Siapath
-	  Location of the file in the renter on the network.
 
+	/* Siapath.
+
+	   Location of the file in the renter on the network.
 	*/
 	Siapath string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get renter download siapath params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetRenterDownloadSiapathParams) WithDefaults() *GetRenterDownloadSiapathParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get renter download siapath params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetRenterDownloadSiapathParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get renter download siapath params
@@ -209,22 +231,24 @@ func (o *GetRenterDownloadSiapathParams) WriteToRequest(r runtime.ClientRequest,
 
 		// query param async
 		var qrAsync bool
+
 		if o.Async != nil {
 			qrAsync = *o.Async
 		}
 		qAsync := swag.FormatBool(qrAsync)
 		if qAsync != "" {
+
 			if err := r.SetQueryParam("async", qAsync); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// query param destination
 	qrDestination := o.Destination
 	qDestination := qrDestination
 	if qDestination != "" {
+
 		if err := r.SetQueryParam("destination", qDestination); err != nil {
 			return err
 		}
@@ -234,48 +258,51 @@ func (o *GetRenterDownloadSiapathParams) WriteToRequest(r runtime.ClientRequest,
 
 		// query param httpresp
 		var qrHttpresp bool
+
 		if o.Httpresp != nil {
 			qrHttpresp = *o.Httpresp
 		}
 		qHttpresp := swag.FormatBool(qrHttpresp)
 		if qHttpresp != "" {
+
 			if err := r.SetQueryParam("httpresp", qHttpresp); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Length != nil {
 
 		// query param length
 		var qrLength int64
+
 		if o.Length != nil {
 			qrLength = *o.Length
 		}
 		qLength := swag.FormatInt64(qrLength)
 		if qLength != "" {
+
 			if err := r.SetQueryParam("length", qLength); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Offset != nil {
 
 		// query param offset
 		var qrOffset int64
+
 		if o.Offset != nil {
 			qrOffset = *o.Offset
 		}
 		qOffset := swag.FormatInt64(qrOffset)
 		if qOffset != "" {
+
 			if err := r.SetQueryParam("offset", qOffset); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// path param siapath

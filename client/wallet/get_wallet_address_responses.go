@@ -6,15 +6,15 @@ package wallet
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // GetWalletAddressReader is a Reader for the GetWalletAddress structure.
@@ -48,7 +48,7 @@ func NewGetWalletAddressOK() *GetWalletAddressOK {
 	return &GetWalletAddressOK{}
 }
 
-/*GetWalletAddressOK handles this case with default header values.
+/* GetWalletAddressOK describes a response with status code 200, with default header values.
 
 Successful Response
 */
@@ -59,7 +59,6 @@ type GetWalletAddressOK struct {
 func (o *GetWalletAddressOK) Error() string {
 	return fmt.Sprintf("[GET /wallet/address][%d] getWalletAddressOK  %+v", 200, o.Payload)
 }
-
 func (o *GetWalletAddressOK) GetPayload() *GetWalletAddressOKBody {
 	return o.Payload
 }
@@ -83,7 +82,7 @@ func NewGetWalletAddressDefault(code int) *GetWalletAddressDefault {
 	}
 }
 
-/*GetWalletAddressDefault handles this case with default header values.
+/* GetWalletAddressDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -101,7 +100,6 @@ func (o *GetWalletAddressDefault) Code() int {
 func (o *GetWalletAddressDefault) Error() string {
 	return fmt.Sprintf("[GET /wallet/address][%d] GetWalletAddress default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *GetWalletAddressDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }
@@ -124,11 +122,17 @@ swagger:model GetWalletAddressOKBody
 type GetWalletAddressOKBody struct {
 
 	// Wallet address that can receive siacoins or siafunds. Addresses are 76 character long hex strings.
+	// Example: 1234567890abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789ab
 	Address string `json:"address,omitempty"`
 }
 
 // Validate validates this get wallet address o k body
 func (o *GetWalletAddressOKBody) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this get wallet address o k body based on context it is used
+func (o *GetWalletAddressOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

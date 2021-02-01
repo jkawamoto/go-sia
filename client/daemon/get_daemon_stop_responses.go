@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // GetDaemonStopReader is a Reader for the GetDaemonStop structure.
@@ -47,7 +46,7 @@ func NewGetDaemonStopOK() *GetDaemonStopOK {
 	return &GetDaemonStopOK{}
 }
 
-/*GetDaemonStopOK handles this case with default header values.
+/* GetDaemonStopOK describes a response with status code 200, with default header values.
 
 Successful Response
 */
@@ -70,7 +69,7 @@ func NewGetDaemonStopDefault(code int) *GetDaemonStopDefault {
 	}
 }
 
-/*GetDaemonStopDefault handles this case with default header values.
+/* GetDaemonStopDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -88,7 +87,6 @@ func (o *GetDaemonStopDefault) Code() int {
 func (o *GetDaemonStopDefault) Error() string {
 	return fmt.Sprintf("[GET /daemon/stop][%d] GetDaemonStop default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *GetDaemonStopDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }

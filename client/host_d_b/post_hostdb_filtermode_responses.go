@@ -6,17 +6,17 @@ package host_d_b
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // PostHostdbFiltermodeReader is a Reader for the PostHostdbFiltermode structure.
@@ -50,7 +50,7 @@ func NewPostHostdbFiltermodeNoContent() *PostHostdbFiltermodeNoContent {
 	return &PostHostdbFiltermodeNoContent{}
 }
 
-/*PostHostdbFiltermodeNoContent handles this case with default header values.
+/* PostHostdbFiltermodeNoContent describes a response with status code 204, with default header values.
 
 Successful Response
 */
@@ -73,7 +73,7 @@ func NewPostHostdbFiltermodeDefault(code int) *PostHostdbFiltermodeDefault {
 	}
 }
 
-/*PostHostdbFiltermodeDefault handles this case with default header values.
+/* PostHostdbFiltermodeDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -91,7 +91,6 @@ func (o *PostHostdbFiltermodeDefault) Code() int {
 func (o *PostHostdbFiltermodeDefault) Error() string {
 	return fmt.Sprintf("[POST /hostdb/filtermode][%d] PostHostdbFiltermode default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *PostHostdbFiltermodeDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }
@@ -141,6 +140,11 @@ func (o *PostHostdbFiltermodeBody) validateFiltermode(formats strfmt.Registry) e
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this post hostdb filtermode body based on context it is used
+func (o *PostHostdbFiltermodeBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

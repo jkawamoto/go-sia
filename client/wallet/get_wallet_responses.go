@@ -6,15 +6,15 @@ package wallet
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // GetWalletReader is a Reader for the GetWallet structure.
@@ -48,7 +48,7 @@ func NewGetWalletOK() *GetWalletOK {
 	return &GetWalletOK{}
 }
 
-/*GetWalletOK handles this case with default header values.
+/* GetWalletOK describes a response with status code 200, with default header values.
 
 Successful Response
 */
@@ -59,7 +59,6 @@ type GetWalletOK struct {
 func (o *GetWalletOK) Error() string {
 	return fmt.Sprintf("[GET /wallet][%d] getWalletOK  %+v", 200, o.Payload)
 }
-
 func (o *GetWalletOK) GetPayload() *GetWalletOKBody {
 	return o.Payload
 }
@@ -83,7 +82,7 @@ func NewGetWalletDefault(code int) *GetWalletDefault {
 	}
 }
 
-/*GetWalletDefault handles this case with default header values.
+/* GetWalletDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -101,7 +100,6 @@ func (o *GetWalletDefault) Code() int {
 func (o *GetWalletDefault) Error() string {
 	return fmt.Sprintf("[GET /wallet][%d] GetWallet default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *GetWalletDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }
@@ -124,35 +122,49 @@ swagger:model GetWalletOKBody
 type GetWalletOKBody struct {
 
 	// Number of siacoins, in hastings, available to the wallet as of the most recent block in the blockchain.
+	// Example: 123456
 	Confirmedsiacoinbalance string `json:"confirmedsiacoinbalance,omitempty"`
 
 	// Number of siacoins, in hastings per byte, below which a transaction output cannot be used because the wallet considers it a dust output
+	// Example: 1234
 	Dustthreshold string `json:"dustthreshold,omitempty"`
 
 	// Indicates whether the wallet has been encrypted or not. If the wallet has not been encrypted, then no data has been generated at all, and the first time the wallet is unlocked, the password given will be used as the password for encrypting all of the data. 'encrypted' will only be set to false if the wallet has never been unlocked before (the unlocked wallet is still encryped - but the encryption key is in memory).
+	// Example: true
 	Encrypted bool `json:"encrypted,omitempty"`
 
 	// Indicates whether the wallet is currently rescanning the blockchain. This will be true for the duration of calls to /unlock, /seeds, /init/seed, and /sweep/seed.
+	// Example: false
 	Rescanning bool `json:"rescanning,omitempty"`
 
 	// Number of siacoins, in hastings, that can be claimed from the siafunds as of the most recent block. Because the claim balance increases every time a file contract is created, it is possible that the balance will increase before any claim transaction is confirmed.
+	// Example: 9001
 	Siacoinclaimbalance string `json:"siacoinclaimbalance,omitempty"`
 
 	// Number of siafunds available to the wallet as of the most recent block in the blockchain.
+	// Example: 1
 	Siafundbalance string `json:"siafundbalance,omitempty"`
 
 	// Number of siacoins, in hastings, are entering the wallet according to the set of unconfirmed transactions. This number is often inflated by outgoing siacoins, because outputs are frequently larger than the amount being sent. The refund will be included in the unconfirmed incoming siacoins balance.
+	// Example: 789
 	Unconfirmedincomingsiacoins string `json:"unconfirmedincomingsiacoins,omitempty"`
 
 	// Number of siacoins, in hastings, that are leaving the wallet according to the set of unconfirmed transactions. Often this number appears inflated, because outputs are frequently larger than the number of coins being sent, and there is a refund. These coins are counted as outgoing, and the refund is counted as incoming. The difference in balance can be calculated using 'unconfirmedincomingsiacoins' - 'unconfirmedoutgoingsiacoins'
+	// Example: 0
 	Unconfirmedoutgoingsiacoins string `json:"unconfirmedoutgoingsiacoins,omitempty"`
 
 	// Indicates whether the wallet is currently locked or unlocked. Some calls become unavailable when the wallet is locked.
+	// Example: true
 	Unlocked bool `json:"unlocked,omitempty"`
 }
 
 // Validate validates this get wallet o k body
 func (o *GetWalletOKBody) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this get wallet o k body based on context it is used
+func (o *GetWalletOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

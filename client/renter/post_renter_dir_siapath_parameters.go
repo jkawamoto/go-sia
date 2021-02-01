@@ -13,76 +13,91 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
-// NewPostRenterDirSiapathParams creates a new PostRenterDirSiapathParams object
-// with the default values initialized.
+// NewPostRenterDirSiapathParams creates a new PostRenterDirSiapathParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostRenterDirSiapathParams() *PostRenterDirSiapathParams {
-	var ()
 	return &PostRenterDirSiapathParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostRenterDirSiapathParamsWithTimeout creates a new PostRenterDirSiapathParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostRenterDirSiapathParamsWithTimeout(timeout time.Duration) *PostRenterDirSiapathParams {
-	var ()
 	return &PostRenterDirSiapathParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostRenterDirSiapathParamsWithContext creates a new PostRenterDirSiapathParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostRenterDirSiapathParamsWithContext(ctx context.Context) *PostRenterDirSiapathParams {
-	var ()
 	return &PostRenterDirSiapathParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostRenterDirSiapathParamsWithHTTPClient creates a new PostRenterDirSiapathParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostRenterDirSiapathParamsWithHTTPClient(client *http.Client) *PostRenterDirSiapathParams {
-	var ()
 	return &PostRenterDirSiapathParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostRenterDirSiapathParams contains all the parameters to send to the API endpoint
-for the post renter dir siapath operation typically these are written to a http.Request
+/* PostRenterDirSiapathParams contains all the parameters to send to the API endpoint
+   for the post renter dir siapath operation.
+
+   Typically these are written to a http.Request.
 */
 type PostRenterDirSiapathParams struct {
 
-	/*Action
-	 Action can be either create or delete.
+	/* Action.
+
+	    Action can be either create or delete.
 	- create will create an empty directory on the sia network
 	- delete will remove a directory and its contents from the sia network
 	- rename will rename a directory on the sia network
-
 	*/
 	Action string
-	/*Newsiapath
-	  The new siapath of the renamed folder. Only required for the rename action. Location of the file in the renter on the network.
 
+	/* Newsiapath.
+
+	   The new siapath of the renamed folder. Only required for the rename action. Location of the file in the renter on the network.
 	*/
 	Newsiapath *string
-	/*Siapath
-	  Location of the file in the renter on the network.
 
+	/* Siapath.
+
+	   Location of the file in the renter on the network.
 	*/
 	Siapath string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post renter dir siapath params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostRenterDirSiapathParams) WithDefaults() *PostRenterDirSiapathParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post renter dir siapath params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostRenterDirSiapathParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post renter dir siapath params
@@ -163,6 +178,7 @@ func (o *PostRenterDirSiapathParams) WriteToRequest(r runtime.ClientRequest, reg
 	qrAction := o.Action
 	qAction := qrAction
 	if qAction != "" {
+
 		if err := r.SetQueryParam("action", qAction); err != nil {
 			return err
 		}
@@ -172,16 +188,17 @@ func (o *PostRenterDirSiapathParams) WriteToRequest(r runtime.ClientRequest, reg
 
 		// query param newsiapath
 		var qrNewsiapath string
+
 		if o.Newsiapath != nil {
 			qrNewsiapath = *o.Newsiapath
 		}
 		qNewsiapath := qrNewsiapath
 		if qNewsiapath != "" {
+
 			if err := r.SetQueryParam("newsiapath", qNewsiapath); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// path param siapath

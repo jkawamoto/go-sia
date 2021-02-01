@@ -13,68 +13,82 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
-// NewPostRenterRenameSiapathParams creates a new PostRenterRenameSiapathParams object
-// with the default values initialized.
+// NewPostRenterRenameSiapathParams creates a new PostRenterRenameSiapathParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostRenterRenameSiapathParams() *PostRenterRenameSiapathParams {
-	var ()
 	return &PostRenterRenameSiapathParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostRenterRenameSiapathParamsWithTimeout creates a new PostRenterRenameSiapathParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostRenterRenameSiapathParamsWithTimeout(timeout time.Duration) *PostRenterRenameSiapathParams {
-	var ()
 	return &PostRenterRenameSiapathParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostRenterRenameSiapathParamsWithContext creates a new PostRenterRenameSiapathParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostRenterRenameSiapathParamsWithContext(ctx context.Context) *PostRenterRenameSiapathParams {
-	var ()
 	return &PostRenterRenameSiapathParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostRenterRenameSiapathParamsWithHTTPClient creates a new PostRenterRenameSiapathParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostRenterRenameSiapathParamsWithHTTPClient(client *http.Client) *PostRenterRenameSiapathParams {
-	var ()
 	return &PostRenterRenameSiapathParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostRenterRenameSiapathParams contains all the parameters to send to the API endpoint
-for the post renter rename siapath operation typically these are written to a http.Request
+/* PostRenterRenameSiapathParams contains all the parameters to send to the API endpoint
+   for the post renter rename siapath operation.
+
+   Typically these are written to a http.Request.
 */
 type PostRenterRenameSiapathParams struct {
 
-	/*Newsiapath
-	  New location of the file in the renter on the network.
+	/* Newsiapath.
 
+	   New location of the file in the renter on the network.
 	*/
 	Newsiapath string
-	/*Siapath
-	  Location of the file in the renter on the network.
 
+	/* Siapath.
+
+	   Location of the file in the renter on the network.
 	*/
 	Siapath string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post renter rename siapath params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostRenterRenameSiapathParams) WithDefaults() *PostRenterRenameSiapathParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post renter rename siapath params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostRenterRenameSiapathParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post renter rename siapath params
@@ -144,6 +158,7 @@ func (o *PostRenterRenameSiapathParams) WriteToRequest(r runtime.ClientRequest, 
 	qrNewsiapath := o.Newsiapath
 	qNewsiapath := qrNewsiapath
 	if qNewsiapath != "" {
+
 		if err := r.SetQueryParam("newsiapath", qNewsiapath); err != nil {
 			return err
 		}

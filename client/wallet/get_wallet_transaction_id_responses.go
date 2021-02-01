@@ -6,16 +6,16 @@ package wallet
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // GetWalletTransactionIDReader is a Reader for the GetWalletTransactionID structure.
@@ -49,7 +49,7 @@ func NewGetWalletTransactionIDOK() *GetWalletTransactionIDOK {
 	return &GetWalletTransactionIDOK{}
 }
 
-/*GetWalletTransactionIDOK handles this case with default header values.
+/* GetWalletTransactionIDOK describes a response with status code 200, with default header values.
 
 Successful Response
 */
@@ -60,7 +60,6 @@ type GetWalletTransactionIDOK struct {
 func (o *GetWalletTransactionIDOK) Error() string {
 	return fmt.Sprintf("[GET /wallet/transaction/{id}][%d] getWalletTransactionIdOK  %+v", 200, o.Payload)
 }
-
 func (o *GetWalletTransactionIDOK) GetPayload() *GetWalletTransactionIDOKBody {
 	return o.Payload
 }
@@ -84,7 +83,7 @@ func NewGetWalletTransactionIDDefault(code int) *GetWalletTransactionIDDefault {
 	}
 }
 
-/*GetWalletTransactionIDDefault handles this case with default header values.
+/* GetWalletTransactionIDDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -102,7 +101,6 @@ func (o *GetWalletTransactionIDDefault) Code() int {
 func (o *GetWalletTransactionIDDefault) Error() string {
 	return fmt.Sprintf("[GET /wallet/transaction/{id}][%d] GetWalletTransactionID default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *GetWalletTransactionIDDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }
@@ -143,13 +141,40 @@ func (o *GetWalletTransactionIDOKBody) Validate(formats strfmt.Registry) error {
 }
 
 func (o *GetWalletTransactionIDOKBody) validateTransaction(formats strfmt.Registry) error {
-
 	if swag.IsZero(o.Transaction) { // not required
 		return nil
 	}
 
 	if o.Transaction != nil {
 		if err := o.Transaction.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("getWalletTransactionIdOK" + "." + "transaction")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this get wallet transaction ID o k body based on the context it is used
+func (o *GetWalletTransactionIDOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.contextValidateTransaction(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *GetWalletTransactionIDOKBody) contextValidateTransaction(ctx context.Context, formats strfmt.Registry) error {
+
+	if o.Transaction != nil {
+		if err := o.Transaction.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("getWalletTransactionIdOK" + "." + "transaction")
 			}

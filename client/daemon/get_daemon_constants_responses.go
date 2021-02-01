@@ -6,15 +6,15 @@ package daemon
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // GetDaemonConstantsReader is a Reader for the GetDaemonConstants structure.
@@ -48,7 +48,7 @@ func NewGetDaemonConstantsOK() *GetDaemonConstantsOK {
 	return &GetDaemonConstantsOK{}
 }
 
-/*GetDaemonConstantsOK handles this case with default header values.
+/* GetDaemonConstantsOK describes a response with status code 200, with default header values.
 
 Successful Response
 */
@@ -59,7 +59,6 @@ type GetDaemonConstantsOK struct {
 func (o *GetDaemonConstantsOK) Error() string {
 	return fmt.Sprintf("[GET /daemon/constants][%d] getDaemonConstantsOK  %+v", 200, o.Payload)
 }
-
 func (o *GetDaemonConstantsOK) GetPayload() *GetDaemonConstantsOKBody {
 	return o.Payload
 }
@@ -83,7 +82,7 @@ func NewGetDaemonConstantsDefault(code int) *GetDaemonConstantsDefault {
 	}
 }
 
-/*GetDaemonConstantsDefault handles this case with default header values.
+/* GetDaemonConstantsDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -101,7 +100,6 @@ func (o *GetDaemonConstantsDefault) Code() int {
 func (o *GetDaemonConstantsDefault) Error() string {
 	return fmt.Sprintf("[GET /daemon/constants][%d] GetDaemonConstants default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *GetDaemonConstantsDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }
@@ -124,44 +122,54 @@ swagger:model GetDaemonConstantsOKBody
 type GetDaemonConstantsOKBody struct {
 
 	// Target for how frequently new blocks should be mined.
+	// Example: 600
 	Blockfrequency int64 `json:"blockfrequency,omitempty"`
 
 	// Maximum size, in bytes, of a block. Blocks larger than this will be
 	// rejected by peers.
 	//
+	// Example: 2000000
 	Blocksizelimit int64 `json:"blocksizelimit,omitempty"`
 
 	// Farthest a block's timestamp can be in the future before the block is
 	// rejected outright.
 	//
+	// Example: 10800
 	Extremefuturethreshold int64 `json:"extremefuturethreshold,omitempty"`
 
 	// How far in the future a block can be without being rejected. A block
 	// further into the future will not be accepted immediately, but the daemon
 	// will attempt to accept the block as soon as it is valid.
 	//
+	// Example: 10800
 	Futurethreshold int64 `json:"futurethreshold,omitempty"`
 
 	// Timestamp of the genesis block.
+	// Example: 1433600000
 	Genesistimestamp int64 `json:"genesistimestamp,omitempty"`
 
 	// Number of coins given to the miner of the first block. Note that elsewhere
 	// in the API currency is typically returned in hastings and as a bignum.
 	// This is not the case here.
 	//
+	// Example: 300000
 	Initialcoinbase int64 `json:"initialcoinbase,omitempty"`
 
 	// Number of children a block must have before it is considered "mature."
 	//
+	// Example: 144
 	Maturitydelay int64 `json:"maturitydelay,omitempty"`
 
 	// Smallest allowed ratio between the old difficulty and the new difficulty.
+	// Example: 2/5
 	Maxadjustmentdown string `json:"maxadjustmentdown,omitempty"`
 
 	// Largest allowed ratio between the old difficulty and the new difficulty.
+	// Example: 5/2
 	Maxadjustmentup string `json:"maxadjustmentup,omitempty"`
 
 	// Duration of the window used to adjust the difficulty.
+	// Example: 11
 	Mediantimestampwindow int64 `json:"mediantimestampwindow,omitempty"`
 
 	// Minimum number of coins paid out to the miner of a block (the coinbase
@@ -169,6 +177,7 @@ type GetDaemonConstantsOKBody struct {
 	// typically returned in hastings and as a bignum. This is not the case
 	// here.
 	//
+	// Example: 30000
 	Minimumcoinbase int64 `json:"minimumcoinbase,omitempty"`
 
 	// Initial depth
@@ -178,20 +187,29 @@ type GetDaemonConstantsOKBody struct {
 	Roottarget []int64 `json:"roottarget"`
 
 	// Number of Hastings in one siacoin.
+	// Example: 1e+24
 	Siacoinprecision string `json:"siacoinprecision,omitempty"`
 
 	// Total number of siafunds.
+	// Example: 10000
 	Siafundcount int64 `json:"siafundcount,omitempty"`
 
 	// Fraction of each file contract payout given to siafund holders.
+	// Example: 39/1000
 	Siafundportion string `json:"siafundportion,omitempty"`
 
 	// Height of the window used to adjust the difficulty.
+	// Example: 1000
 	Targetwindow int64 `json:"targetwindow,omitempty"`
 }
 
 // Validate validates this get daemon constants o k body
 func (o *GetDaemonConstantsOKBody) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this get daemon constants o k body based on context it is used
+func (o *GetDaemonConstantsOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

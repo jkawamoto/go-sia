@@ -1,7 +1,7 @@
 /*
  * transporter_test.go
  *
- * Copyright (c) 2019 Junpei Kawamoto
+ * Copyright (c) 2019-2021 Junpei Kawamoto
  *
  * This software is released under the MIT License.
  *
@@ -26,7 +26,6 @@ func (m *mockRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) 
 }
 
 func TestSiaTransporter(t *testing.T) {
-
 	sampleResponse := &http.Response{
 		Status:     "Test",
 		StatusCode: 999,
@@ -56,5 +55,4 @@ func TestSiaTransporter(t *testing.T) {
 	if agent := mock.Request.Header.Get("User-Agent"); agent != "Sia-Agent" {
 		t.Errorf("expected user agent is %v but got %v", "Sia-Agent", agent)
 	}
-
 }

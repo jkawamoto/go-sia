@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // PostWalletSeedReader is a Reader for the PostWalletSeed structure.
@@ -47,7 +46,7 @@ func NewPostWalletSeedNoContent() *PostWalletSeedNoContent {
 	return &PostWalletSeedNoContent{}
 }
 
-/*PostWalletSeedNoContent handles this case with default header values.
+/* PostWalletSeedNoContent describes a response with status code 204, with default header values.
 
 Successful Response
 */
@@ -70,7 +69,7 @@ func NewPostWalletSeedDefault(code int) *PostWalletSeedDefault {
 	}
 }
 
-/*PostWalletSeedDefault handles this case with default header values.
+/* PostWalletSeedDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -88,7 +87,6 @@ func (o *PostWalletSeedDefault) Code() int {
 func (o *PostWalletSeedDefault) Error() string {
 	return fmt.Sprintf("[POST /wallet/seed][%d] PostWalletSeed default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *PostWalletSeedDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }

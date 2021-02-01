@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // PostGatewayDisconnectNetaddressReader is a Reader for the PostGatewayDisconnectNetaddress structure.
@@ -47,7 +46,7 @@ func NewPostGatewayDisconnectNetaddressNoContent() *PostGatewayDisconnectNetaddr
 	return &PostGatewayDisconnectNetaddressNoContent{}
 }
 
-/*PostGatewayDisconnectNetaddressNoContent handles this case with default header values.
+/* PostGatewayDisconnectNetaddressNoContent describes a response with status code 204, with default header values.
 
 Successful Response
 */
@@ -70,7 +69,7 @@ func NewPostGatewayDisconnectNetaddressDefault(code int) *PostGatewayDisconnectN
 	}
 }
 
-/*PostGatewayDisconnectNetaddressDefault handles this case with default header values.
+/* PostGatewayDisconnectNetaddressDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -88,7 +87,6 @@ func (o *PostGatewayDisconnectNetaddressDefault) Code() int {
 func (o *PostGatewayDisconnectNetaddressDefault) Error() string {
 	return fmt.Sprintf("[POST /gateway/disconnect/{netaddress}][%d] PostGatewayDisconnectNetaddress default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *PostGatewayDisconnectNetaddressDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }

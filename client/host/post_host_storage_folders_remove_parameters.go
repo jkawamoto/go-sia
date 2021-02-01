@@ -13,73 +13,87 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-
-	strfmt "github.com/go-openapi/strfmt"
 )
 
-// NewPostHostStorageFoldersRemoveParams creates a new PostHostStorageFoldersRemoveParams object
-// with the default values initialized.
+// NewPostHostStorageFoldersRemoveParams creates a new PostHostStorageFoldersRemoveParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostHostStorageFoldersRemoveParams() *PostHostStorageFoldersRemoveParams {
-	var ()
 	return &PostHostStorageFoldersRemoveParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostHostStorageFoldersRemoveParamsWithTimeout creates a new PostHostStorageFoldersRemoveParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostHostStorageFoldersRemoveParamsWithTimeout(timeout time.Duration) *PostHostStorageFoldersRemoveParams {
-	var ()
 	return &PostHostStorageFoldersRemoveParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostHostStorageFoldersRemoveParamsWithContext creates a new PostHostStorageFoldersRemoveParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostHostStorageFoldersRemoveParamsWithContext(ctx context.Context) *PostHostStorageFoldersRemoveParams {
-	var ()
 	return &PostHostStorageFoldersRemoveParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostHostStorageFoldersRemoveParamsWithHTTPClient creates a new PostHostStorageFoldersRemoveParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostHostStorageFoldersRemoveParamsWithHTTPClient(client *http.Client) *PostHostStorageFoldersRemoveParams {
-	var ()
 	return &PostHostStorageFoldersRemoveParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostHostStorageFoldersRemoveParams contains all the parameters to send to the API endpoint
-for the post host storage folders remove operation typically these are written to a http.Request
+/* PostHostStorageFoldersRemoveParams contains all the parameters to send to the API endpoint
+   for the post host storage folders remove operation.
+
+   Typically these are written to a http.Request.
 */
 type PostHostStorageFoldersRemoveParams struct {
 
-	/*Force
-	  If `force` is true, the storage folder will be removed even if the data in
+	/* Force.
+
+	     If `force` is true, the storage folder will be removed even if the data in
 	the storage folder cannot be moved to other storage folders, typically
 	because they don't have sufficient capacity. If `force` is true and the data
 	cannot be moved, data will be lost.
 
-
 	*/
 	Force *bool
-	/*Path
-	  Local path on disk to the storage folder to remove.
 
+	/* Path.
+
+	   Local path on disk to the storage folder to remove.
 	*/
 	Path string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post host storage folders remove params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostHostStorageFoldersRemoveParams) WithDefaults() *PostHostStorageFoldersRemoveParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post host storage folders remove params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostHostStorageFoldersRemoveParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post host storage folders remove params
@@ -149,22 +163,24 @@ func (o *PostHostStorageFoldersRemoveParams) WriteToRequest(r runtime.ClientRequ
 
 		// query param force
 		var qrForce bool
+
 		if o.Force != nil {
 			qrForce = *o.Force
 		}
 		qForce := swag.FormatBool(qrForce)
 		if qForce != "" {
+
 			if err := r.SetQueryParam("force", qForce); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// query param path
 	qrPath := o.Path
 	qPath := qrPath
 	if qPath != "" {
+
 		if err := r.SetQueryParam("path", qPath); err != nil {
 			return err
 		}

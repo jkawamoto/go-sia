@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // PostWalletChangepasswordReader is a Reader for the PostWalletChangepassword structure.
@@ -47,7 +46,7 @@ func NewPostWalletChangepasswordNoContent() *PostWalletChangepasswordNoContent {
 	return &PostWalletChangepasswordNoContent{}
 }
 
-/*PostWalletChangepasswordNoContent handles this case with default header values.
+/* PostWalletChangepasswordNoContent describes a response with status code 204, with default header values.
 
 Successful Response
 */
@@ -70,7 +69,7 @@ func NewPostWalletChangepasswordDefault(code int) *PostWalletChangepasswordDefau
 	}
 }
 
-/*PostWalletChangepasswordDefault handles this case with default header values.
+/* PostWalletChangepasswordDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -88,7 +87,6 @@ func (o *PostWalletChangepasswordDefault) Code() int {
 func (o *PostWalletChangepasswordDefault) Error() string {
 	return fmt.Sprintf("[POST /wallet/changepassword][%d] PostWalletChangepassword default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *PostWalletChangepasswordDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }

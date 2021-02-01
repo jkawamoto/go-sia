@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // PostDaemonUpdateReader is a Reader for the PostDaemonUpdate structure.
@@ -47,7 +46,7 @@ func NewPostDaemonUpdateNoContent() *PostDaemonUpdateNoContent {
 	return &PostDaemonUpdateNoContent{}
 }
 
-/*PostDaemonUpdateNoContent handles this case with default header values.
+/* PostDaemonUpdateNoContent describes a response with status code 204, with default header values.
 
 Successful Response
 */
@@ -70,7 +69,7 @@ func NewPostDaemonUpdateDefault(code int) *PostDaemonUpdateDefault {
 	}
 }
 
-/*PostDaemonUpdateDefault handles this case with default header values.
+/* PostDaemonUpdateDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -88,7 +87,6 @@ func (o *PostDaemonUpdateDefault) Code() int {
 func (o *PostDaemonUpdateDefault) Error() string {
 	return fmt.Sprintf("[POST /daemon/update][%d] PostDaemonUpdate default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *PostDaemonUpdateDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }

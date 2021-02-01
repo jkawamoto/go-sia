@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // GetMinerStopReader is a Reader for the GetMinerStop structure.
@@ -47,7 +46,7 @@ func NewGetMinerStopOK() *GetMinerStopOK {
 	return &GetMinerStopOK{}
 }
 
-/*GetMinerStopOK handles this case with default header values.
+/* GetMinerStopOK describes a response with status code 200, with default header values.
 
 Successful Response
 */
@@ -70,7 +69,7 @@ func NewGetMinerStopDefault(code int) *GetMinerStopDefault {
 	}
 }
 
-/*GetMinerStopDefault handles this case with default header values.
+/* GetMinerStopDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -88,7 +87,6 @@ func (o *GetMinerStopDefault) Code() int {
 func (o *GetMinerStopDefault) Error() string {
 	return fmt.Sprintf("[GET /miner/stop][%d] GetMinerStop default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *GetMinerStopDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }

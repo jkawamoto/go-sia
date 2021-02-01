@@ -13,68 +13,82 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
-// NewPostWalletSweepSeedParams creates a new PostWalletSweepSeedParams object
-// with the default values initialized.
+// NewPostWalletSweepSeedParams creates a new PostWalletSweepSeedParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostWalletSweepSeedParams() *PostWalletSweepSeedParams {
-	var ()
 	return &PostWalletSweepSeedParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostWalletSweepSeedParamsWithTimeout creates a new PostWalletSweepSeedParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostWalletSweepSeedParamsWithTimeout(timeout time.Duration) *PostWalletSweepSeedParams {
-	var ()
 	return &PostWalletSweepSeedParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostWalletSweepSeedParamsWithContext creates a new PostWalletSweepSeedParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostWalletSweepSeedParamsWithContext(ctx context.Context) *PostWalletSweepSeedParams {
-	var ()
 	return &PostWalletSweepSeedParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostWalletSweepSeedParamsWithHTTPClient creates a new PostWalletSweepSeedParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostWalletSweepSeedParamsWithHTTPClient(client *http.Client) *PostWalletSweepSeedParams {
-	var ()
 	return &PostWalletSweepSeedParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostWalletSweepSeedParams contains all the parameters to send to the API endpoint
-for the post wallet sweep seed operation typically these are written to a http.Request
+/* PostWalletSweepSeedParams contains all the parameters to send to the API endpoint
+   for the post wallet sweep seed operation.
+
+   Typically these are written to a http.Request.
 */
 type PostWalletSweepSeedParams struct {
 
-	/*Dictionary
-	  Name of the dictionary that should be used when decoding the seed. 'english' is the most common choice when picking a dictionary.
+	/* Dictionary.
 
+	   Name of the dictionary that should be used when decoding the seed. 'english' is the most common choice when picking a dictionary.
 	*/
 	Dictionary *string
-	/*Seed
-	  Dictionary-encoded phrase that corresponds to the seed being added to the wallet.
 
+	/* Seed.
+
+	   Dictionary-encoded phrase that corresponds to the seed being added to the wallet.
 	*/
 	Seed *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post wallet sweep seed params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostWalletSweepSeedParams) WithDefaults() *PostWalletSweepSeedParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post wallet sweep seed params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostWalletSweepSeedParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post wallet sweep seed params
@@ -144,32 +158,34 @@ func (o *PostWalletSweepSeedParams) WriteToRequest(r runtime.ClientRequest, reg 
 
 		// query param dictionary
 		var qrDictionary string
+
 		if o.Dictionary != nil {
 			qrDictionary = *o.Dictionary
 		}
 		qDictionary := qrDictionary
 		if qDictionary != "" {
+
 			if err := r.SetQueryParam("dictionary", qDictionary); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Seed != nil {
 
 		// query param seed
 		var qrSeed string
+
 		if o.Seed != nil {
 			qrSeed = *o.Seed
 		}
 		qSeed := qrSeed
 		if qSeed != "" {
+
 			if err := r.SetQueryParam("seed", qSeed); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

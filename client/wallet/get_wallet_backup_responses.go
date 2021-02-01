@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // GetWalletBackupReader is a Reader for the GetWalletBackup structure.
@@ -47,7 +46,7 @@ func NewGetWalletBackupNoContent() *GetWalletBackupNoContent {
 	return &GetWalletBackupNoContent{}
 }
 
-/*GetWalletBackupNoContent handles this case with default header values.
+/* GetWalletBackupNoContent describes a response with status code 204, with default header values.
 
 Successful Response
 */
@@ -70,7 +69,7 @@ func NewGetWalletBackupDefault(code int) *GetWalletBackupDefault {
 	}
 }
 
-/*GetWalletBackupDefault handles this case with default header values.
+/* GetWalletBackupDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -88,7 +87,6 @@ func (o *GetWalletBackupDefault) Code() int {
 func (o *GetWalletBackupDefault) Error() string {
 	return fmt.Sprintf("[GET /wallet/backup][%d] GetWalletBackup default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *GetWalletBackupDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }

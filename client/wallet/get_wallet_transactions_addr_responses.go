@@ -6,17 +6,17 @@ package wallet
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/jkawamoto/go-sia/models"
+	"github.com/jkawamoto/go-sia/models"
 )
 
 // GetWalletTransactionsAddrReader is a Reader for the GetWalletTransactionsAddr structure.
@@ -50,7 +50,7 @@ func NewGetWalletTransactionsAddrOK() *GetWalletTransactionsAddrOK {
 	return &GetWalletTransactionsAddrOK{}
 }
 
-/*GetWalletTransactionsAddrOK handles this case with default header values.
+/* GetWalletTransactionsAddrOK describes a response with status code 200, with default header values.
 
 Successful Response
 */
@@ -61,7 +61,6 @@ type GetWalletTransactionsAddrOK struct {
 func (o *GetWalletTransactionsAddrOK) Error() string {
 	return fmt.Sprintf("[GET /wallet/transactions/{addr}][%d] getWalletTransactionsAddrOK  %+v", 200, o.Payload)
 }
-
 func (o *GetWalletTransactionsAddrOK) GetPayload() *GetWalletTransactionsAddrOKBody {
 	return o.Payload
 }
@@ -85,7 +84,7 @@ func NewGetWalletTransactionsAddrDefault(code int) *GetWalletTransactionsAddrDef
 	}
 }
 
-/*GetWalletTransactionsAddrDefault handles this case with default header values.
+/* GetWalletTransactionsAddrDefault describes a response with status code -1, with default header values.
 
 Error Response
 */
@@ -103,7 +102,6 @@ func (o *GetWalletTransactionsAddrDefault) Code() int {
 func (o *GetWalletTransactionsAddrDefault) Error() string {
 	return fmt.Sprintf("[GET /wallet/transactions/{addr}][%d] GetWalletTransactionsAddr default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *GetWalletTransactionsAddrDefault) GetPayload() *models.StandardError {
 	return o.Payload
 }
@@ -144,7 +142,6 @@ func (o *GetWalletTransactionsAddrOKBody) Validate(formats strfmt.Registry) erro
 }
 
 func (o *GetWalletTransactionsAddrOKBody) validateTransactions(formats strfmt.Registry) error {
-
 	if swag.IsZero(o.Transactions) { // not required
 		return nil
 	}
@@ -156,6 +153,38 @@ func (o *GetWalletTransactionsAddrOKBody) validateTransactions(formats strfmt.Re
 
 		if o.Transactions[i] != nil {
 			if err := o.Transactions[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("getWalletTransactionsAddrOK" + "." + "transactions" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this get wallet transactions addr o k body based on the context it is used
+func (o *GetWalletTransactionsAddrOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.contextValidateTransactions(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *GetWalletTransactionsAddrOKBody) contextValidateTransactions(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(o.Transactions); i++ {
+
+		if o.Transactions[i] != nil {
+			if err := o.Transactions[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("getWalletTransactionsAddrOK" + "." + "transactions" + "." + strconv.Itoa(i))
 				}
